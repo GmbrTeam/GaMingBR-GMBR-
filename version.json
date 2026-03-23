@@ -1,1 +1,6 @@
-
+{
+  "version": "4.4",
+  "windows": "https://github.com/Pixelmodeler/DownloadGBR/releases/download/v4.4/RBTray.exe",
+  "linux": "",
+  "notes": "teste"
+}
