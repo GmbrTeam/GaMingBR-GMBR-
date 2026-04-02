@@ -3,1156 +3,1778 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="google-site-verification" content="trCoIvEBsXORcM9nj2eiYw1Gw_9R_MzWVqUFkb-zFxA" />
-<title>GMBR Launcher — Seu Setup. Sua Regra.</title>
+<title>GMBR Launcher — Download</title>
+<meta name="description" content="Gerenciador de jogos para PC. +120.000 títulos. 100% gratuito, sem anúncios, open source. Disponível para Windows e Linux.">
+<meta property="og:title" content="GMBR Launcher — Gerenciador de jogos para PC">
+<meta property="og:description" content="+120.000 títulos. 100% gratuito, sem anúncios, open source. Disponível para Windows e Linux.">
+<meta property="og:image" content="https://i.postimg.cc/g2PWshVt/image.png">
+<meta property="og:url" content="https://pixelmodeler.github.io/DownloadGBR/">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="GMBR Launcher — Gerenciador de jogos para PC">
+<meta name="twitter:description" content="+120.000 títulos. 100% gratuito, sem anúncios, open source.">
+<meta name="twitter:image" content="https://i.postimg.cc/g2PWshVt/image.png">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 28 28'%3E%3Crect width='28' height='28' rx='7' fill='%23070a16'/%3E%3Cpath d='M7 14h3.5L14 7l3.5 7H21' stroke='%2300d4ff' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3Ccircle cx='14' cy='19' r='2.5' fill='%2300d4ff'/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Syne:wght@700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
-:root {
-  --bg:   #03050c;
-  --bg1:  #070b16;
-  --bg2:  #0b1020;
-  --bg3:  #111827;
-  --acc:  #00d4ff;
-  --acc2: #005bea;
-  --grn:  #00e5aa;
-  --gold: #f5c518;
-  --red:  #ff3055;
-  --tx:   #dce9fc;
-  --tx2:  #5a7498;
-  --tx3:  #1e2e42;
-  --brd:  rgba(255,255,255,.05);
-  --brd2: rgba(0,212,255,.15);
+:root{
+  --bg:#04060f;--bg1:#070a16;--bg2:#0b1022;--bg3:#111826;--bg4:#172030;
+  --acc:#00d4ff;--acc2:#0055ff;--acc3:#7c3aed;
+  --acc-glow:rgba(0,212,255,.18);--acc-d:rgba(0,212,255,.07);
+  --grn:#00e5a0;--red:#ff3355;
+  --t0:#e8f0ff;--t1:#6880a8;--t2:#2a3a52;--t3:#131c2d;
+  --brd:rgba(255,255,255,.048);--brd-a:rgba(0,212,255,.2);
+  --radius:14px;--radius-lg:20px;
+  --font-display:'Syne',sans-serif;
+  --font-body:'Space Grotesk',sans-serif;
+  --font-mono:'JetBrains Mono',monospace;
 }
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
-html{scroll-behavior:smooth;font-size:16px}
-body{background:var(--bg);color:var(--tx);font-family:'DM Sans',sans-serif;overflow-x:hidden;cursor:none}
-
-/* custom cursor */
-.cursor{position:fixed;width:10px;height:10px;background:var(--acc);border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);transition:transform .1s;mix-blend-mode:screen}
-.cursor-ring{position:fixed;width:36px;height:36px;border:1px solid rgba(0,212,255,.4);border-radius:50%;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:all .15s ease}
-
-::-webkit-scrollbar{width:3px}
-::-webkit-scrollbar-thumb{background:var(--acc);border-radius:2px}
-
-/* ── GRAIN ── */
-body::after{content:'';position:fixed;inset:0;z-index:1;pointer-events:none;
-background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)' opacity='.035'/%3E%3C/svg%3E");
-opacity:.5}
-
-/* ── NAV ── */
-nav{position:fixed;top:0;left:0;right:0;z-index:200;display:flex;align-items:center;justify-content:space-between;padding:16px 52px;
-background:rgba(3,5,12,.75);backdrop-filter:blur(24px);border-bottom:1px solid var(--brd)}
-.logo{display:flex;align-items:center;gap:14px}
-.logo-raccoon{width:32px;height:32px}
-.logo-name{font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:2px;color:#fff}
-.logo-name span{color:var(--acc)}
-.nav-links{display:flex;align-items:center;gap:36px}
-.nav-links a{font-size:13px;color:var(--tx2);text-decoration:none;letter-spacing:.2px;transition:color .2s;font-weight:500}
-.nav-links a:hover{color:var(--tx)}
-.nav-cta{display:flex;align-items:center;gap:10px;background:#5865f2;color:#fff;border-radius:10px;padding:9px 18px;font-size:13px;font-weight:600;text-decoration:none;transition:opacity .2s}
-.nav-cta:hover{opacity:.85}
-
-/* ── HERO ── */
-.hero{position:relative;min-height:100vh;display:grid;place-items:center;padding:100px 24px 60px;overflow:hidden}
-
-/* animated grid */
-.hero-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(0,212,255,.035) 1px,transparent 1px),linear-gradient(90deg,rgba(0,212,255,.035) 1px,transparent 1px);background-size:56px 56px;animation:gridshift 20s linear infinite}
-@keyframes gridshift{from{background-position:0 0}to{background-position:56px 56px}}
-
-.hero-glow1{position:absolute;top:-200px;left:50%;transform:translateX(-50%);width:700px;height:700px;background:radial-gradient(ellipse,rgba(0,212,255,.09),transparent 70%);pointer-events:none}
-.hero-glow2{position:absolute;bottom:-100px;right:-200px;width:500px;height:500px;background:radial-gradient(ellipse,rgba(0,91,234,.08),transparent 70%);pointer-events:none}
-
-.hero-inner{position:relative;z-index:2;display:grid;grid-template-columns:1fr 480px;gap:80px;align-items:center;max-width:1160px;width:100%}
-@media(max-width:900px){.hero-inner{grid-template-columns:1fr}}
-
-.hero-tag{display:inline-flex;align-items:center;gap:8px;font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--acc);letter-spacing:1.5px;border:1px solid var(--brd2);padding:5px 14px;border-radius:99px;background:rgba(0,212,255,.05);margin-bottom:28px}
-.hero-tag::before{content:'';width:7px;height:7px;border-radius:50%;background:var(--acc);animation:blink 2s infinite}
-@keyframes blink{0%,100%{opacity:1}50%{opacity:.2}}
-
-h1{font-family:'Bebas Neue',sans-serif;font-size:clamp(64px,9vw,110px);line-height:.92;letter-spacing:2px;margin-bottom:24px}
-h1 .w1{color:#fff;display:block}
-h1 .w2{color:var(--acc);display:block;text-shadow:0 0 60px rgba(0,212,255,.5)}
-h1 .w3{color:var(--tx3);display:block}
-
-.hero-desc{font-size:16px;color:var(--tx2);line-height:1.75;max-width:460px;margin-bottom:40px;font-weight:300}
-.hero-desc strong{color:var(--tx);font-weight:600}
-
-.hero-btns{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:56px}
-.btn-dl{display:inline-flex;align-items:center;gap:10px;background:var(--acc);color:#000;border-radius:12px;padding:15px 30px;font-size:15px;font-weight:700;text-decoration:none;font-family:'JetBrains Mono',monospace;letter-spacing:.5px;box-shadow:0 0 48px rgba(0,212,255,.35);transition:all .25s}
-.btn-dl:hover{transform:translateY(-3px);box-shadow:0 0 72px rgba(0,212,255,.55)}
-.btn-dc{display:inline-flex;align-items:center;gap:10px;background:rgba(88,101,242,.15);color:var(--tx);border:1px solid rgba(88,101,242,.3);border-radius:12px;padding:15px 24px;font-size:14px;font-weight:500;text-decoration:none;transition:all .2s}
-.btn-dc:hover{background:rgba(88,101,242,.25)}
-
-.hero-pills{display:flex;gap:8px;flex-wrap:wrap}
-.pill{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--tx2);border:1px solid var(--brd);border-radius:6px;padding:5px 12px;letter-spacing:.5px}
-
-/* ── HERO VISUAL — APP MOCKUP ── */
-.hero-visual{position:relative}
-.app-window{background:var(--bg1);border:1px solid var(--brd);border-radius:20px;overflow:hidden;box-shadow:0 40px 100px rgba(0,0,0,.7),0 0 0 1px rgba(0,212,255,.08);position:relative}
-.app-titlebar{display:flex;align-items:center;padding:12px 16px;border-bottom:1px solid var(--brd);gap:8px;background:rgba(0,0,0,.3)}
-.app-dot{width:10px;height:10px;border-radius:50%}
-.app-sidebar{display:grid;grid-template-columns:56px 1fr;height:420px}
-.app-nav{background:rgba(0,0,0,.2);border-right:1px solid var(--brd);padding:12px 0;display:flex;flex-direction:column;gap:2px;align-items:center}
-.app-nav-item{width:36px;height:36px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:16px;cursor:pointer;transition:background .2s}
-.app-nav-item:hover,.app-nav-item.active{background:rgba(0,212,255,.12)}
-.app-content{padding:16px;overflow:hidden}
-.app-content-title{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--acc);letter-spacing:1px;margin-bottom:10px}
-.app-game-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:6px}
-.app-game-card{border-radius:8px;aspect-ratio:.75;position:relative;overflow:hidden}
-.app-game-card-inner{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:flex-end;padding:8px}
-.app-game-card-title{font-size:8px;font-weight:600;line-height:1.2;color:#fff;text-shadow:0 1px 4px rgba(0,0,0,.8)}
-/* game card colors */
-.gc0{background:linear-gradient(135deg,#1a0533,#4c1d95)}
-.gc1{background:linear-gradient(135deg,#0d1b2a,#1e40af)}
-.gc2{background:linear-gradient(135deg,#1c0a00,#7c2d12)}
-.gc3{background:linear-gradient(135deg,#052e16,#166534)}
-.gc4{background:linear-gradient(135deg,#1e1b4b,#312e81)}
-.gc5{background:linear-gradient(135deg,#450a0a,#991b1b)}
-/* saicon inside app */
-.app-saicon{position:absolute;bottom:10px;right:10px;width:40px;height:40px;filter:drop-shadow(0 2px 8px rgba(0,212,255,.5));animation:float 3s ease-in-out infinite}
-/* floating bubble */
-.app-bubble{position:absolute;bottom:58px;right:8px;background:var(--bg2);border:1px solid var(--brd2);border-radius:10px 10px 0 10px;padding:6px 10px;font-size:9px;color:var(--acc);font-family:'JetBrains Mono',monospace;white-space:nowrap}
-
-@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
-
-/* ── BRAND STRIP (Saicon mascot row) ── */
-.brand-strip{position:relative;z-index:2;padding:60px 0;overflow:hidden;border-top:1px solid var(--brd);border-bottom:1px solid var(--brd);background:var(--bg1)}
-.brand-strip-inner{display:flex;align-items:center;gap:60px;animation:marquee 20s linear infinite;width:max-content}
-@keyframes marquee{from{transform:translateX(0)}to{transform:translateX(-50%)}}
-.brand-item{display:flex;align-items:center;gap:16px;white-space:nowrap;flex-shrink:0}
-.brand-item-saicon{width:48px;height:48px}
-.brand-item-txt{font-family:'Bebas Neue',sans-serif;font-size:28px;letter-spacing:3px;color:var(--tx3)}
-.brand-item-txt.hi{color:var(--acc)}
-.brand-sep{font-size:10px;color:var(--tx3)}
-
-/* ── ABOUT SAICON ── */
-.saicon-hero{position:relative;z-index:2;padding:120px 24px;overflow:hidden}
-.saicon-hero-inner{max-width:1160px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:100px;align-items:center}
-@media(max-width:900px){.saicon-hero-inner{grid-template-columns:1fr;gap:60px}}
-
-.saicon-stage{position:relative;display:flex;align-items:center;justify-content:center;padding:60px}
-.saicon-glow-bg{position:absolute;inset:0;border-radius:32px;background:radial-gradient(ellipse at center,rgba(0,212,255,.12),transparent 70%)}
-.saicon-main{position:relative;z-index:1}
-.saicon-main svg{width:220px;height:220px;filter:drop-shadow(0 20px 60px rgba(0,212,255,.5));animation:float 4s ease-in-out infinite}
-/* orbiting mini saiconitos */
-.saicon-orbit{position:absolute;inset:-40px;animation:orbit-spin 8s linear infinite}
-.saicon-orbit-item{position:absolute;top:0;left:50%;transform:translateX(-50%)}
-.saicon-orbit-item svg{width:40px;height:40px;filter:drop-shadow(0 4px 12px rgba(0,212,255,.4))}
-.saicon-orbit2{position:absolute;inset:-20px;animation:orbit-spin 12s linear infinite reverse}
-.saicon-orbit2-item{position:absolute;bottom:0;right:0}
-.saicon-orbit2-item svg{width:32px;height:32px;filter:drop-shadow(0 4px 12px rgba(245,197,24,.4))}
-@keyframes orbit-spin{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
-
-.tag-sm{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--acc);letter-spacing:1.5px;margin-bottom:18px}
-.h2{font-family:'Bebas Neue',sans-serif;font-size:clamp(44px,6vw,72px);line-height:.95;letter-spacing:1.5px;margin-bottom:20px}
-.body-txt{font-size:15px;color:var(--tx2);line-height:1.8;font-weight:300;margin-bottom:28px}
-.body-txt strong{color:var(--tx);font-weight:600}
-
-/* saicon color picker */
-.saicon-picker-wrap{margin-bottom:24px}
-.picker-label{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--tx2);letter-spacing:1px;margin-bottom:10px}
-.color-row{display:flex;gap:8px;flex-wrap:wrap}
-.cdot{width:30px;height:30px;border-radius:50%;border:2px solid transparent;cursor:pointer;transition:transform .2s,border-color .2s}
-.cdot:hover{transform:scale(1.2)}
-.cdot.on{border-color:#fff;transform:scale(1.15)}
-.acc-row{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
-.abtn{font-family:'JetBrains Mono',monospace;font-size:10px;border:1px solid var(--brd);border-radius:6px;padding:5px 12px;cursor:pointer;color:var(--tx2);background:none;transition:all .2s;letter-spacing:.5px}
-.abtn:hover,.abtn.on{border-color:var(--acc);color:var(--acc);background:rgba(0,212,255,.07)}
-
-/* ── FEATURES ── */
-.features{position:relative;z-index:2;padding:100px 24px;max-width:1160px;margin:0 auto}
-.feat-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--brd);border:1px solid var(--brd);border-radius:24px;overflow:hidden;margin-top:64px}
-@media(max-width:760px){.feat-grid{grid-template-columns:1fr}}
-.feat-card{background:var(--bg1);padding:36px 32px;position:relative;overflow:hidden;transition:background .25s}
-.feat-card:hover{background:var(--bg2)}
-.feat-card::after{content:'';position:absolute;bottom:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--acc),transparent);opacity:0;transition:opacity .3s}
-.feat-card:hover::after{opacity:1}
-.feat-num{font-family:'Bebas Neue',sans-serif;font-size:48px;color:var(--tx3);letter-spacing:1px;margin-bottom:12px}
-.feat-title{font-family:'DM Sans',sans-serif;font-size:18px;font-weight:600;margin-bottom:10px}
-.feat-desc{font-size:13px;color:var(--tx2);line-height:1.7}
-.feat-chip{display:inline-block;margin-top:16px;font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--acc);background:rgba(0,212,255,.08);border-radius:4px;padding:3px 8px;letter-spacing:.5px}
-
-/* ── SCREEN SHOWCASE ── */
-.screens{position:relative;z-index:2;padding:100px 24px;background:linear-gradient(180deg,transparent,var(--bg1) 20%,var(--bg1) 80%,transparent)}
-.screens-inner{max-width:1160px;margin:0 auto}
-.screens-tabs{display:flex;gap:0;margin-top:48px;margin-bottom:0;border:1px solid var(--brd);border-radius:14px;overflow:hidden;width:fit-content}
-.stab{font-family:'JetBrains Mono',monospace;font-size:12px;padding:10px 20px;cursor:pointer;color:var(--tx2);border:none;background:var(--bg1);transition:all .2s;letter-spacing:.5px}
-.stab.on{background:var(--acc);color:#000;font-weight:700}
-.screen-panels{margin-top:0;position:relative}
-.screen-panel{display:none;padding-top:24px}
-.screen-panel.on{display:block}
-
-/* fake screen UI */
-.fake-screen{background:var(--bg2);border:1px solid var(--brd);border-radius:20px;overflow:hidden;box-shadow:0 30px 80px rgba(0,0,0,.6)}
-.fake-topbar{display:flex;align-items:center;padding:12px 20px;border-bottom:1px solid var(--brd);gap:16px;background:rgba(0,0,0,.25)}
-.fake-dot{width:10px;height:10px;border-radius:50%}
-.fake-sidebar-main{display:flex;height:380px}
-.fake-sidebar{width:180px;background:rgba(0,0,0,.2);border-right:1px solid var(--brd);padding:16px 12px;display:flex;flex-direction:column;gap:4px;flex-shrink:0}
-.fake-nav-item{display:flex;align-items:center;gap:8px;padding:8px 10px;border-radius:8px;font-size:11px;color:var(--tx2);cursor:pointer;transition:all .2s}
-.fake-nav-item:hover,.fake-nav-item.active{background:rgba(0,212,255,.1);color:var(--acc)}
-.fake-nav-item.active{color:var(--acc)}
-.fake-main{flex:1;padding:20px;overflow:hidden}
-
-/* home screen */
-.fake-hero-banner{background:linear-gradient(135deg,#1a0533,#0d1b2a);border-radius:12px;padding:24px;margin-bottom:16px;display:flex;align-items:center;justify-content:space-between}
-.fake-banner-title{font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:1px}
-.fake-banner-sub{font-size:10px;color:var(--tx2);margin-top:4px}
-.fake-banner-btn{background:var(--acc);color:#000;border-radius:6px;padding:6px 14px;font-size:10px;font-weight:700;cursor:pointer}
-.fake-row-title{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--acc);letter-spacing:1px;margin-bottom:10px}
-.fake-cards-row{display:flex;gap:8px}
-.fake-game-mini{width:70px;height:90px;border-radius:8px;flex-shrink:0}
-.fgm0{background:linear-gradient(135deg,#1e1b4b,#4c1d95)}
-.fgm1{background:linear-gradient(135deg,#1c0a00,#7c2d12)}
-.fgm2{background:linear-gradient(135deg,#052e16,#166534)}
-.fgm3{background:linear-gradient(135deg,#1e3a8a,#0891b2)}
-.fgm4{background:linear-gradient(135deg,#450a0a,#991b1b)}
-
-/* movies screen */
-.fake-mv-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:12px}
-.fake-mv-card{border-radius:8px;aspect-ratio:.7;position:relative}
-.fmv0{background:linear-gradient(135deg,#0f172a,#1e3a8a)}
-.fmv1{background:linear-gradient(135deg,#1c0a00,#7c2d12)}
-.fmv2{background:linear-gradient(135deg,#052e16,#065f46)}
-.fmv3{background:linear-gradient(135deg,#1a0533,#7e22ce)}
-.fmv-badge{position:absolute;bottom:6px;left:6px;font-size:8px;background:rgba(0,0,0,.6);padding:2px 5px;border-radius:3px;font-family:'JetBrains Mono',monospace;color:var(--grn)}
-
-/* settings screen */
-.fake-settings-row{display:flex;align-items:center;justify-content:space-between;padding:12px 0;border-bottom:1px solid var(--brd)}
-.fake-settings-row:last-child{border-bottom:none}
-.fake-stg-label{font-size:12px;font-weight:500}
-.fake-stg-desc{font-size:10px;color:var(--tx2);margin-top:2px}
-.fake-toggle{width:36px;height:20px;border-radius:99px;background:var(--acc);position:relative;flex-shrink:0}
-.fake-toggle::after{content:'';position:absolute;top:3px;right:3px;width:14px;height:14px;border-radius:50%;background:#000}
-.fake-toggle.off{background:var(--tx3)}
-.fake-toggle.off::after{right:auto;left:3px}
-
-/* saicon in screens */
-.screen-saicon{position:absolute;bottom:12px;right:12px;width:36px;height:36px;filter:drop-shadow(0 2px 8px rgba(0,212,255,.6));animation:float 3s ease-in-out infinite;z-index:10}
-
-/* ── AUTH MOCKUP SECTION ── */
-.auth-section{position:relative;z-index:2;padding:100px 24px}
-.auth-inner{max-width:1160px;margin:0 auto;display:grid;grid-template-columns:1fr 420px;gap:80px;align-items:center}
-@media(max-width:900px){.auth-inner{grid-template-columns:1fr}}
-.auth-card{background:var(--bg1);border:1px solid var(--brd);border-radius:20px;overflow:hidden;box-shadow:0 24px 64px rgba(0,0,0,.5)}
-.auth-card-header{padding:16px 20px;border-bottom:1px solid var(--brd);display:flex;align-items:center;gap:8px;background:rgba(0,0,0,.2)}
-.auth-hd{width:10px;height:10px;border-radius:50%}
-.auth-card-body{padding:28px 24px}
-.auth-title{font-family:'Bebas Neue',sans-serif;font-size:26px;letter-spacing:1px;margin-bottom:4px}
-.auth-sub{font-size:13px;color:var(--tx2);margin-bottom:24px}
-.auth-btn{display:flex;align-items:center;gap:10px;width:100%;padding:13px 16px;border-radius:10px;margin-bottom:10px;font-size:13px;font-weight:600;cursor:pointer;border:none;text-align:left}
-.ab-discord{background:#5865f2;color:#fff}
-.ab-google{background:rgba(255,255,255,.06);color:var(--tx);border:1px solid var(--brd)!important}
-.ab-email{background:rgba(0,212,255,.08);color:var(--acc);border:1px solid rgba(0,212,255,.2)!important}
-.auth-sep{display:flex;align-items:center;gap:12px;margin:14px 0;font-size:11px;color:var(--tx3);font-family:'JetBrains Mono',monospace}
-.auth-sep::before,.auth-sep::after{content:'';flex:1;height:1px;background:var(--brd)}
-
-/* ── SUPPORT ── */
-.support-section{position:relative;z-index:2;padding:100px 24px;max-width:1160px;margin:0 auto}
-.support-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-top:60px}
-@media(max-width:760px){.support-grid{grid-template-columns:1fr}}
-.support-card{background:var(--bg1);border:1px solid var(--brd);border-radius:20px;padding:36px;transition:border-color .25s}
-.support-card:hover{border-color:var(--brd2)}
-.s-icon{font-size:36px;margin-bottom:20px}
-.s-title{font-family:'Bebas Neue',sans-serif;font-size:26px;letter-spacing:1px;margin-bottom:10px}
-.s-desc{font-size:14px;color:var(--tx2);line-height:1.7}
-
-/* ── DOWNLOAD ── */
-.dl-section{position:relative;z-index:2;padding:120px 24px;text-align:center;overflow:hidden}
-.dl-glow{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:900px;height:400px;background:radial-gradient(ellipse,rgba(0,212,255,.1),transparent 65%);pointer-events:none}
-.dl-inner{position:relative;z-index:1}
-.dl-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(56px,9vw,100px);line-height:.92;letter-spacing:2px;margin-bottom:24px}
-.dl-title span{color:var(--acc)}
-.dl-sub{font-size:16px;color:var(--tx2);max-width:480px;margin:0 auto 36px;line-height:1.7;font-weight:300}
-.dl-reqs{display:flex;gap:24px;justify-content:center;flex-wrap:wrap;margin-bottom:40px;font-size:12px;color:var(--tx2);font-family:'JetBrains Mono',monospace}
-.dl-req::before{content:'✓ ';color:var(--grn)}
-.dl-note{margin-top:18px;font-size:11px;color:var(--tx3);font-family:'JetBrains Mono',monospace}
-.dl-os-grid{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;margin-bottom:36px}
-.btn-dl-os{display:inline-flex;align-items:center;gap:10px;border-radius:12px;padding:13px 26px;font-size:14px;font-weight:600;text-decoration:none;font-family:'JetBrains Mono',monospace;letter-spacing:.5px;transition:all .25s;cursor:pointer;border:none}
-.btn-dl-os.active{background:var(--acc);color:#000;box-shadow:0 0 48px rgba(0,212,255,.35)}
-.btn-dl-os.active:hover{transform:translateY(-3px);box-shadow:0 0 72px rgba(0,212,255,.55)}
-.btn-dl-os.soon{background:rgba(255,255,255,.04);color:var(--tx3);border:1px solid var(--brd);cursor:not-allowed;position:relative}
-.btn-dl-os.soon .soon-badge{position:absolute;top:-8px;right:-8px;font-size:9px;background:var(--tx3);color:var(--bg);border-radius:4px;padding:2px 6px;font-family:'JetBrains Mono',monospace;letter-spacing:.5px}
-.dl-mobile-notice{display:inline-flex;align-items:center;gap:10px;margin-top:20px;background:rgba(245,197,24,.06);border:1px solid rgba(245,197,24,.2);border-radius:10px;padding:10px 18px;font-size:12px;color:var(--gold);font-family:'JetBrains Mono',monospace;letter-spacing:.3px}
-
-/* ── FAQ ── */
-.faq-section{position:relative;z-index:2;padding:100px 24px;max-width:760px;margin:0 auto}
-.faq-item{border-bottom:1px solid var(--brd);padding:22px 0}
-.faq-q{font-size:15px;font-weight:600;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:16px;user-select:none}
-.faq-q .icon{width:20px;height:20px;border-radius:50%;border:1px solid var(--brd2);display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all .3s;color:var(--acc)}
-.faq-item.open .faq-q .icon{background:var(--acc);color:#000;transform:rotate(45deg)}
-.faq-a{font-size:13px;color:var(--tx2);line-height:1.8;max-height:0;overflow:hidden;transition:max-height .4s ease,padding .3s}
-.faq-item.open .faq-a{max-height:200px;padding-top:12px}
-
-/* ── FOOTER ── */
-footer{position:relative;z-index:2;border-top:1px solid var(--brd);padding:40px 52px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px}
-.foot-logo{font-family:'Bebas Neue',sans-serif;font-size:18px;letter-spacing:2px}
-.foot-logo span{color:var(--acc)}
-.foot-sub{font-size:12px;color:var(--tx3);margin-top:4px;font-family:'JetBrains Mono',monospace}
-.foot-links{display:flex;gap:24px}
-.foot-links a{font-size:13px;color:var(--tx2);text-decoration:none;transition:color .2s}
-.foot-links a:hover{color:var(--tx)}
-
-/* ── UTILS ── */
-.reveal{opacity:0;transform:translateY(20px);transition:opacity .65s ease,transform .65s ease}
-.reveal.vis{opacity:1;transform:translateY(0)}
-.d1{transition-delay:.1s}.d2{transition-delay:.2s}.d3{transition-delay:.3s}.d4{transition-delay:.4s}
-
-@media(max-width:640px){
-  nav{padding:14px 20px}
-  .nav-links{display:none}
-  footer{padding:24px 20px}
-  .feat-grid{grid-template-columns:1fr}
+html{scroll-behavior:smooth}
+body{
+  background:var(--bg);color:var(--t0);
+  font-family:var(--font-body);font-size:15px;line-height:1.6;
+  overflow-x:hidden;-webkit-font-smoothing:antialiased;
+  cursor:none;
 }
+@media (hover: none) and (pointer: coarse) {
+  body { cursor:auto; }
+  #cursor, #cursorRing, #cursorGlow { display:none; }
+}
+::-webkit-scrollbar{width:3px}
+::-webkit-scrollbar-track{background:transparent}
+::-webkit-scrollbar-thumb{background:var(--t2);border-radius:2px}
+
+/* ─── CUSTOM CURSOR ─── */
+#cursor{
+  position:fixed;z-index:9999;pointer-events:none;
+  width:12px;height:12px;border-radius:50%;
+  background:var(--acc);
+  box-shadow:0 0 14px var(--acc),0 0 28px rgba(0,212,255,0.5);
+  transform:translate(-50%,-50%);
+  transition:width .15s,height .15s,background .15s;
+}
+#cursorRing{
+  position:fixed;z-index:9998;pointer-events:none;
+  width:36px;height:36px;border-radius:50%;
+  border:1.5px solid rgba(0,212,255,0.5);
+  transform:translate(-50%,-50%);
+  transition:width .2s,height .2s,border-color .2s;
+}
+body:has(a:hover) #cursor,
+body:has(button:hover) #cursor { width:18px;height:18px; background:#fff; }
+body:has(a:hover) #cursorRing,
+body:has(button:hover) #cursorRing { width:52px;height:52px; border-color:rgba(0,212,255,0.8); }
+
+
+
+/* ─── CURSOR GLOW ─── */
+#cursorGlow{
+  position:fixed;z-index:9;pointer-events:none;
+  width:380px;height:380px;border-radius:50%;
+  background:radial-gradient(circle,rgba(0,212,255,0.055),transparent 65%);
+  transform:translate(-50%,-50%);
+  mix-blend-mode:screen;
+}
+
+/* ─── BACKGROUND GRID ─── */
+body::before{
+  content:'';position:fixed;inset:0;z-index:0;pointer-events:none;
+  background-image:
+    linear-gradient(rgba(0,212,255,.028) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0,212,255,.028) 1px, transparent 1px);
+  background-size:64px 64px;
+  mask-image:radial-gradient(ellipse 80% 60% at 50% 0%, black 0%, transparent 70%);
+}
+
+/* ─── NAV ─── */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:200;
+  height:60px;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:0 40px;
+  transition:background .4s,backdrop-filter .4s;
+}
+nav.scrolled{
+  background:rgba(4,6,15,.85);
+  backdrop-filter:blur(24px) saturate(180%);
+  border-bottom:1px solid var(--brd);
+  box-shadow:0 1px 0 0 rgba(0,212,255,.08), 0 4px 40px rgba(0,0,0,.3);
+}
+nav.scrolled::after{
+  content:'';position:absolute;bottom:0;left:5%;right:5%;height:1px;
+  background:linear-gradient(90deg,transparent,var(--acc) 30%,var(--acc2) 70%,transparent);
+  opacity:.3;
+}
+.nav-logo{display:flex;align-items:center;gap:10px;text-decoration:none}
+.nav-logo-mark{
+  font-family:var(--font-display);font-size:18px;font-weight:800;
+  color:var(--t0);letter-spacing:1px;
+}
+.nav-logo-mark em{
+  font-style:normal;
+  background:linear-gradient(135deg,var(--acc),var(--acc2));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+}
+.nav-ver{
+  font-family:var(--font-mono);font-size:9px;
+  background:rgba(0,212,255,.08);border:1px solid rgba(0,212,255,.18);
+  color:var(--acc);border-radius:100px;padding:2px 8px;letter-spacing:.5px;
+}
+.nav-right{display:flex;align-items:center;gap:2px}
+.nav-link{
+  font-size:13px;color:rgba(255,255,255,.45);text-decoration:none;
+  padding:7px 14px;border-radius:10px;font-weight:500;
+  transition:color .15s,background .15s;
+  display:flex;align-items:center;gap:6px;letter-spacing:.1px;
+}
+.nav-link:hover{color:#fff;background:rgba(255,255,255,.055)}
+.nav-dl{
+  background:linear-gradient(135deg,var(--acc),var(--acc2));
+  color:#000;border-radius:10px;padding:8px 18px;
+  font-family:var(--font-display);font-size:12px;font-weight:800;
+  letter-spacing:.5px;text-transform:uppercase;
+  text-decoration:none;transition:all .2s;
+  display:flex;align-items:center;gap:7px;
+  box-shadow:0 0 24px rgba(0,212,255,.22),0 2px 0 rgba(255,255,255,.15) inset;
+}
+.nav-dl:hover{box-shadow:0 0 40px rgba(0,212,255,.5);transform:translateY(-1px)}
+@media(max-width:640px){.nav-link{display:none}nav{padding:0 20px}}
+
+/* ─── HERO ─── */
+.hero{position:relative;min-height:100vh;display:flex;align-items:center;overflow:hidden}
+
+.hero-atm{
+  position:absolute;inset:0;z-index:0;
+  background:
+    radial-gradient(ellipse 70% 80% at 95% -10%, rgba(80,0,200,.75), transparent 55%),
+    radial-gradient(ellipse 55% 60% at 70% 50%, rgba(0,50,190,.6),   transparent 52%),
+    radial-gradient(ellipse 42% 52% at 3%  55%, rgba(0,70,120,.5),   transparent 60%),
+    radial-gradient(ellipse 50% 38% at 88% 100%,rgba(150,30,0,.65),  transparent 54%),
+    linear-gradient(165deg,#06040e 0%,#070919 45%,#04060e 100%);
+}
+.hero-orbs{position:absolute;inset:0;z-index:1;pointer-events:none;overflow:hidden}
+.hero-orb{
+  position:absolute;border-radius:50%;filter:blur(80px);
+  animation:orb-drift 8s ease-in-out infinite;
+}
+.hero-orb:nth-child(1){
+  width:500px;height:500px;left:55%;top:10%;
+  background:radial-gradient(circle,rgba(0,100,255,.22),transparent 70%);
+  animation-delay:0s;
+}
+.hero-orb:nth-child(2){
+  width:380px;height:380px;left:70%;top:50%;
+  background:radial-gradient(circle,rgba(100,0,220,.18),transparent 70%);
+  animation-delay:-3s;
+}
+.hero-orb:nth-child(3){
+  width:280px;height:280px;left:45%;top:5%;
+  background:radial-gradient(circle,rgba(0,212,255,.15),transparent 70%);
+  animation-delay:-5s;
+}
+.hero-orb:nth-child(4){
+  width:200px;height:200px;left:20%;top:70%;
+  background:radial-gradient(circle,rgba(0,212,255,.1),transparent 70%);
+  animation-delay:-2s;animation-duration:11s;
+}
+@keyframes orb-drift{
+  0%,100%{transform:translate(0,0) scale(1)}
+  33%{transform:translate(-20px,30px) scale(1.05)}
+  66%{transform:translate(20px,-20px) scale(.95)}
+}
+
+.hero-grain{
+  position:absolute;inset:0;z-index:2;pointer-events:none;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.72' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.045'/%3E%3C/svg%3E");
+  opacity:.55;mix-blend-mode:overlay;
+}
+#heroCanvas{position:absolute;inset:0;z-index:2;pointer-events:none}
+.hero-fade{
+  position:absolute;bottom:0;left:0;right:0;height:200px;
+  background:linear-gradient(0deg,var(--bg),transparent);
+  z-index:3;pointer-events:none;
+}
+.hero-layout{
+  position:relative;z-index:4;width:100%;max-width:1440px;margin:0 auto;
+  display:flex;align-items:center;padding:100px 64px 80px;min-height:100vh;
+}
+@media(max-width:900px){.hero-layout{flex-direction:column;padding:80px 24px 40px;gap:48px;justify-content:center}}
+
+.hero-left{flex:0 0 auto;width:460px;display:flex;flex-direction:column;gap:0;position:relative;z-index:5}
+@media(max-width:900px){.hero-left{width:100%;max-width:500px;align-items:center;text-align:center}}
+
+/* Version badge */
+.hero-v-badge{
+  display:inline-flex;align-items:center;gap:8px;
+  font-family:var(--font-mono);font-size:10px;
+  background:rgba(0,212,255,.06);
+  border:1px solid rgba(0,212,255,.18);
+  color:var(--acc);border-radius:100px;padding:5px 14px 5px 10px;
+  margin-bottom:22px;letter-spacing:.3px;width:fit-content;
+  animation:badge-pulse 3s ease-in-out infinite;
+}
+@keyframes badge-pulse{
+  0%,100%{box-shadow:0 0 0 0 rgba(0,212,255,0)}
+  50%{box-shadow:0 0 0 6px rgba(0,212,255,0.08)}
+}
+.hero-v-dot{
+  width:6px;height:6px;border-radius:50%;background:var(--acc);
+  box-shadow:0 0 8px var(--acc);animation:vdot 2s ease-in-out infinite;
+}
+@keyframes vdot{0%,100%{opacity:1;box-shadow:0 0 8px var(--acc)}50%{opacity:.3;box-shadow:0 0 3px var(--acc)}}
+
+.hero-logo-svg{display:none;}
+.hero-wordmark{
+  font-family:var(--font-display);
+  font-size:clamp(38px,5vw,56px);font-weight:800;
+  letter-spacing:-1px;color:#fff;
+  display:block;margin-bottom:12px;line-height:1;
+}
+.hero-wordmark em{
+  font-style:normal;
+  background:linear-gradient(135deg,var(--acc) 0%,#5af 50%,var(--acc2) 100%);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+  filter:drop-shadow(0 0 20px rgba(0,212,255,0.4));
+}
+.hero-tagline{
+  font-size:15.5px;color:rgba(255,255,255,.42);
+  line-height:1.75;margin-bottom:36px;font-weight:400;max-width:380px;
+}
+.hero-tagline strong{color:rgba(255,255,255,.75);font-weight:600}
+
+/* CTA buttons */
+.hero-dl-group{display:flex;flex-direction:column;gap:12px;align-items:flex-start}
+@media(max-width:900px){.hero-dl-group{align-items:center}}
+
+.btn-hero-dl{
+  display:inline-flex;align-items:center;gap:12px;
+  background:linear-gradient(135deg,var(--acc),var(--acc2));
+  color:#000;border-radius:12px;padding:16px 32px;
+  font-family:var(--font-display);font-size:14px;font-weight:800;
+  letter-spacing:.3px;text-transform:uppercase;
+  text-decoration:none;position:relative;overflow:hidden;
+  transition:all .25s cubic-bezier(.25,.46,.45,.94);
+  box-shadow:0 0 30px rgba(0,212,255,.3),0 4px 24px rgba(0,0,0,.4),0 1px 0 rgba(255,255,255,.2) inset;
+  animation:btn-glow 3s ease-in-out infinite;
+}
+@keyframes btn-glow{
+  0%,100%{box-shadow:0 0 30px rgba(0,212,255,.3),0 4px 24px rgba(0,0,0,.4),0 1px 0 rgba(255,255,255,.2) inset}
+  50%{box-shadow:0 0 55px rgba(0,212,255,.55),0 8px 40px rgba(0,0,0,.5),0 1px 0 rgba(255,255,255,.2) inset}
+}
+.btn-hero-dl::after{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(180deg,rgba(255,255,255,.18) 0%,transparent 100%);
+  pointer-events:none;
+}
+.btn-hero-dl::before{
+  content:'';position:absolute;top:0;left:-100%;width:60%;height:100%;
+  background:linear-gradient(90deg,transparent,rgba(255,255,255,.2),transparent);
+  transition:left .55s ease;pointer-events:none;
+}
+.btn-hero-dl:hover::before{left:150%}
+.btn-hero-dl:hover{
+  transform:translateY(-3px);
+  box-shadow:0 0 70px rgba(0,212,255,.7),0 12px 40px rgba(0,0,0,.5);
+}
+.btn-hero-dl:active{transform:translateY(-1px)}
+
+.btn-hero-linux{
+  display:inline-flex;align-items:center;gap:10px;
+  background:rgba(255,255,255,.035);
+  color:rgba(255,255,255,.75);
+  border:1px solid rgba(255,255,255,.1);
+  border-radius:12px;padding:14px 28px;
+  font-family:var(--font-display);font-size:13px;font-weight:700;
+  letter-spacing:.3px;text-transform:uppercase;
+  text-decoration:none;position:relative;overflow:hidden;
+  transition:all .22s;
+}
+.btn-hero-linux::before{
+  content:'';position:absolute;top:0;left:-100%;width:60%;height:100%;
+  background:linear-gradient(90deg,transparent,rgba(255,255,255,.06),transparent);
+  transition:left .55s ease;pointer-events:none;
+}
+.btn-hero-linux:hover::before{left:150%}
+.btn-hero-linux:hover{
+  background:rgba(255,255,255,.065);
+  border-color:rgba(0,212,255,.28);
+  color:#fff;transform:translateY(-2px);
+  box-shadow:0 0 20px rgba(0,212,255,.08);
+}
+
+/* Social proof */
+.hero-social-proof{display:flex;align-items:center;gap:10px;margin-top:10px}
+.hero-avatars{display:flex}
+.hero-avatar{
+  width:26px;height:26px;border-radius:50%;
+  border:1.5px solid rgba(0,212,255,.2);
+  display:flex;align-items:center;justify-content:center;
+  font-size:9px;font-weight:700;color:#fff;
+}
+.hero-avatar:not(:first-child){margin-left:-8px}
+.hero-social-txt{font-size:12px;color:rgba(255,255,255,.35)}
+.hero-social-txt strong{color:rgba(255,255,255,.62);font-weight:600}
+
+.hero-mirrors{margin-top:16px;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.mirror-pill{
+  display:inline-flex;align-items:center;gap:6px;
+  font-family:var(--font-mono);font-size:9.5px;
+  color:rgba(255,255,255,.3);border:1px solid rgba(255,255,255,.08);
+  border-radius:100px;padding:4px 12px;text-decoration:none;
+  transition:all .18s;
+}
+.mirror-pill:hover{color:rgba(255,255,255,.6);border-color:rgba(0,212,255,.22);background:rgba(0,212,255,.05)}
+
+.hero-tags{margin-top:24px;display:flex;gap:7px;flex-wrap:wrap}
+.hero-tag{
+  font-family:var(--font-mono);font-size:9px;
+  color:var(--t2);border:1px solid var(--t3);border-radius:5px;padding:3px 9px;
+  letter-spacing:.3px;
+}
+
+/* Right — screenshot */
+.hero-right{flex:1;min-width:0;display:flex;align-items:flex-start;justify-content:flex-end;padding:0 0 0 150px;}
+@media(max-width:900px){.hero-right{width:100%;padding:0;justify-content:center;align-items:center}}
+.hero-screenshot{
+  position:relative;width:100%;max-width:780px;
+  margin-top:clamp(0px, 20vw, 370px);
+  transform:perspective(1800px) rotateY(-12deg) rotateX(4deg);
+  transform-origin:left center;will-change:transform;
+  filter:drop-shadow(-30px 40px 100px rgba(0,0,0,.9)) drop-shadow(0 0 80px rgba(60,0,180,.3));
+}
+@media(max-width:900px){
+  .hero-screenshot{transform:none !important;filter:drop-shadow(0 20px 60px rgba(0,0,0,.7));max-width:100%;margin-top:0}
+}
+.hero-screenshot-frame{
+  position:relative;border-radius:14px;
+  border:1px solid rgba(255,255,255,.1);
+  overflow:hidden;
+  box-shadow:0 0 0 1px rgba(0,212,255,.08);
+}
+.hero-screenshot-frame::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:1px;z-index:2;
+  background:linear-gradient(90deg,transparent,rgba(0,212,255,.4),transparent);
+}
+.hero-screenshot img{display:block;width:100%;height:auto;pointer-events:none;user-select:none}
+.ss-shine{position:absolute;inset:0;border-radius:14px;background:none;pointer-events:none;opacity:0;transition:opacity .2s;mix-blend-mode:screen}
+.hero-screenshot:hover .ss-shine{opacity:1}
+
+/* ─── TICKER STRIP ─── */
+.ticker-strip{
+  background:var(--bg1);border-top:1px solid var(--brd);border-bottom:1px solid var(--brd);
+  padding:10px 0;overflow:hidden;position:relative;
+}
+.ticker-strip::before,.ticker-strip::after{
+  content:'';position:absolute;top:0;bottom:0;width:120px;z-index:2;
+}
+.ticker-strip::before{left:0;background:linear-gradient(90deg,var(--bg1),transparent)}
+.ticker-strip::after{right:0;background:linear-gradient(-90deg,var(--bg1),transparent)}
+.ticker-track{
+  display:flex;gap:0;
+  animation:ticker 28s linear infinite;
+  white-space:nowrap;
+}
+.ticker-item{
+  display:inline-flex;align-items:center;gap:8px;padding:0 32px;
+  font-family:var(--font-mono);font-size:10.5px;
+  color:rgba(255,255,255,.25);letter-spacing:.3px;
+  border-right:1px solid rgba(255,255,255,.05);
+}
+.ticker-item span.dot{width:4px;height:4px;border-radius:50%;background:var(--acc);opacity:.5;flex-shrink:0}
+@keyframes ticker{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+
+/* ─── STATS BAR ─── */
+.stats-bar{background:var(--bg1);border-top:1px solid var(--brd);border-bottom:1px solid var(--brd);position:relative}
+.stats-bar::before{
+  content:'';position:absolute;top:0;left:10%;right:10%;height:1px;
+  background:linear-gradient(90deg,transparent,var(--acc) 40%,var(--acc2) 60%,transparent);
+  opacity:.35;
+}
+.stats-bar-inner{max-width:1240px;margin:0 auto;display:grid;grid-template-columns:repeat(4,1fr)}
+@media(max-width:640px){.stats-bar-inner{grid-template-columns:repeat(2,1fr)}}
+.stat-item{
+  padding:30px 28px;border-right:1px solid var(--brd);text-align:center;
+  position:relative;overflow:hidden;transition:background .3s;
+}
+.stat-item::before{
+  content:'';position:absolute;inset:0;
+  background:radial-gradient(ellipse 60% 50% at 50% 100%,rgba(0,212,255,.04),transparent);
+  opacity:0;transition:opacity .3s;
+}
+.stat-item:hover{background:rgba(0,212,255,.02)}
+.stat-item:hover::before{opacity:1}
+.stat-item:last-child{border:none}
+.stat-n{
+  font-family:var(--font-display);
+  font-size:30px;font-weight:800;letter-spacing:-1px;
+  display:block;margin-bottom:5px;color:var(--t0);
+}
+.stat-n.acc{
+  background:linear-gradient(135deg,var(--acc),#5af);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+}
+.stat-l{font-size:11px;color:var(--t1);font-weight:400;letter-spacing:.3px}
+
+/* ─── SECTIONS ─── */
+.section{max-width:1240px;margin:0 auto;padding:96px 40px}
+@media(max-width:720px){.section{padding:64px 20px}}
+.sec-label{
+  font-family:var(--font-mono);font-size:9.5px;
+  color:var(--acc);letter-spacing:2.5px;text-transform:uppercase;
+  margin-bottom:16px;display:flex;align-items:center;gap:12px;
+}
+.sec-label::before{content:'';width:28px;height:1px;background:linear-gradient(90deg,var(--acc),transparent);opacity:.7}
+.sec-title{
+  font-family:var(--font-display);
+  font-size:clamp(28px,3.5vw,42px);font-weight:800;
+  letter-spacing:-1px;color:var(--t0);margin-bottom:12px;line-height:1.05;
+}
+.sec-sub{font-size:14px;color:var(--t1);font-weight:400;max-width:520px;line-height:1.8}
+
+/* ─── FEATURES ─── */
+.features-grid{
+  display:grid;grid-template-columns:repeat(3,1fr);
+  gap:1px;background:var(--brd);border:1px solid var(--brd);
+  border-radius:var(--radius-lg);overflow:hidden;margin-top:48px;
+}
+@media(max-width:800px){.features-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:500px){.features-grid{grid-template-columns:1fr}}
+
+.feat{
+  background:var(--bg1);padding:30px 26px;
+  transition:background .25s;position:relative;overflow:hidden;
+}
+.feat::before{
+  content:'';position:absolute;inset:0;
+  background:radial-gradient(ellipse 70% 50% at 0% 0%,rgba(0,212,255,.06),transparent);
+  opacity:0;transition:opacity .35s;pointer-events:none;
+}
+.feat:hover{background:var(--bg2)}
+.feat:hover::before{opacity:1}
+.feat::after{
+  content:'';position:absolute;left:0;top:15%;bottom:15%;width:2px;
+  background:linear-gradient(180deg,transparent,var(--acc),transparent);
+  opacity:0;transition:opacity .28s;
+}
+.feat:hover::after{opacity:.9}
+
+.feat-ico{
+  width:40px;height:40px;border-radius:11px;
+  background:linear-gradient(135deg,rgba(0,212,255,.12),rgba(0,80,255,.06));
+  border:1px solid rgba(0,212,255,.14);
+  display:flex;align-items:center;justify-content:center;margin-bottom:16px;
+  box-shadow:0 0 20px rgba(0,212,255,.06);
+  transition:box-shadow .25s,background .25s;
+}
+.feat:hover .feat-ico{
+  background:linear-gradient(135deg,rgba(0,212,255,.2),rgba(0,80,255,.12));
+  box-shadow:0 0 28px rgba(0,212,255,.18);
+}
+.feat-ico svg{width:17px;height:17px;color:var(--acc)}
+.feat-name{
+  font-family:var(--font-display);font-size:15px;font-weight:700;
+  color:var(--t0);margin-bottom:8px;letter-spacing:-.2px;
+}
+.feat-desc{font-size:12.5px;color:var(--t1);line-height:1.7}
+.feat-new{
+  position:absolute;top:16px;right:16px;
+  font-family:var(--font-mono);font-size:8.5px;
+  color:var(--acc);background:rgba(0,212,255,.1);
+  border:1px solid rgba(0,212,255,.22);padding:2px 8px;border-radius:100px;letter-spacing:.4px;
+}
+
+/* ─── ROADMAP ─── */
+.roadmap-wrap{
+  background:linear-gradient(180deg,var(--bg) 0%,var(--bg1) 50%,var(--bg) 100%);
+  border-top:1px solid var(--brd);border-bottom:1px solid var(--brd);
+}
+.roadmap-inner{max-width:1240px;margin:0 auto;padding:96px 40px}
+@media(max-width:720px){.roadmap-inner{padding:64px 20px}}
+.roadmap-cols{
+  display:grid;grid-template-columns:repeat(3,1fr);
+  gap:16px;margin-top:48px;
+}
+@media(max-width:700px){.roadmap-cols{grid-template-columns:1fr}}
+
+.rm-col{
+  background:var(--bg2);padding:28px 26px;
+  border:1px solid var(--brd);border-radius:var(--radius);
+  transition:border-color .25s,transform .25s;
+}
+.rm-col:hover{border-color:rgba(0,212,255,.15);transform:translateY(-3px)}
+.rm-col.active{
+  border-color:rgba(0,212,255,.25);
+  background:linear-gradient(180deg,rgba(0,212,255,.04) 0%,var(--bg2) 40%);
+  box-shadow:0 0 60px rgba(0,212,255,.05);
+}
+.rm-col.active:hover{border-color:rgba(0,212,255,.4)}
+.rm-col.active::before{
+  content:'';display:block;height:2px;
+  background:linear-gradient(90deg,var(--acc),var(--acc2));
+  margin:-28px -26px 28px;border-radius:var(--radius) var(--radius) 0 0;
+  box-shadow:0 0 24px rgba(0,212,255,.4);
+}
+.rm-phase{
+  display:inline-flex;align-items:center;gap:7px;
+  font-family:var(--font-mono);font-size:9px;
+  letter-spacing:.8px;text-transform:uppercase;padding:4px 10px;
+  border-radius:100px;margin-bottom:18px;
+}
+.rm-phase.done{color:#34d399;background:rgba(52,211,153,.08);border:1px solid rgba(52,211,153,.18)}
+.rm-phase.now{color:var(--acc);background:rgba(0,212,255,.07);border:1px solid var(--brd-a)}
+.rm-phase.next{color:var(--t1);background:var(--bg3);border:1px solid var(--brd)}
+.rm-phase::before{content:'';width:5px;height:5px;border-radius:50%;background:currentColor;flex-shrink:0}
+.rm-phase.now::before{animation:ldot 1.5s ease-in-out infinite}
+@keyframes ldot{0%,100%{opacity:1}50%{opacity:.2}}
+.rm-title{
+  font-family:var(--font-display);font-size:15px;font-weight:700;
+  color:var(--t0);margin-bottom:18px;letter-spacing:-.2px;
+}
+.rm-list{list-style:none;display:flex;flex-direction:column;gap:10px}
+.rm-list li{font-size:12.5px;color:var(--t1);display:flex;align-items:baseline;gap:10px;line-height:1.55}
+.rm-list li.dn{color:var(--t2);text-decoration:line-through}
+.rm-list li::before{content:'';width:4px;height:4px;border-radius:50%;background:var(--t2);flex-shrink:0;margin-top:6px}
+.rm-list li.dn::before{background:#34d399;box-shadow:0 0 6px rgba(52,211,153,.4)}
+
+/* ─── SECTION TRANSITIONS ─── */
+.sec-transition{
+  position:relative;height:80px;overflow:hidden;pointer-events:none;
+}
+.sec-transition svg{display:block;width:100%;height:100%}
+
+/* ─── GRANDE VISÃO ─── */
+.vision-wrap{
+  border-top:none;
+  background:var(--bg);
+  position:relative;overflow:hidden;
+}
+.vision-wrap::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:1px;
+  background:linear-gradient(90deg,transparent,var(--acc3) 30%,var(--acc) 50%,var(--acc3) 70%,transparent);
+  opacity:.4;
+}
+.vision-inner{max-width:1240px;margin:0 auto;padding:80px 40px 96px}
+@media(max-width:720px){.vision-inner{padding:56px 20px 72px}}
+
+.vision-header{margin-bottom:52px}
+.vision-phase-tag{
+  display:inline-flex;align-items:center;gap:8px;
+  font-family:var(--font-mono);font-size:9px;letter-spacing:1.5px;text-transform:uppercase;
+  color:var(--acc3);background:rgba(124,58,237,.1);
+  border:1px solid rgba(124,58,237,.25);border-radius:100px;padding:5px 14px;
+  margin-bottom:18px;
+}
+.vision-phase-tag::before{
+  content:'';width:5px;height:5px;border-radius:50%;
+  background:var(--acc3);box-shadow:0 0 6px var(--acc3);
+  animation:vdot 2.5s ease-in-out infinite;
+}
+
+.vision-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:14px;
+}
+@media(max-width:900px){.vision-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:560px){.vision-grid{grid-template-columns:1fr}}
+
+.vcard{
+  background:var(--bg2);
+  border:1px solid var(--brd);
+  border-radius:16px;
+  padding:26px 24px 24px;
+  position:relative;overflow:hidden;
+  transition:border-color .28s, transform .28s, background .28s;
+  cursor:default;
+}
+.vcard::before{
+  content:'';position:absolute;inset:0;border-radius:16px;
+  background:radial-gradient(ellipse 80% 60% at 50% 0%, var(--vcard-glow,rgba(0,212,255,.06)), transparent 65%);
+  opacity:0;transition:opacity .35s;pointer-events:none;
+}
+.vcard:hover{
+  border-color:var(--vcard-border, rgba(0,212,255,.28));
+  transform:translateY(-4px);
+  background:var(--bg3);
+}
+.vcard:hover::before{opacity:1}
+
+.vcard.c-cyan{--vcard-glow:rgba(0,212,255,.08);--vcard-border:rgba(0,212,255,.3);--vcard-accent:#00d4ff}
+.vcard.c-purple{--vcard-glow:rgba(124,58,237,.1);--vcard-border:rgba(124,58,237,.35);--vcard-accent:#7c3aed}
+.vcard.c-blue{--vcard-glow:rgba(0,85,255,.1);--vcard-border:rgba(0,85,255,.32);--vcard-accent:#0055ff}
+.vcard.c-green{--vcard-glow:rgba(0,229,160,.08);--vcard-border:rgba(0,229,160,.28);--vcard-accent:#00e5a0}
+.vcard.c-orange{--vcard-glow:rgba(251,146,60,.08);--vcard-border:rgba(251,146,60,.28);--vcard-accent:#fb923c}
+.vcard.c-pink{--vcard-glow:rgba(236,72,153,.08);--vcard-border:rgba(236,72,153,.28);--vcard-accent:#ec4899}
+
+.vcard::after{
+  content:'';position:absolute;top:0;left:16px;right:16px;height:2px;border-radius:0 0 4px 4px;
+  background:linear-gradient(90deg,var(--vcard-accent,var(--acc)),transparent);
+  opacity:0;transition:opacity .28s;
+}
+.vcard:hover::after{opacity:1}
+
+.vcard-icon{
+  width:42px;height:42px;border-radius:12px;
+  background:rgba(255,255,255,.04);
+  border:1px solid rgba(255,255,255,.08);
+  display:flex;align-items:center;justify-content:center;
+  margin-bottom:16px;
+  transition:background .28s, border-color .28s, box-shadow .28s;
+  color:var(--vcard-accent,var(--acc));
+}
+.vcard:hover .vcard-icon{
+  background:color-mix(in srgb,var(--vcard-accent,var(--acc)) 12%,transparent);
+  border-color:color-mix(in srgb,var(--vcard-accent,var(--acc)) 35%,transparent);
+  box-shadow:0 0 24px color-mix(in srgb,var(--vcard-accent,var(--acc)) 25%,transparent);
+}
+.vcard-icon svg{width:18px;height:18px}
+
+.vcard-name{
+  font-family:var(--font-display);font-size:14.5px;font-weight:700;
+  color:var(--t0);margin-bottom:8px;letter-spacing:-.1px;
+}
+.vcard-desc{font-size:12px;color:var(--t1);line-height:1.7;margin-bottom:16px}
+
+.vcard-tags{display:flex;gap:6px;flex-wrap:wrap}
+.vcard-tag{
+  font-family:var(--font-mono);font-size:9px;
+  color:var(--t2);border:1px solid var(--t3);
+  border-radius:4px;padding:2px 7px;letter-spacing:.2px;
+}
+
+/* ─── FAQ ─── */
+.faq-inner{display:grid;grid-template-columns:300px 1fr;gap:80px;align-items:start}
+@media(max-width:820px){.faq-inner{grid-template-columns:1fr;gap:32px}}
+.faq-list{display:flex;flex-direction:column}
+.faq-item{border-bottom:1px solid var(--brd)}
+.faq-item:first-child{border-top:1px solid var(--brd)}
+.faq-q{
+  display:flex;justify-content:space-between;align-items:center;
+  padding:18px 0;cursor:pointer;
+  font-family:var(--font-body);font-size:13.5px;font-weight:500;color:var(--t0);
+  gap:16px;user-select:none;transition:color .15s;
+}
+.faq-q:hover{color:var(--acc)}
+.faq-icon{
+  width:22px;height:22px;border:1px solid var(--t2);border-radius:50%;
+  display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all .25s;
+}
+.faq-item.open .faq-icon{
+  background:linear-gradient(135deg,var(--acc),var(--acc2));
+  border-color:transparent;transform:rotate(45deg);
+  box-shadow:0 0 16px rgba(0,212,255,.35);
+}
+.faq-item.open .faq-icon svg{color:#000}
+.faq-a{
+  max-height:0;overflow:hidden;padding:0 24px 0 0;
+  font-size:13px;color:var(--t1);line-height:1.8;
+  transition:max-height .38s ease, padding .38s ease;
+}
+.faq-item.open .faq-a{max-height:320px;padding:0 24px 20px 0}
+
+/* ─── DL BOTTOM ─── */
+.dl-bottom{
+  position:relative;overflow:hidden;
+  background:linear-gradient(180deg,var(--bg1) 0%,rgba(0,8,22,.98) 100%);
+  border-top:1px solid var(--brd);
+}
+.dl-bottom::before{
+  content:'';position:absolute;top:0;left:10%;right:10%;height:1px;
+  background:linear-gradient(90deg,transparent,var(--acc) 40%,var(--acc2) 60%,transparent);
+  opacity:.28;
+}
+.dl-bottom-glow{
+  position:absolute;top:-60px;left:50%;transform:translateX(-50%);
+  width:1000px;height:600px;
+  background:radial-gradient(ellipse at center,rgba(0,212,255,.04),transparent 65%);
+  pointer-events:none;
+}
+.dl-bottom-inner{
+  max-width:1240px;margin:0 auto;padding:96px 40px;
+  display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center;
+}
+@media(max-width:820px){.dl-bottom-inner{grid-template-columns:1fr;gap:40px}}
+
+.dl-req-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.dl-req-item{
+  background:rgba(255,255,255,.022);border:1px solid var(--brd);
+  border-radius:12px;padding:14px 16px;
+  transition:border-color .2s,background .2s;
+}
+.dl-req-item:hover{border-color:rgba(0,212,255,.2);background:rgba(0,212,255,.03)}
+.dl-req-k{font-size:9.5px;color:var(--t2);margin-bottom:5px;font-family:var(--font-mono);letter-spacing:.4px;text-transform:uppercase}
+.dl-req-v{font-size:13px;color:var(--t0);font-weight:500}
+
+.btn-dl-main{
+  display:inline-flex;align-items:center;gap:10px;
+  background:linear-gradient(135deg,var(--acc),var(--acc2));
+  color:#000;border-radius:12px;padding:14px 28px;
+  font-family:var(--font-display);font-size:13px;font-weight:800;
+  letter-spacing:.3px;text-transform:uppercase;
+  text-decoration:none;transition:all .22s;
+  box-shadow:0 0 28px rgba(0,212,255,.28),0 4px 20px rgba(0,0,0,.4),0 1px 0 rgba(255,255,255,.15) inset;
+  position:relative;overflow:hidden;
+}
+.btn-dl-main::after{content:'';position:absolute;inset:0;background:linear-gradient(180deg,rgba(255,255,255,.12) 0%,transparent 100%);pointer-events:none}
+.btn-dl-main:hover{transform:translateY(-2px);box-shadow:0 0 44px rgba(0,212,255,.5),0 8px 32px rgba(0,0,0,.5)}
+
+/* ─── PREV VERSIONS ─── */
+.prev-wrap{background:var(--bg1);border-top:1px solid var(--brd)}
+.prev-inner{max-width:1240px;margin:0 auto;padding:40px}
+@media(max-width:720px){.prev-inner{padding:32px 20px}}
+.prev-toggle{
+  display:inline-flex;align-items:center;gap:8px;
+  font-family:var(--font-mono);font-size:10px;
+  color:var(--t2);letter-spacing:.5px;
+  cursor:pointer;user-select:none;transition:color .15s;
+  background:none;border:none;padding:0;
+}
+.prev-toggle:hover{color:var(--t1)}
+.prev-toggle svg{transition:transform .25s}
+.prev-toggle.open svg{transform:rotate(180deg)}
+.prev-body{display:none;margin-top:20px;border:1px solid var(--brd);border-radius:12px;overflow:hidden}
+.prev-body.open{display:block}
+.prev-table{width:100%;border-collapse:collapse}
+.prev-table th{
+  font-family:var(--font-mono);font-size:9px;color:var(--t2);
+  letter-spacing:.8px;text-transform:uppercase;
+  padding:12px 16px;text-align:left;border-bottom:1px solid var(--brd);background:var(--bg2);
+}
+.prev-table td{padding:13px 16px;font-size:13px;color:var(--t1);border-bottom:1px solid var(--brd);vertical-align:middle}
+.prev-table tr:last-child td{border:none}
+.prev-table tr:hover td{background:rgba(0,212,255,.022)}
+.prev-dl-link{
+  display:inline-flex;align-items:center;gap:6px;
+  font-family:var(--font-mono);font-size:11px;
+  color:var(--acc);text-decoration:none;
+  padding:5px 12px;border:1px solid var(--brd-a);
+  border-radius:8px;background:rgba(0,212,255,.06);
+  transition:all .15s;
+}
+.prev-dl-link:hover{background:rgba(0,212,255,.14);border-color:rgba(0,212,255,.38)}
+.prev-dl-link.ghost{color:var(--t1);border-color:var(--brd);background:transparent}
+.prev-dl-link.ghost:hover{background:rgba(255,255,255,.04);border-color:var(--t2)}
+.ver-badge{
+  display:inline-block;font-family:var(--font-mono);font-size:10px;
+  padding:2px 9px;border-radius:100px;font-weight:600;
+}
+.ver-badge.latest{color:var(--acc);background:rgba(0,212,255,.1);border:1px solid var(--brd-a)}
+.ver-badge.old{color:var(--t2);background:var(--bg3);border:1px solid var(--brd)}
+
+/* ─── FOOTER ─── */
+footer{
+  border-top:1px solid var(--brd);position:relative;
+  padding:28px 40px;display:flex;align-items:center;
+  justify-content:space-between;flex-wrap:wrap;gap:16px;
+  background:linear-gradient(0deg,rgba(0,212,255,.015),transparent);
+}
+.footer-line{
+  position:absolute;top:0;left:5%;right:5%;height:1px;
+  background:linear-gradient(90deg,transparent,rgba(0,212,255,.25) 40%,rgba(0,80,255,.2) 60%,transparent);
+  pointer-events:none;
+}
+.foot-left{display:flex;align-items:center;gap:20px;flex-wrap:wrap}
+.foot-brand{
+  font-family:var(--font-display);font-size:14px;font-weight:800;
+  color:var(--t2);letter-spacing:.5px;
+}
+.foot-brand em{
+  font-style:normal;
+  background:linear-gradient(135deg,var(--acc),var(--acc2));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+}
+.foot-copy{font-size:11px;color:var(--t2)}
+.foot-links{display:flex;gap:20px;flex-wrap:wrap}
+.foot-links a{font-size:12px;color:var(--t2);text-decoration:none;transition:color .15s;font-weight:500}
+.foot-links a:hover{color:var(--t1)}
+@media(max-width:600px){footer{padding:20px}}
+
+/* ─── REVEAL ─── */
+.reveal{opacity:0;transform:translateY(20px);transition:opacity .65s ease,transform .65s ease}
+.reveal.vis{opacity:1;transform:none}
+.d1{transition-delay:.1s}.d2{transition-delay:.2s}.d3{transition-delay:.3s}
+
+
 </style>
 </head>
 <body>
 
-<div class="cursor" id="cur"></div>
-<div class="cursor-ring" id="curRing"></div>
+<!-- Cursor glow -->
+<div id="cursorGlow"></div>
+<!-- Custom cursor -->
+<div id="cursor"></div>
+<div id="cursorRing"></div>
 
 <!-- NAV -->
-<nav>
-  <div class="logo">
-    <svg class="logo-raccoon" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
-      <path d="M52 28 Q58 20 56 12 Q54 8 50 14 L48 22 Q46 28 48 34 L50 42 Q52 48 50 52" stroke="#2d2d2d" stroke-width="5" fill="none" stroke-linecap="round"/>
-      <ellipse cx="32" cy="40" rx="16" ry="12" fill="#4a4a4a"/>
-      <ellipse cx="32" cy="38" rx="12" ry="9" fill="#5c5c5c"/>
-      <circle cx="32" cy="20" r="14" fill="#4a4a4a"/>
-      <circle cx="32" cy="18" r="12" fill="#5c5c5c"/>
-      <ellipse cx="26" cy="21" rx="8" ry="6" fill="#1a1a1a"/>
-      <ellipse cx="38" cy="21" rx="8" ry="6" fill="#1a1a1a"/>
-      <ellipse cx="26" cy="20" rx="3" ry="4" fill="#0a0f1a"/>
-      <ellipse cx="38" cy="20" rx="3" ry="4" fill="#0a0f1a"/>
-      <circle cx="27" cy="18.5" r="1" fill="#e8f0fe"/>
-      <circle cx="39" cy="18.5" r="1" fill="#e8f0fe"/>
-      <ellipse cx="32" cy="26" rx="5" ry="4" fill="#3d3d3d"/>
-      <circle cx="20" cy="10" r="8" fill="#4a4a4a"/>
-      <circle cx="20" cy="10" r="5" fill="#5c5c5c"/>
-      <circle cx="44" cy="10" r="8" fill="#4a4a4a"/>
-      <circle cx="44" cy="10" r="5" fill="#5c5c5c"/>
+<nav id="mainNav">
+  <a class="nav-logo" href="#">
+    <svg width="26" height="26" viewBox="0 0 28 28" fill="none">
+      <rect width="28" height="28" rx="7" fill="rgba(0,153,255,.15)"/>
+      <path d="M7 14h3.5L14 7l3.5 7H21" stroke="#00d4ff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      <circle cx="14" cy="19" r="2.5" fill="#00d4ff"/>
     </svg>
-    <div class="logo-name">GM<span>BR</span></div>
-  </div>
-  <div class="nav-links">
-    <a href="#features">Recursos</a>
-    <a href="#saicon">Saicon</a>
-    <a href="#telas">Telas</a>
-    <a href="#faq">FAQ</a>
-    <a href="#sugestoes">Sugestões</a>
-    <a href="#atualizacoes">Atualizações</a>
-    <a href="#doacao">Doação</a>
-  </div>
-  <a href="https://discord.gg/HPRE3aSCWr" class="nav-cta" target="_blank">
-    <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057c.002.022.015.043.033.057a19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028c.462-.63.874-1.295 1.226-1.994a.076.076 0 0 0-.041-.106 13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03z"/></svg>
-    Discord
+    <span class="nav-logo-mark">GM<em>BR</em></span>
+    <span class="nav-ver">v4.2</span>
   </a>
+  <div class="nav-right">
+    <a href="https://github.com/Pixelmodeler/DownloadGBR/releases/download/BETA/GMBR_Launcher_Setup_v4.2.exe" class="nav-link">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+      Baixar
+    </a>
+    <a href="#roadmap" class="nav-link">Roadmap</a>
+    <a href="#grande-visao" class="nav-link">Visão</a>
+    <a href="#regras" class="nav-link">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+      Regras
+    </a>
+    <a href="#faq" class="nav-link">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+      Suporte
+    </a>
+    <a href="https://discord.gg/HPRE3aSCWr" target="_blank" class="nav-dl">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057c.002.022.015.043.033.057a19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66z"/></svg>
+      Discord
+    </a>
+  </div>
 </nav>
 
 <!-- HERO -->
-<section class="hero">
-  <div class="hero-grid"></div>
-  <div class="hero-glow1"></div>
-  <div class="hero-glow2"></div>
-
-  <div class="hero-inner">
-    <!-- LEFT -->
-    <div>
-      <div class="hero-tag reveal">LANÇAMENTO v3.2.9</div>
-      <h1 class="reveal d1">
-        <span class="w1">SEU SETUP.</span>
-        <span class="w2">SUA REGRA.</span>
-        <span class="w3">SEM LIMITE.</span>
-      </h1>
-      <p class="hero-desc reveal d2">
-        <strong>+40.000 jogos</strong>, filmes, séries e um mascote guaxinim que faz companhia.<br>
-        Uma conta. Zero burocracia. <strong>100% gratuito.</strong>
-      </p>
-      <div class="hero-btns reveal d3">
-        <a href="https://github.com/Pixelmodeler/DownloadGBR/releases/download/BETA/GMBR_Launcher_Setup_v3.2.exe" class="btn-dl">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-          BAIXAR GRÁTIS
-        </a>
-        <a href="https://discord.gg/HPRE3aSCWr" class="btn-dc" target="_blank">
-          <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057c.002.022.015.043.033.057a19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028c.462-.63.874-1.295 1.226-1.994a.076.076 0 0 0-.041-.106 13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03z"/></svg>
-          Entrar na Comunidade
-        </a>
-      </div>
-      <div class="hero-pills reveal d4">
-        <span class="pill">Windows 10/11</span>
-        <span class="pill">64-bit</span>
-        <span class="pill">Sem Python</span>
-        <span class="pill">v3.2.9</span>
-      </div>
-    </div>
-
-    <!-- RIGHT — app mockup -->
-    <div class="hero-visual reveal d2">
-      <div class="app-window">
-        <div class="app-titlebar">
-          <div class="app-dot" style="background:#ff5f57"></div>
-          <div class="app-dot" style="background:#ffbd2e"></div>
-          <div class="app-dot" style="background:#28c840"></div>
-          <span style="font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--tx3);margin-left:8px">GMBR Launcher</span>
-        </div>
-        <div class="app-sidebar">
-          <div class="app-nav">
-            <div class="app-nav-item active">🏠</div>
-            <div class="app-nav-item">🔍</div>
-            <div class="app-nav-item">📚</div>
-            <div class="app-nav-item">🎬</div>
-            <div class="app-nav-item">⚙️</div>
-          </div>
-          <div class="app-content">
-            <div class="app-content-title">EM DESTAQUE</div>
-            <div class="app-game-grid">
-              <div class="app-game-card gc0"><div class="app-game-card-inner"><div class="app-game-card-title">Cyberpunk 2077</div></div></div>
-              <div class="app-game-card gc1"><div class="app-game-card-inner"><div class="app-game-card-title">Elden Ring</div></div></div>
-              <div class="app-game-card gc2"><div class="app-game-card-inner"><div class="app-game-card-title">God of War</div></div></div>
-              <div class="app-game-card gc3"><div class="app-game-card-inner"><div class="app-game-card-title">Hogwarts Legacy</div></div></div>
-              <div class="app-game-card gc4"><div class="app-game-card-inner"><div class="app-game-card-title">Alan Wake 2</div></div></div>
-              <div class="app-game-card gc5"><div class="app-game-card-inner"><div class="app-game-card-title">Baldur's Gate 3</div></div></div>
-            </div>
-          </div>
-        </div>
-        <!-- saicon inside app -->
-        <div class="app-bubble">Oi! Eu sou o Saicon! 🦝</div>
-        <div class="app-saicon" id="appSaicon">
-          <svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%">
-            <path d="M52 28 Q58 20 56 12 Q54 8 50 14 L48 22 Q46 28 48 34 L50 42 Q52 48 50 52" stroke="#2d2d2d" stroke-width="5" fill="none" stroke-linecap="round"/>
-            <ellipse cx="32" cy="40" rx="16" ry="12" fill="#4a4a4a"/>
-            <ellipse cx="32" cy="38" rx="12" ry="9" fill="#5c5c5c"/>
-            <ellipse cx="32" cy="42" rx="8" ry="5" fill="#6b6b6b"/>
-            <circle cx="32" cy="20" r="14" fill="#4a4a4a"/>
-            <circle cx="32" cy="18" r="12" fill="#5c5c5c"/>
-            <ellipse cx="26" cy="21" rx="8" ry="6" fill="#1a1a1a"/>
-            <ellipse cx="38" cy="21" rx="8" ry="6" fill="#1a1a1a"/>
-            <ellipse cx="26" cy="20" rx="3" ry="4" fill="#0a0f1a"/>
-            <ellipse cx="38" cy="20" rx="3" ry="4" fill="#0a0f1a"/>
-            <circle cx="27" cy="18.5" r="1" fill="#e8f0fe"/>
-            <circle cx="39" cy="18.5" r="1" fill="#e8f0fe"/>
-            <ellipse cx="32" cy="26" rx="5" ry="4" fill="#3d3d3d"/>
-            <circle cx="20" cy="10" r="8" fill="#4a4a4a"/>
-            <circle cx="20" cy="10" r="5" fill="#5c5c5c"/>
-            <circle cx="44" cy="10" r="8" fill="#4a4a4a"/>
-            <circle cx="44" cy="10" r="5" fill="#5c5c5c"/>
-            <ellipse cx="24" cy="52" rx="5" ry="4" fill="#3d3d3d"/>
-            <ellipse cx="40" cy="52" rx="5" ry="4" fill="#3d3d3d"/>
-          </svg>
-        </div>
-      </div>
-    </div>
+<div class="hero">
+  <div class="hero-atm"></div>
+  <div class="hero-orbs">
+    <div class="hero-orb"></div>
+    <div class="hero-orb"></div>
+    <div class="hero-orb"></div>
+    <div class="hero-orb"></div>
   </div>
-</section>
+  <div class="hero-grain"></div>
+  <canvas id="heroCanvas"></canvas>
+  <div class="hero-fade"></div>
 
-<!-- BRAND STRIP -->
-<div class="brand-strip">
-  <div class="brand-strip-inner" id="brandStrip">
-    <!-- items duplicated for seamless loop via JS -->
+  <div class="hero-layout">
+    <!-- LEFT -->
+    <div class="hero-left">
+      <div class="hero-v-badge"><span class="hero-v-dot"></span>v4.2 — Disponível agora</div>
+
+      <div style="display:flex;align-items:center;gap:20px;margin-bottom:22px">
+        <span class="hero-wordmark">GM<em>BR</em> LAUNCHER</span>
+      </div>
+      <p class="hero-tagline">Gerenciador de jogos para PC.<br><strong>+120.000 títulos.</strong> Gratuito. Sem anúncios.</p>
+
+      <div class="hero-dl-group">
+        <a href="https://github.com/Pixelmodeler/DownloadGBR/releases/download/BETA/GMBR_Launcher_Setup_v4.2.exe" class="btn-hero-dl">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M0 3.449L9.75 2.1v9.451H0m10.949-9.602L24 0v11.4H10.949M0 12.6h9.75v9.451L0 20.699M10.949 12.6H24V24l-12.9-1.801"/></svg>
+          Baixar para Windows
+        </a>
+        <a href="https://github.com/Pixelmodeler/DownloadGBR/releases/download/BETA/GMBR_Launcher_Linux4.2.zip" class="btn-hero-linux">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor"><path d="M12.504 0c-.155 0-.315.008-.48.021-4.226.333-3.105 4.807-3.17 6.298-.076 1.092-.3 1.953-1.05 3.02-.885 1.051-2.127 2.75-2.716 4.521-.278.832-.41 1.684-.287 2.489.117.779.567 1.563 1.182 2.114.267.243.613.39.988.39.417 0 .852-.163 1.235-.464.394-.31.65-.675.824-1.045.31-.681.458-1.434.562-2.196l.04-.302c.039-.3.068-.479.108-.568.155-.358.48-.568.864-.568.378 0 .72.197.906.538.124.228.173.48.22.749l.042.295c.1.748.247 1.497.547 2.178.167.37.42.739.811 1.05.378.3.81.463 1.228.463.375 0 .72-.147.987-.39.616-.55 1.066-1.335 1.183-2.114.123-.805-.009-1.657-.287-2.489-.59-1.771-1.832-3.47-2.717-4.521-.75-1.067-.974-1.928-1.05-3.02-.065-1.491 1.057-5.965-3.17-6.298-.164-.013-.324-.021-.48-.021z"/></svg>
+          Baixar para Linux
+        </a>
+      </div>
+
+      <div class="hero-mirrors">
+        <a href="https://pixeldrain.com/u/qVxfAFkG" target="_blank" class="mirror-pill">
+          <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+          Mirror — Pixeldrain (Windows)
+        </a>
+        <a href="https://pixeldrain.com/u/Vv71xkeC" target="_blank" class="mirror-pill">
+          <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+          Mirror — Pixeldrain (Linux)
+        </a>
+      </div>
+
+      <div class="hero-tags">
+        <span class="hero-tag">Windows 10/11</span>
+        <span class="hero-tag">64-bit</span>
+        <span class="hero-tag">v4.2</span>
+      </div>
+    </div>
+
+    <!-- RIGHT — screenshot -->
+    <div class="hero-right">
+      <div class="hero-screenshot" id="heroSS">
+        <div class="hero-screenshot-frame">
+          <img src="https://i.postimg.cc/g2PWshVt/image.png" alt="GMBR Launcher interface">
+          <div class="ss-shine" id="ssShine"></div>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
 
-<!-- SAICON HERO -->
-<section class="saicon-hero" id="saicon">
-  <div class="saicon-hero-inner">
-    <!-- VISUAL -->
-    <div class="saicon-stage reveal">
-      <div class="saicon-glow-bg"></div>
-      <!-- Orbiting saiconito 1 -->
-      <div class="saicon-orbit">
-        <div class="saicon-orbit-item">
-          <svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
-            <ellipse cx="32" cy="40" rx="16" ry="12" fill="#1a4a7a"/>
-            <ellipse cx="32" cy="38" rx="12" ry="9" fill="#1a6fa8"/>
-            <circle cx="32" cy="20" r="14" fill="#1a4a7a"/>
-            <circle cx="32" cy="18" r="12" fill="#1a6fa8"/>
-            <ellipse cx="26" cy="21" rx="8" ry="6" fill="#1a1a1a"/>
-            <ellipse cx="38" cy="21" rx="8" ry="6" fill="#1a1a1a"/>
-            <ellipse cx="26" cy="20" rx="3" ry="4" fill="#0a0f1a"/>
-            <ellipse cx="38" cy="20" rx="3" ry="4" fill="#0a0f1a"/>
-            <circle cx="27" cy="18.5" r="1" fill="#e8f0fe"/>
-            <circle cx="39" cy="18.5" r="1" fill="#e8f0fe"/>
-            <circle cx="20" cy="10" r="8" fill="#1a4a7a"/>
-            <circle cx="20" cy="10" r="5" fill="#1a6fa8"/>
-            <circle cx="44" cy="10" r="8" fill="#1a4a7a"/>
-            <circle cx="44" cy="10" r="5" fill="#1a6fa8"/>
-            <!-- crown -->
-            <path d="M20 8 L24 2 L28 8 L32 4 L36 8 L40 2 L44 8 L42 6 L32 4 L22 6 Z" fill="#f5c842"/>
-          </svg>
-        </div>
-      </div>
-      <!-- Orbiting saiconito 2 -->
-      <div class="saicon-orbit2">
-        <div class="saicon-orbit2-item">
-          <svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
-            <ellipse cx="32" cy="40" rx="16" ry="12" fill="#7f1d1d"/>
-            <ellipse cx="32" cy="38" rx="12" ry="9" fill="#dc2626"/>
-            <circle cx="32" cy="20" r="14" fill="#7f1d1d"/>
-            <circle cx="32" cy="18" r="12" fill="#dc2626"/>
-            <ellipse cx="26" cy="21" rx="8" ry="6" fill="#1a1a1a"/>
-            <ellipse cx="38" cy="21" rx="8" ry="6" fill="#1a1a1a"/>
-            <ellipse cx="26" cy="20" rx="3" ry="4" fill="#0a0f1a"/>
-            <ellipse cx="38" cy="20" rx="3" ry="4" fill="#0a0f1a"/>
-            <circle cx="27" cy="18.5" r="1" fill="#e8f0fe"/>
-            <circle cx="39" cy="18.5" r="1" fill="#e8f0fe"/>
-            <circle cx="20" cy="10" r="8" fill="#7f1d1d"/>
-            <circle cx="20" cy="10" r="5" fill="#dc2626"/>
-            <circle cx="44" cy="10" r="8" fill="#7f1d1d"/>
-            <circle cx="44" cy="10" r="5" fill="#dc2626"/>
-          </svg>
-        </div>
-      </div>
-      <!-- Main saicon -->
-      <div class="saicon-main">
-        <svg id="saiconBig" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
-          <path d="M52 28 Q58 20 56 12 Q54 8 50 14 L48 22 Q46 28 48 34 L50 42 Q52 48 50 52" stroke="#2d2d2d" stroke-width="5" fill="none" stroke-linecap="round"/>
-          <path d="M50 18 L50 50" stroke="#5c5c5c" stroke-width="2.5" fill="none" stroke-linecap="round"/>
-          <ellipse cx="32" cy="40" rx="16" ry="12" data-r="body1" fill="#4a4a4a"/>
-          <ellipse cx="32" cy="38" rx="12" ry="9" data-r="body2" fill="#5c5c5c"/>
-          <ellipse cx="32" cy="42" rx="8" ry="5" data-r="body3" fill="#6b6b6b"/>
-          <circle cx="32" cy="20" r="14" data-r="ear1" fill="#4a4a4a"/>
-          <circle cx="32" cy="18" r="12" data-r="ear2" fill="#5c5c5c"/>
-          <ellipse cx="26" cy="21" rx="8" ry="6" fill="#1a1a1a"/>
-          <ellipse cx="38" cy="21" rx="8" ry="6" fill="#1a1a1a"/>
-          <path d="M22 22 Q32 26 42 22" stroke="#1a1a1a" stroke-width="3" fill="none" stroke-linecap="round"/>
-          <ellipse cx="26" cy="20" rx="3" ry="4" fill="#0a0f1a"/>
-          <ellipse cx="38" cy="20" rx="3" ry="4" fill="#0a0f1a"/>
-          <circle cx="27" cy="18.5" r="1" fill="#e8f0fe"/>
-          <circle cx="39" cy="18.5" r="1" fill="#e8f0fe"/>
-          <ellipse cx="32" cy="26" rx="5" ry="4" data-r="snout" fill="#3d3d3d"/>
-          <path d="M30 24 L32 26 L34 24" stroke="#2d2d2d" stroke-width="1" fill="none" stroke-linecap="round"/>
-          <circle cx="20" cy="10" r="8" data-r="ear1" fill="#4a4a4a"/>
-          <circle cx="20" cy="10" r="5" data-r="ear2" fill="#5c5c5c"/>
-          <circle cx="44" cy="10" r="8" data-r="ear1" fill="#4a4a4a"/>
-          <circle cx="44" cy="10" r="5" data-r="ear2" fill="#5c5c5c"/>
-          <ellipse cx="24" cy="52" rx="5" ry="4" data-r="snout" fill="#3d3d3d"/>
-          <ellipse cx="40" cy="52" rx="5" ry="4" data-r="snout" fill="#3d3d3d"/>
-          <g id="bigAcc"></g>
-        </svg>
-      </div>
-    </div>
-
-    <!-- TEXT -->
-    <div class="reveal d1">
-      <div class="tag-sm">// SEU MASCOTE</div>
-      <h2 class="h2">CONHEÇA<br><span style="color:var(--acc)">O SAICON</span></h2>
-      <p class="body-txt">Um guaxinim com <strong>personalidade própria</strong> que vive dentro do launcher. Ele anda pela tela, reage quando você clica, e tem mais de <strong>20 skins personalizáveis</strong> — cor, acessório e até nome. Ele é a cara do GMBR.</p>
-
-      <div class="saicon-picker-wrap">
-        <div class="picker-label">COR</div>
-        <div class="color-row" id="colorRow">
-          <div class="cdot on" style="background:linear-gradient(135deg,#5c5c5c,#3d3d3d)" data-c1="#4a4a4a" data-c2="#5c5c5c" data-c3="#6b6b6b" data-sn="#3d3d3d" data-gl="rgba(90,90,90,.5)"></div>
-          <div class="cdot" style="background:linear-gradient(135deg,#1a6fa8,#0a3a5c)" data-c1="#1a4a7a" data-c2="#1a6fa8" data-c3="#2587c9" data-sn="#0d3558" data-gl="rgba(26,111,168,.6)"></div>
-          <div class="cdot" style="background:linear-gradient(135deg,#7c3aed,#4c1d95)" data-c1="#4c1d95" data-c2="#7c3aed" data-c3="#8b5cf6" data-sn="#2e1065" data-gl="rgba(124,58,237,.6)"></div>
-          <div class="cdot" style="background:linear-gradient(135deg,#059669,#064e3b)" data-c1="#064e3b" data-c2="#059669" data-c3="#10b981" data-sn="#022c22" data-gl="rgba(5,150,105,.6)"></div>
-          <div class="cdot" style="background:linear-gradient(135deg,#dc2626,#7f1d1d)" data-c1="#7f1d1d" data-c2="#dc2626" data-c3="#ef4444" data-sn="#450a0a" data-gl="rgba(220,38,38,.6)"></div>
-          <div class="cdot" style="background:linear-gradient(135deg,#d97706,#78350f)" data-c1="#78350f" data-c2="#d97706" data-c3="#f59e0b" data-sn="#431407" data-gl="rgba(217,119,6,.6)"></div>
-          <div class="cdot" style="background:linear-gradient(135deg,#db2777,#831843)" data-c1="#831843" data-c2="#db2777" data-c3="#ec4899" data-sn="#500724" data-gl="rgba(219,39,119,.6)"></div>
-          <div class="cdot" style="background:linear-gradient(135deg,#06b6d4,#0891b2)" data-c1="#0891b2" data-c2="#06b6d4" data-c3="#22d3ee" data-sn="#0e7490" data-gl="rgba(34,211,238,.7)"></div>
-          <div class="cdot" style="background:linear-gradient(135deg,#f97316,#ea580c)" data-c1="#ea580c" data-c2="#f97316" data-c3="#fbbf24" data-sn="#c2410c" data-gl="rgba(251,146,60,.7)"></div>
-        </div>
-        <div class="picker-label" style="margin-top:16px">ACESSÓRIO</div>
-        <div class="acc-row" id="accRow">
-          <button class="abtn on" data-acc="">Nenhum</button>
-          <button class="abtn" data-acc="crown">👑 Coroa</button>
-          <button class="abtn" data-acc="glasses">🕶 Óculos</button>
-          <button class="abtn" data-acc="hat">🎩 Chapéu</button>
-          <button class="abtn" data-acc="headset">🎧 Headset</button>
-          <button class="abtn" data-acc="star">⭐ Estrela</button>
-          <button class="abtn" data-acc="wizard">🧙 Mago</button>
-        </div>
-      </div>
-    </div>
+<!-- TICKER -->
+<div class="ticker-strip">
+  <div class="ticker-track">
+    <span class="ticker-item"><span class="dot"></span>120.000+ jogos</span>
+    <span class="ticker-item"><span class="dot"></span>100% gratuito</span>
+    <span class="ticker-item"><span class="dot"></span>Windows & Linux</span>
+    <span class="ticker-item"><span class="dot"></span>Sem anúncios</span>
+    <span class="ticker-item"><span class="dot"></span>Open Source</span>
+    <span class="ticker-item"><span class="dot"></span>Modo Performance</span>
+    <span class="ticker-item"><span class="dot"></span>Dados Nerds</span>
+    <span class="ticker-item"><span class="dot"></span>Bundle Criptografado</span>
+    <span class="ticker-item"><span class="dot"></span>v4.2</span>
+    <span class="ticker-item"><span class="dot"></span>120.000+ jogos</span>
+    <span class="ticker-item"><span class="dot"></span>100% gratuito</span>
+    <span class="ticker-item"><span class="dot"></span>Windows & Linux</span>
+    <span class="ticker-item"><span class="dot"></span>Sem anúncios</span>
+    <span class="ticker-item"><span class="dot"></span>Open Source</span>
+    <span class="ticker-item"><span class="dot"></span>Modo Performance</span>
+    <span class="ticker-item"><span class="dot"></span>Dados Nerds</span>
+    <span class="ticker-item"><span class="dot"></span>Bundle Criptografado</span>
+    <span class="ticker-item"><span class="dot"></span>v4.2</span>
   </div>
-</section>
+</div>
+
+<!-- STATS -->
+<div class="stats-bar">
+  <div class="stats-bar-inner">
+    <div class="stat-item"><span class="stat-n acc" data-count="120000" data-suffix="+">120.000+</span><span class="stat-l">jogos no catálogo</span></div>
+    <div class="stat-item"><span class="stat-n" data-count="100" data-suffix="%">100%</span><span class="stat-l">gratuito e sem anúncios</span></div>
+    <div class="stat-item"><span class="stat-n">Win / Linux</span><span class="stat-l">plataformas suportadas</span></div>
+    <div class="stat-item"><span class="stat-n">v4.2</span><span class="stat-l">versão atual</span></div>
+  </div>
+</div>
 
 <!-- FEATURES -->
-<section class="features" id="features">
-  <div class="reveal">
-    <div class="tag-sm">// RECURSOS</div>
-    <h2 class="h2">TUDO QUE VOCÊ<br>PRECISA, AQUI.</h2>
-  </div>
-  <div class="feat-grid">
-    <div class="feat-card reveal">
-      <div class="feat-num">01</div>
-      <div class="feat-title">Catálogo de +40.000 Jogos</div>
-      <div class="feat-desc">FitGirl, DODI, ElAmigos, KaOs e mais. Capas automáticas via Steam. Busca instantânea por nome, gênero e fonte.</div>
-      <span class="feat-chip">MULTI-SOURCE</span>
+<div class="section reveal">
+  <span class="sec-label">Recursos</span>
+  <h2 class="sec-title">O que está incluído</h2>
+  <p class="sec-sub">Uma plataforma completa de gerenciamento de jogos, com foco em simplicidade e desempenho.</p>
+  <div class="features-grid">
+    <div class="feat">
+      <div class="feat-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg></div>
+      <div class="feat-name">Catálogo de jogos</div>
+      <div class="feat-desc">+120.000 títulos de fontes como FitGirl, DODI e ElAmigos. Capas via Steam. Filtro por gênero e fonte.</div>
     </div>
-    <div class="feat-card reveal d1">
-      <div class="feat-num">02</div>
-      <div class="feat-title">Filmes & Séries Integrados</div>
-      <div class="feat-desc">Player embutido, busca em tempo real, favoritos e catálogo completo — sem sair do launcher.</div>
-      <span class="feat-chip">STREAMING</span>
+    <div class="feat">
+      <div class="feat-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46A2.78 2.78 0 0 0 1.46 6.42 29 29 0 0 0 1 12a29 29 0 0 0 .46 5.58A2.78 2.78 0 0 0 3.41 19.6C5.12 20 12 20 12 20s6.88 0 8.59-.46a2.78 2.78 0 0 0 1.95-1.95A29 29 0 0 0 23 12a29 29 0 0 0-.46-5.58z"/><polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02"/></svg></div>
+      <div class="feat-name">Filmes e séries</div>
+      <div class="feat-desc">Player integrado com catálogo completo. Busca em tempo real, favoritos e histórico.</div>
     </div>
-    <div class="feat-card reveal d2">
-      <div class="feat-num">03</div>
-      <div class="feat-title">Login Multi-Auth</div>
-      <div class="feat-desc">Discord OAuth2, Google OAuth2 ou e-mail/senha. Perfil sincronizado. Uso sem conta também é liberado.</div>
-      <span class="feat-chip">SEGURO</span>
+    <div class="feat">
+      <div class="feat-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div>
+      <div class="feat-name">Autenticação</div>
+      <div class="feat-desc">Login com Discord, Google ou e-mail. Sincronização de favoritos. Uso sem conta também suportado.</div>
     </div>
-    <div class="feat-card reveal">
-      <div class="feat-num">04</div>
-      <div class="feat-title">Biblioteca Pessoal</div>
-      <div class="feat-desc">Marque como instalado, favorito, histórico. Conquistas desbloqueáveis. Tudo salvo localmente.</div>
-      <span class="feat-chip">BIBLIOTECA</span>
+    <div class="feat">
+      <div class="feat-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg></div>
+      <div class="feat-name">Modo performance</div>
+      <div class="feat-desc">Oito toggles que desligam animações e efeitos. Cache do servidor eleva de 30 s para 120 s no preset máximo.</div>
+      <span class="feat-new">v4.2</span>
     </div>
-    <div class="feat-card reveal d1">
-      <div class="feat-num">05</div>
-      <div class="feat-title">Saicon — Mascote Vivo</div>
-      <div class="feat-desc">20+ skins. Anda pela tela. Reage às suas ações. Completamente personalizável em cor, acessório e nome.</div>
-      <span class="feat-chip">MASCOTE</span>
+    <div class="feat">
+      <div class="feat-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg></div>
+      <div class="feat-name">Dados Nerds</div>
+      <div class="feat-desc">CPU, RAM, GPU, VRAM, temperaturas e DOM em tempo real. Gráficos sparkline com intervalo configurável.</div>
+      <span class="feat-new">v4.2</span>
     </div>
-    <div class="feat-card reveal d2">
-      <div class="feat-num">06</div>
-      <div class="feat-title">Suporte com Log</div>
-      <div class="feat-desc">Gere diagnóstico completo em 1 clique. Salve onde quiser. Envie no Discord e receba ajuda rápida.</div>
-      <span class="feat-chip">SUPORTE</span>
+    <div class="feat">
+      <div class="feat-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></div>
+      <div class="feat-name">Bundle criptografado</div>
+      <div class="feat-desc">Interface cifrada com XOR-512 + SHA-256 antes do empacotamento. Chave única por build, embutida no EXE.</div>
+      <span class="feat-new">v4.2</span>
     </div>
   </div>
-</section>
+</div>
 
-<!-- SCREEN SHOWCASE -->
-<section class="screens" id="telas">
-  <div class="screens-inner">
+<!-- ROADMAP -->
+<div class="roadmap-wrap" id="roadmap">
+  <div class="roadmap-inner">
     <div class="reveal">
-      <div class="tag-sm">// INTERFACE</div>
-      <h2 class="h2">VEJA POR DENTRO.</h2>
+      <span class="sec-label">Roadmap</span>
+      <h2 class="sec-title">O que vem por aí</h2>
+      <p class="sec-sub">Desenvolvimento ativo com atualizações frequentes. Acompanhe no Discord.</p>
     </div>
-    <div class="screens-tabs reveal d1">
-      <button class="stab on" onclick="showScreen('home',this)">Início</button>
-      <button class="stab" onclick="showScreen('movies',this)">Filmes</button>
-      <button class="stab" onclick="showScreen('settings',this)">Config.</button>
-    </div>
-
-    <!-- HOME -->
-    <div class="screen-panel on" id="sp-home">
-      <div class="fake-screen reveal">
-        <div class="fake-topbar">
-          <div class="fake-dot" style="background:#ff5f57"></div>
-          <div class="fake-dot" style="background:#ffbd2e"></div>
-          <div class="fake-dot" style="background:#28c840"></div>
-          <span style="font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--tx3);margin-left:10px">GMBR Launcher — Início</span>
-        </div>
-        <div class="fake-sidebar-main">
-          <div class="fake-sidebar">
-            <div class="fake-nav-item active">🏠 Início</div>
-            <div class="fake-nav-item">🔍 Explorar</div>
-            <div class="fake-nav-item">📚 Biblioteca</div>
-            <div class="fake-nav-item">🎬 Filmes</div>
-            <div class="fake-nav-item">📺 Séries</div>
-            <div class="fake-nav-item">⏱ Histórico</div>
-            <div class="fake-nav-item">⚙️ Config.</div>
-          </div>
-          <div class="fake-main" style="position:relative">
-            <div class="fake-hero-banner">
-              <div>
-                <div class="fake-banner-title">EM DESTAQUE</div>
-                <div class="fake-banner-sub" style="color:var(--tx2);font-size:10px">Cyberpunk 2077 — FitGirl</div>
-              </div>
-              <div class="fake-banner-btn">INSTALAR</div>
-            </div>
-            <div class="fake-row-title">RECÉM ADICIONADOS</div>
-            <div class="fake-cards-row">
-              <div class="fake-game-mini fgm0"></div>
-              <div class="fake-game-mini fgm1"></div>
-              <div class="fake-game-mini fgm2"></div>
-              <div class="fake-game-mini fgm3"></div>
-              <div class="fake-game-mini fgm4"></div>
-            </div>
-            <!-- saicon in screen -->
-            <div class="screen-saicon">
-              <svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%">
-                <ellipse cx="32" cy="40" rx="16" ry="12" fill="#4a4a4a"/>
-                <ellipse cx="32" cy="38" rx="12" ry="9" fill="#5c5c5c"/>
-                <circle cx="32" cy="20" r="14" fill="#4a4a4a"/>
-                <circle cx="32" cy="18" r="12" fill="#5c5c5c"/>
-                <ellipse cx="26" cy="21" rx="8" ry="6" fill="#1a1a1a"/>
-                <ellipse cx="38" cy="21" rx="8" ry="6" fill="#1a1a1a"/>
-                <ellipse cx="26" cy="20" rx="3" ry="4" fill="#0a0f1a"/>
-                <ellipse cx="38" cy="20" rx="3" ry="4" fill="#0a0f1a"/>
-                <circle cx="27" cy="18.5" r="1" fill="#e8f0fe"/>
-                <circle cx="39" cy="18.5" r="1" fill="#e8f0fe"/>
-                <circle cx="20" cy="10" r="8" fill="#4a4a4a"/>
-                <circle cx="20" cy="10" r="5" fill="#5c5c5c"/>
-                <circle cx="44" cy="10" r="8" fill="#4a4a4a"/>
-                <circle cx="44" cy="10" r="5" fill="#5c5c5c"/>
-              </svg>
-            </div>
-          </div>
-        </div>
+    <div class="roadmap-cols">
+      <div class="rm-col reveal">
+        <span class="rm-phase done">Concluído — v4.2</span>
+        <div class="rm-title">Lançado</div>
+        <ul class="rm-list">
+          <li>Sistema de banner e avatar</li>
+          <li>Login aprimorado com melhorias de segurança</li>
+          <li>Melhorias visuais gerais na interface</li>
+          <li>Reformulação completa da aba Tutoriais e Configurações</li>
+          <li>Estruturada em cards com tópicos organizados</li>
+          <li>Sistema de auto update</li>
+          <li>Novo recurso de busca</li>
+        </ul>
+      </div>
+      <div class="rm-col active reveal d1">
+        <span class="rm-phase now">Em desenvolvimento</span>
+        <div class="rm-title">Próxima versão</div>
+        <ul class="rm-list">
+          <li>Possível versão mobile</li>
+          <li>Refinamentos finais de UI/UX</li>
+          <li>Melhorias internas de estabilidade e performance</li>
+          <li>Ajustes finos no sistema de atualização automática</li>
+          <li>Pequenas melhorias de experiência do usuário com base no uso real</li>
+        </ul>
+      </div>
+      <div class="rm-col reveal d2">
+        <span class="rm-phase next">Planejado</span>
+        <div class="rm-title">Versões futuras</div>
+        <ul class="rm-list">
+          <li>Biblioteca Steam com covers</li>
+          <li>Perfil com banner animado (canvas)</li>
+          <li>Dashboard de métricas e uso</li>
+          <li>Saicon + Splash/Farewell canvas</li>
+          <li>Cliente para macOS</li>
+          <li>Versão mobile (Android)</li>
+        </ul>
       </div>
     </div>
+  </div>
+</div>
 
-    <!-- MOVIES -->
-    <div class="screen-panel" id="sp-movies">
-      <div class="fake-screen reveal">
-        <div class="fake-topbar">
-          <div class="fake-dot" style="background:#ff5f57"></div>
-          <div class="fake-dot" style="background:#ffbd2e"></div>
-          <div class="fake-dot" style="background:#28c840"></div>
-          <span style="font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--tx3);margin-left:10px">GMBR Launcher — Filmes & Séries</span>
-        </div>
-        <div class="fake-sidebar-main">
-          <div class="fake-sidebar">
-            <div class="fake-nav-item">🏠 Início</div>
-            <div class="fake-nav-item">🔍 Explorar</div>
-            <div class="fake-nav-item">📚 Biblioteca</div>
-            <div class="fake-nav-item active">🎬 Filmes</div>
-            <div class="fake-nav-item">📺 Séries</div>
-            <div class="fake-nav-item">⏱ Histórico</div>
-            <div class="fake-nav-item">⚙️ Config.</div>
-          </div>
-          <div class="fake-main" style="position:relative">
-            <div class="fake-row-title" style="margin-bottom:0">FILMES & SÉRIES</div>
-            <div style="font-size:10px;color:var(--tx3);margin-bottom:10px;font-family:'JetBrains Mono',monospace">Catálogo completo · player integrado</div>
-            <div class="fake-mv-grid">
-              <div class="fake-mv-card fmv0"><div class="fmv-badge">HD</div></div>
-              <div class="fake-mv-card fmv1"><div class="fmv-badge">4K</div></div>
-              <div class="fake-mv-card fmv2"><div class="fmv-badge">HD</div></div>
-              <div class="fake-mv-card fmv3"><div class="fmv-badge">NOVO</div></div>
-            </div>
-            <div class="screen-saicon" style="bottom:8px;right:8px">
-              <svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%">
-                <ellipse cx="32" cy="40" rx="16" ry="12" fill="#831843"/>
-                <ellipse cx="32" cy="38" rx="12" ry="9" fill="#db2777"/>
-                <circle cx="32" cy="20" r="14" fill="#831843"/>
-                <circle cx="32" cy="18" r="12" fill="#db2777"/>
-                <ellipse cx="26" cy="21" rx="8" ry="6" fill="#1a1a1a"/>
-                <ellipse cx="38" cy="21" rx="8" ry="6" fill="#1a1a1a"/>
-                <ellipse cx="26" cy="20" rx="3" ry="4" fill="#0a0f1a"/>
-                <ellipse cx="38" cy="20" rx="3" ry="4" fill="#0a0f1a"/>
-                <circle cx="27" cy="18.5" r="1" fill="#e8f0fe"/>
-                <circle cx="39" cy="18.5" r="1" fill="#e8f0fe"/>
-                <circle cx="20" cy="10" r="8" fill="#831843"/>
-                <circle cx="20" cy="10" r="5" fill="#db2777"/>
-                <circle cx="44" cy="10" r="8" fill="#831843"/>
-                <circle cx="44" cy="10" r="5" fill="#db2777"/>
-              </svg>
-            </div>
-          </div>
-        </div>
-      </div>
+<!-- TRANSITION: roadmap → grande visão -->
+<div class="sec-transition" style="background:linear-gradient(180deg,var(--bg1),var(--bg))">
+  <svg viewBox="0 0 1440 80" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M0,40 C360,80 1080,0 1440,40 L1440,80 L0,80 Z" fill="var(--bg)" opacity="0.6"/>
+    <path d="M0,55 C480,10 960,70 1440,30 L1440,80 L0,80 Z" fill="var(--bg)" opacity="0.4"/>
+  </svg>
+</div>
+
+<!-- GRANDE VISÃO -->
+<div class="vision-wrap" id="grande-visao">
+  <div class="vision-inner">
+    <div class="vision-header reveal">
+      <div class="vision-phase-tag">Grande visão — em projeto</div>
+      <h2 class="sec-title" style="font-size:clamp(26px,3vw,38px);margin-bottom:10px">O futuro do GMBR</h2>
+      <p class="sec-sub">Funcionalidades ambiciosas que estão sendo desenhadas. Acompanhe o progresso no Discord e deixe sua opinião.</p>
     </div>
 
-    <!-- SETTINGS -->
-    <div class="screen-panel" id="sp-settings">
-      <div class="fake-screen reveal">
-        <div class="fake-topbar">
-          <div class="fake-dot" style="background:#ff5f57"></div>
-          <div class="fake-dot" style="background:#ffbd2e"></div>
-          <div class="fake-dot" style="background:#28c840"></div>
-          <span style="font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--tx3);margin-left:10px">GMBR Launcher — Configurações</span>
+    <div class="vision-grid">
+      <div class="vcard c-cyan reveal">
+        <div class="vcard-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+            <rect x="2" y="3" width="20" height="14" rx="2"/>
+            <path d="M8 21h8M12 17v4"/>
+            <path d="M6 7h.01M9 7h6"/>
+          </svg>
         </div>
-        <div class="fake-sidebar-main">
-          <div class="fake-sidebar">
-            <div class="fake-nav-item">🏠 Início</div>
-            <div class="fake-nav-item">🔍 Explorar</div>
-            <div class="fake-nav-item">📚 Biblioteca</div>
-            <div class="fake-nav-item">🎬 Filmes</div>
-            <div class="fake-nav-item">📺 Séries</div>
-            <div class="fake-nav-item">⏱ Histórico</div>
-            <div class="fake-nav-item active">⚙️ Config.</div>
-          </div>
-          <div class="fake-main" style="position:relative">
-            <div class="fake-row-title">CONFIGURAÇÕES</div>
-            <div class="fake-settings-row">
-              <div><div class="fake-stg-label">Pasta de download</div><div class="fake-stg-desc">~/Downloads</div></div>
-              <div style="font-size:11px;color:var(--acc);font-family:'JetBrains Mono',monospace">Alterar</div>
-            </div>
-            <div class="fake-settings-row">
-              <div><div class="fake-stg-label">Abrir torrent automaticamente</div><div class="fake-stg-desc">qBittorrent / uTorrent</div></div>
-              <div class="fake-toggle"></div>
-            </div>
-            <div class="fake-settings-row">
-              <div><div class="fake-stg-label">Saicon animado</div><div class="fake-stg-desc">Mascote se move pela tela</div></div>
-              <div class="fake-toggle"></div>
-            </div>
-            <div class="fake-settings-row">
-              <div><div class="fake-stg-label">Itens por página</div><div class="fake-stg-desc">24 jogos</div></div>
-              <div style="font-size:11px;color:var(--acc);font-family:'JetBrains Mono',monospace">24 ▾</div>
-            </div>
-            <div class="screen-saicon" style="bottom:8px;right:8px">
-              <svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%">
-                <ellipse cx="32" cy="40" rx="16" ry="12" fill="#064e3b"/>
-                <ellipse cx="32" cy="38" rx="12" ry="9" fill="#059669"/>
-                <circle cx="32" cy="20" r="14" fill="#064e3b"/>
-                <circle cx="32" cy="18" r="12" fill="#059669"/>
-                <ellipse cx="26" cy="21" rx="8" ry="6" fill="#1a1a1a"/>
-                <ellipse cx="38" cy="21" rx="8" ry="6" fill="#1a1a1a"/>
-                <ellipse cx="26" cy="20" rx="3" ry="4" fill="#0a0f1a"/>
-                <ellipse cx="38" cy="20" rx="3" ry="4" fill="#0a0f1a"/>
-                <circle cx="27" cy="18.5" r="1" fill="#e8f0fe"/>
-                <circle cx="39" cy="18.5" r="1" fill="#e8f0fe"/>
-                <circle cx="20" cy="10" r="8" fill="#064e3b"/>
-                <circle cx="20" cy="10" r="5" fill="#059669"/>
-                <circle cx="44" cy="10" r="8" fill="#064e3b"/>
-                <circle cx="44" cy="10" r="5" fill="#059669"/>
-                <!-- star -->
-                <polygon points="32,0 34.9,8.8 44.1,8.8 36.6,14.2 39.5,23 32,17.6 24.5,23 27.4,14.2 19.9,8.8 29.1,8.8" fill="#f5c842"/>
-              </svg>
-            </div>
-          </div>
+        <div class="vcard-name">Biblioteca Steam integrada</div>
+        <div class="vcard-desc">Sincronização com sua conta Steam: covers em alta resolução, histórico de horas, lançamento de jogos instalados direto pelo GMBR, sem abrir o cliente Steam.</div>
+        <div class="vcard-tags">
+          <span class="vcard-tag">Steam API</span>
+          <span class="vcard-tag">covers HD</span>
+          <span class="vcard-tag">launcher</span>
+          <span class="vcard-tag">histórico</span>
+        </div>
+      </div>
+
+      <div class="vcard c-purple reveal d1">
+        <div class="vcard-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+            <circle cx="12" cy="8" r="4"/>
+            <path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/>
+            <circle cx="12" cy="8" r="7" stroke-dasharray="2 2"/>
+          </svg>
+        </div>
+        <div class="vcard-name">Perfil com banner animado</div>
+        <div class="vcard-desc">Página de perfil pública com banner em canvas animado, ring do avatar renderizado em canvas com efeito de partículas, biblioteca de jogos exibida com grid de covers.</div>
+        <div class="vcard-tags">
+          <span class="vcard-tag">canvas</span>
+          <span class="vcard-tag">partículas</span>
+          <span class="vcard-tag">banner</span>
+          <span class="vcard-tag">avatar ring</span>
+        </div>
+      </div>
+
+      <div class="vcard c-orange reveal d2">
+        <div class="vcard-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+            <circle cx="12" cy="12" r="10"/>
+            <line x1="12" y1="8" x2="12" y2="12"/>
+            <line x1="12" y1="16" x2="12.01" y2="16"/>
+          </svg>
+        </div>
+        <div class="vcard-name">Loja in-app — descartada</div>
+        <div class="vcard-desc">A ideia de uma loja com pagamentos via PIX foi removida permanentemente do roadmap. Integrar APIs de pagamento, lidar com estornos, conformidade fiscal e obrigações legais envolvendo dinheiro de terceiros é um trabalho complexo demais para um projeto mantido por um único desenvolvedor — e qualquer erro nessa área tem consequências sérias, jurídicas e financeiras. O GMBR permanece 100% gratuito e sem qualquer sistema de pagamento.</div>
+        <div class="vcard-tags">
+          <span class="vcard-tag" style="color:var(--red);border-color:rgba(255,51,85,.25);background:rgba(255,51,85,.06)">descartado</span>
+          <span class="vcard-tag">100% gratuito</span>
+        </div>
+      </div>
+
+      <div class="vcard c-blue reveal">
+        <div class="vcard-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+            <circle cx="12" cy="12" r="10"/>
+            <line x1="12" y1="8" x2="12" y2="12"/>
+            <line x1="12" y1="16" x2="12.01" y2="16"/>
+          </svg>
+        </div>
+        <div class="vcard-name">Social — descartado</div>
+        <div class="vcard-desc">Feed, chat em tempo real, amizades e status online foram removidos do planejamento. Implementar infraestrutura de WebSocket confiável, moderar conteúdo gerado por usuários e manter servidores de mensagens é uma responsabilidade operacional grande demais para um projeto solo. O foco permanece no que o GMBR faz bem: jogos e conteúdo.</div>
+        <div class="vcard-tags">
+          <span class="vcard-tag" style="color:var(--red);border-color:rgba(255,51,85,.25);background:rgba(255,51,85,.06)">descartado</span>
+          <span class="vcard-tag">foco no core</span>
+        </div>
+      </div>
+
+      <div class="vcard c-green reveal d1">
+        <div class="vcard-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+            <path d="M12 2l1.5 4.5H18L14.25 9l1.5 4.5L12 11.25 8.25 13.5l1.5-4.5L6 6.75h4.5z"/>
+            <rect x="4" y="15" width="16" height="7" rx="1.5"/>
+            <path d="M9 18.5h6M12 15v3"/>
+          </svg>
+        </div>
+        <div class="vcard-name">Admin Panel completo</div>
+        <div class="vcard-desc">Dashboard de gerenciamento: usuários, banimentos, métricas de uso e logs de atividade em tempo real.</div>
+        <div class="vcard-tags">
+          <span class="vcard-tag">usuários</span>
+          <span class="vcard-tag">banimentos</span>
+          <span class="vcard-tag">métricas</span>
+          <span class="vcard-tag">logs</span>
+        </div>
+      </div>
+
+      <div class="vcard c-pink reveal d2">
+        <div class="vcard-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+            <circle cx="12" cy="12" r="9"/>
+            <circle cx="9" cy="10" r="1.5" fill="currentColor" stroke="none"/>
+            <circle cx="15" cy="10" r="1.5" fill="currentColor" stroke="none"/>
+            <path d="M9 15c.8 1.2 5.2 1.2 6 0"/>
+            <path d="M7 7l-2-2M17 7l2-2"/>
+          </svg>
+        </div>
+        <div class="vcard-name">Saicon, Splash & Farewell</div>
+        <div class="vcard-desc">Mascote Saicon customizável em SVG com acessórios. Splash screen de abertura e Farewell screen de encerramento com chuva de partículas canvas e animação temática.</div>
+        <div class="vcard-tags">
+          <span class="vcard-tag">mascote SVG</span>
+          <span class="vcard-tag">splash</span>
+          <span class="vcard-tag">farewell</span>
+          <span class="vcard-tag">canvas</span>
         </div>
       </div>
     </div>
   </div>
-</section>
+</div>
 
-<!-- AUTH -->
-<section class="auth-section">
-  <div class="auth-inner">
-    <div class="reveal">
-      <div class="tag-sm">// AUTENTICAÇÃO</div>
-      <h2 class="h2">SUA CONTA.<br>SUA REGRA.</h2>
-      <p class="body-txt">Login via <strong>Discord</strong>, <strong>Google</strong> ou <strong>e-mail/senha</strong>. Seu perfil, favoritos e configurações sincronizados. Ou use sem conta — sem obrigação nenhuma.</p>
-    </div>
-    <div class="auth-card reveal d2">
-      <div class="auth-card-header">
-        <div class="auth-hd" style="background:#ff5f57"></div>
-        <div class="auth-hd" style="background:#ffbd2e"></div>
-        <div class="auth-hd" style="background:#28c840"></div>
-        <span style="font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--tx3);margin-left:8px">gmbr-auth</span>
-      </div>
-      <div class="auth-card-body">
-        <div class="auth-title">Entrar no GMBR</div>
-        <div class="auth-sub">Escolha como quer acessar</div>
-        <button class="auth-btn ab-discord">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057c.002.022.015.043.033.057a19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028c.462-.63.874-1.295 1.226-1.994a.076.076 0 0 0-.041-.106 13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03z"/></svg>
-          Continuar com Discord
-        </button>
-        <button class="auth-btn ab-google">
-          <svg width="16" height="16" viewBox="0 0 24 24"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/></svg>
-          Continuar com Google
-        </button>
-        <div class="auth-sep">ou</div>
-        <button class="auth-btn ab-email">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
-          Entrar com E-mail
-        </button>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- DOWNLOAD -->
-<section class="dl-section">
-  <div class="dl-glow"></div>
-  <div class="dl-inner reveal">
-    <div class="tag-sm" style="display:inline-block;margin-bottom:20px">// DOWNLOAD</div>
-    <div class="dl-title">PRONTO PRA<br><span>COMEÇAR?</span></div>
-    <p class="dl-sub">Instale em segundos. Roda em qualquer PC com Windows 10 ou 11, sem precisar instalar mais nada.</p>
-    <div class="dl-reqs">
-      <span class="dl-req">Windows 10 / 11</span>
-      <span class="dl-req">64-bit</span>
-      <span class="dl-req">Sem Python necessário</span>
-      <span class="dl-req">100% gratuito</span>
-      <span class="dl-req">Sem anúncios</span>
-    </div>
-    <div class="dl-os-grid">
-      <div style="display:flex;flex-direction:column;align-items:center;gap:8px">
-        <a href="https://github.com/Pixelmodeler/DownloadGBR/releases/download/BETA/GMBR_Launcher_Setup_v3.2.exe" class="btn-dl-os active">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M0 3.449L9.75 2.1v9.451H0m10.949-9.602L24 0v11.4H10.949M0 12.6h9.75v9.451L0 20.699M10.949 12.6H24V24l-12.9-1.801"/></svg>
-          Windows
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-        </a>
-        <a href="https://pixeldrain.com/u/qVxfAFkG" class="btn-dl-os" style="background:rgba(255,255,255,.05);color:var(--tx2);border:1px solid var(--brd);font-size:11px;padding:7px 18px" target="_blank">
-          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-          Mirror — Pixeldrain
-        </a>
-      </div>
-      <div style="display:flex;flex-direction:column;align-items:center;gap:8px">
-        <a href="https://github.com/Pixelmodeler/DownloadGBR/releases/download/BETA/GMBR_Launcher_Linux.zip" class="btn-dl-os active">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12.504 0c-.155 0-.315.008-.48.021-4.226.333-3.105 4.807-3.17 6.298-.076 1.092-.3 1.953-1.05 3.02-.885 1.051-2.127 2.75-2.716 4.521-.278.832-.41 1.684-.287 2.489.117.779.567 1.563 1.182 2.114.267.243.613.39.988.39.417 0 .852-.163 1.235-.464.394-.31.65-.675.824-1.045.31-.681.458-1.434.562-2.196l.04-.302c.039-.3.068-.479.108-.568.155-.358.48-.568.864-.568.378 0 .72.197.906.538.124.228.173.48.22.749l.042.295c.1.748.247 1.497.547 2.178.167.37.42.739.811 1.05.378.3.81.463 1.228.463.375 0 .72-.147.987-.39.616-.55 1.066-1.335 1.183-2.114.123-.805-.009-1.657-.287-2.489-.59-1.771-1.832-3.47-2.717-4.521-.75-1.067-.974-1.928-1.05-3.02-.065-1.491 1.057-5.965-3.17-6.298-.164-.013-.324-.021-.48-.021zm.016 2.4c.123 0 .246.006.37.016 2.91.229 2.017 4.28 2.065 5.527.073 1.274.356 2.35 1.243 3.556.857 1.01 2.048 2.64 2.597 4.274.227.68.33 1.368.237 1.966-.081.534-.41 1.076-.794 1.42-.133.12-.3.184-.474.184-.196 0-.409-.08-.6-.234-.283-.224-.482-.52-.625-.85-.261-.575-.4-1.25-.494-1.944l-.044-.311c-.046-.27-.095-.576-.253-.87-.354-.654-1.027-1.04-1.762-1.04-.744 0-1.418.4-1.765 1.064-.15.289-.2.588-.245.857l-.04.3c-.094.698-.235 1.373-.497 1.947-.144.33-.344.627-.626.85-.192.154-.404.235-.6.235-.174 0-.341-.063-.474-.184-.384-.344-.713-.886-.794-1.42-.093-.598.01-1.286.237-1.966.549-1.634 1.74-3.265 2.597-4.274.887-1.206 1.17-2.282 1.243-3.556.048-1.247-.845-5.298 2.065-5.527.124-.01.248-.015.37-.015z"/></svg>
-          Linux (.AppImage)
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-        </a>
-        <a href="https://pixeldrain.com/u/Vv71xkeC" class="btn-dl-os" style="background:rgba(255,255,255,.05);color:var(--tx2);border:1px solid var(--brd);font-size:11px;padding:7px 18px" target="_blank">
-          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-          Mirror — Pixeldrain
-        </a>
-      </div>
-      <div class="btn-dl-os soon" style="cursor:not-allowed">
-        <span class="soon-badge">EM DEV</span>
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
-        macOS
-      </div>
-    </div>
-    <div class="dl-note">v3.2.9 · Se aparecer aviso do Windows: "Mais informações" → "Executar assim mesmo"</div>
-    <div class="dl-mobile-notice">
-      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="5" y="2" width="14" height="20" rx="2"/><line x1="12" y1="18" x2="12" y2="18.01"/></svg>
-      Versão mobile e macOS em desenvolvimento — fique ligado no Discord!
-    </div>
-  </div>
-</section>
+<!-- TRANSITION: grande visão → faq -->
+<div class="sec-transition" style="background:linear-gradient(180deg,var(--bg),var(--bg))">
+  <svg viewBox="0 0 1440 80" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+    <line x1="0" y1="40" x2="1440" y2="40" stroke="rgba(0,212,255,0.06)" stroke-width="1"/>
+    <path d="M0,40 Q360,20 720,40 T1440,40" fill="none" stroke="rgba(0,212,255,0.12)" stroke-width="1.5"/>
+  </svg>
+</div>
 
 <!-- FAQ -->
-<section class="faq-section" id="faq">
-  <div class="reveal">
-    <div class="tag-sm">// DÚVIDAS</div>
-    <h2 class="h2" style="margin-bottom:48px">PERGUNTAS<br>FREQUENTES</h2>
-  </div>
-  <div class="faq-item reveal"><div class="faq-q" onclick="toggleFaq(this)">O que é o GMBR Launcher?<span class="icon"><svg width="10" height="10" viewBox="0 0 10 10" fill="currentColor"><path d="M5 0v10M0 5h10"/></svg></span></div><div class="faq-a">GMBR é um launcher gratuito para PC com +40.000 jogos de várias fontes, catálogo de filmes e séries, mascote personalizável e sistema de autenticação completo. Tudo num só app.</div></div>
-  <div class="faq-item reveal"><div class="faq-q" onclick="toggleFaq(this)">Preciso criar conta?<span class="icon"><svg width="10" height="10" viewBox="0 0 10 10" fill="currentColor"><path d="M5 0v10M0 5h10"/></svg></span></div><div class="faq-a">Não é obrigatório. Você usa normalmente sem conta. A conta serve para salvar favoritos, configurações e participar da comunidade no Discord.</div></div>
-  <div class="faq-item reveal"><div class="faq-q" onclick="toggleFaq(this)">O Windows deu aviso ao instalar. É vírus?<span class="icon"><svg width="10" height="10" viewBox="0 0 10 10" fill="currentColor"><path d="M5 0v10M0 5h10"/></svg></span></div><div class="faq-a">Não. O aviso do SmartScreen aparece para qualquer app sem certificado digital pago. Clique em "Mais informações" e depois "Executar assim mesmo".</div></div>
-  <div class="faq-item reveal"><div class="faq-q" onclick="toggleFaq(this)">O que é o Saicon?<span class="icon"><svg width="10" height="10" viewBox="0 0 10 10" fill="currentColor"><path d="M5 0v10M0 5h10"/></svg></span></div><div class="faq-a">O Saicon é o mascote oficial do GMBR — um guaxinim animado que vive na interface. Você pode mudar a cor dele, colocar acessórios e até renomear nas configurações.</div></div>
-  <div class="faq-item reveal"><div class="faq-q" onclick="toggleFaq(this)">Como pedir suporte se der erro?<span class="icon"><svg width="10" height="10" viewBox="0 0 10 10" fill="currentColor"><path d="M5 0v10M0 5h10"/></svg></span></div><div class="faq-a">Na aba Suporte do app, clique em "Salvar Log — Escolher Pasta", escolha onde salvar e mande o arquivo num ticket no Discord. Nossa equipe responde rápido.</div></div>
-</section>
-
-<!-- SUGESTÕES -->
-<section class="dl-section" id="sugestoes" style="padding:100px 24px">
-  <div class="dl-glow"></div>
-  <div class="dl-inner reveal">
-    <div class="tag-sm" style="display:inline-block;margin-bottom:20px">// COMUNIDADE</div>
-    <div class="dl-title" style="font-size:clamp(44px,7vw,80px)">TEM UMA<br><span>IDEIA?</span></div>
-    <p class="dl-sub">Quer sugerir uma funcionalidade, reportar algo ou só dar uma opinião? Vai direto no canal do Discord — a gente lê tudo.</p>
-    <a href="https://discord.com/channels/1076278131926773801/1343040065550549052" target="_blank" class="btn-dl" style="display:inline-flex;margin:0 auto">
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057c.002.022.015.043.033.057a19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028c.462-.63.874-1.295 1.226-1.994a.076.076 0 0 0-.041-.106 13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03z"/></svg>
-      Sugerir no Discord
-    </a>
-    <div class="dl-note" style="margin-top:18px">Acessa o canal #sugestões e manda sua ideia — toda sugestão é levada a sério</div>
-  </div>
-</section>
-
-<!-- ATUALIZAÇÕES -->
-<section id="atualizacoes" style="position:relative;z-index:2;padding:100px 24px;max-width:900px;margin:0 auto">
-  <div class="reveal">
-    <div class="tag-sm">// CHANGELOG</div>
-    <h2 class="h2" style="margin-bottom:16px">ATUALIZAÇÕES</h2>
-    <div style="display:flex;align-items:center;gap:12px;margin-bottom:48px;flex-wrap:wrap">
-      <span style="font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--grn);background:rgba(0,229,170,.08);border:1px solid rgba(0,229,170,.25);border-radius:6px;padding:4px 12px">ATUAL: v3.2.9</span>
-      <span style="font-size:13px;color:var(--tx2)">→</span>
-      <span style="font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--gold);background:rgba(245,197,24,.08);border:1px solid rgba(245,197,24,.25);border-radius:6px;padding:4px 12px">PRÓXIMA: v4.0</span>
+<div class="section" id="faq">
+  <div class="faq-inner">
+    <div class="reveal">
+      <span class="sec-label">FAQ</span>
+      <h2 class="sec-title">Dúvidas frequentes</h2>
+      <p class="sec-sub" style="margin-top:10px;font-size:13.5px">Não encontrou o que precisava? Fale com a equipe no Discord.</p>
+      <a href="https://discord.gg/HPRE3aSCWr" target="_blank" style="display:inline-flex;align-items:center;gap:7px;margin-top:20px;color:var(--acc);font-size:13px;text-decoration:none;font-weight:500">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057c.002.022.015.043.033.057a19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66z"/></svg>
+        Entrar no Discord
+      </a>
+    </div>
+    <div class="faq-list reveal d1">
+      <div class="faq-item"><div class="faq-q" onclick="faq(this)">O que é o GMBR Launcher?<span class="faq-icon"><svg width="9" height="9" viewBox="0 0 10 10" fill="currentColor"><path d="M5 0v10M0 5h10"/></svg></span></div><div class="faq-a">O GMBR é um gerenciador de jogos para PC com catálogo de mais de 120.000 títulos, filmes e séries integrados, autenticação completa e ferramentas de diagnóstico. Gratuito, sem anúncios, sem instalação do Python.</div></div>
+      <div class="faq-item"><div class="faq-q" onclick="faq(this)">O Windows exibiu um aviso de segurança. É seguro?<span class="faq-icon"><svg width="9" height="9" viewBox="0 0 10 10" fill="currentColor"><path d="M5 0v10M0 5h10"/></svg></span></div><div class="faq-a">Sim. O aviso do SmartScreen aparece para qualquer executável sem certificado EV pago. A partir da v4.2 o bundle é assinado digitalmente. Clique em "Mais informações" → "Executar assim mesmo".</div></div>
+      <div class="faq-item"><div class="faq-q" onclick="faq(this)">Preciso criar uma conta?<span class="faq-icon"><svg width="9" height="9" viewBox="0 0 10 10" fill="currentColor"><path d="M5 0v10M0 5h10"/></svg></span></div><div class="faq-a">Não. O launcher funciona completamente sem conta. A autenticação é opcional — serve para sincronizar favoritos e configurações entre dispositivos.</div></div>
+      <div class="faq-item"><div class="faq-q" onclick="faq(this)">Como atualizar?<span class="faq-icon"><svg width="9" height="9" viewBox="0 0 10 10" fill="currentColor"><path d="M5 0v10M0 5h10"/></svg></span></div><div class="faq-a">No momento as atualizações são manuais — baixe a versão mais recente no GitHub e instale sobre a existente. O sistema de atualização automática está no roadmap.</div></div>
+      <div class="faq-item"><div class="faq-q" onclick="faq(this)">O que é o Modo Performance?<span class="faq-icon"><svg width="9" height="9" viewBox="0 0 10 10" fill="currentColor"><path d="M5 0v10M0 5h10"/></svg></span></div><div class="faq-a">Um painel nas configurações com oito toggles que desligam animações, blur e efeitos visuais. O preset "Máximo" ativa todos e sincroniza com o servidor — o cache de respostas sobe de 30 s para 120 s, deixando o launcher mais leve.</div></div>
+      <div class="faq-item"><div class="faq-q" onclick="faq(this)">O que é o Dados Nerds?<span class="faq-icon"><svg width="9" height="9" viewBox="0 0 10 10" fill="currentColor"><path d="M5 0v10M0 5h10"/></svg></span></div><div class="faq-a">Painel de diagnóstico nas configurações com métricas em tempo real: CPU, RAM, GPU, VRAM, temperaturas, uptime, cache e DOM. Atualizado via /api/nerdstats com intervalo configurável.</div></div>
+      <div class="faq-item"><div class="faq-q" onclick="faq(this)">Como gerar um log de suporte?<span class="faq-icon"><svg width="9" height="9" viewBox="0 0 10 10" fill="currentColor"><path d="M5 0v10M0 5h10"/></svg></span></div><div class="faq-a">Na aba Suporte do launcher, clique em "Salvar Log — Escolher Pasta". O arquivo gerado contém o diagnóstico completo. Envie-o em um ticket no Discord.</div></div>
+      <div class="faq-item"><div class="faq-q" onclick="faq(this)">Há versão para macOS?<span class="faq-icon"><svg width="9" height="9" viewBox="0 0 10 10" fill="currentColor"><path d="M5 0v10M0 5h10"/></svg></span></div><div class="faq-a">Não ainda. O macOS está no roadmap como item planejado. Acompanhe as atualizações no Discord.</div></div>
     </div>
   </div>
+</div>
 
-  <!-- ATUALIZAÇÃO 1 -->
-  <div class="reveal d1" style="background:var(--bg1);border:1px solid var(--brd);border-radius:20px;padding:36px;margin-bottom:24px;position:relative;overflow:hidden">
-    <div style="position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--acc),var(--acc2))"></div>
-    <div style="display:flex;align-items:center;gap:14px;margin-bottom:24px;flex-wrap:wrap">
-      <span style="font-family:'Bebas Neue',sans-serif;font-size:28px;letter-spacing:1px;color:var(--acc)">Atualização 1</span>
-      <span style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--tx2);background:var(--bg2);border:1px solid var(--brd);border-radius:6px;padding:3px 10px">v3.2.9</span>
-      <span style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--grn)">✓ LANÇADA</span>
+<!-- TRANSITION: faq → download -->
+<div class="sec-transition" style="background:linear-gradient(180deg,var(--bg),var(--bg1))">
+  <svg viewBox="0 0 1440 80" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M0,0 C480,80 960,0 1440,60 L1440,80 L0,80 Z" fill="var(--bg1)" opacity="0.7"/>
+  </svg>
+</div>
+
+<!-- DL BOTTOM -->
+<div class="dl-bottom">
+  <div class="dl-bottom-glow"></div>
+  <div class="dl-bottom-inner">
+    <div class="reveal">
+      <span class="sec-label">Download</span>
+      <h2 class="sec-title" style="font-size:clamp(28px,3.5vw,44px);margin-bottom:14px">Pronto para instalar.</h2>
+      <p style="font-size:14px;color:var(--t1);line-height:1.8;max-width:380px;margin-bottom:30px">Windows 10 ou 11, 64 bits. Sem Python, sem configuração. O installer cuida de tudo.</p>
+      <div style="display:flex;flex-direction:column;gap:12px;align-items:flex-start">
+        <a href="https://github.com/Pixelmodeler/DownloadGBR/releases/download/BETA/GMBR_Launcher_Setup_v4.2.exe" class="btn-dl-main">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M0 3.449L9.75 2.1v9.451H0m10.949-9.602L24 0v11.4H10.949M0 12.6h9.75v9.451L0 20.699M10.949 12.6H24V24l-12.9-1.801"/></svg>
+          Baixar para Windows
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+        </a>
+        <a href="https://pixeldrain.com/u/qVxfAFkG" target="_blank" style="font-family:var(--font-mono);font-size:11px;color:var(--t2);text-decoration:none;display:flex;align-items:center;gap:6px;transition:color .15s" onmouseover="this.style.color='var(--t1)'" onmouseout="this.style.color='var(--t2)'">
+          <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+          Mirror alternativo (Pixeldrain)
+        </a>
+      </div>
     </div>
-    <div style="display:flex;flex-direction:column;gap:14px">
-      <div style="display:flex;gap:14px;align-items:flex-start">
-        <span style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--acc);background:rgba(0,212,255,.1);border-radius:4px;padding:2px 8px;flex-shrink:0;margin-top:1px">01</span>
-        <span style="font-size:14px;color:var(--tx);line-height:1.6">Arrumado Sistema de Filmes</span>
-      </div>
-      <div style="display:flex;gap:14px;align-items:flex-start">
-        <span style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--acc);background:rgba(0,212,255,.1);border-radius:4px;padding:2px 8px;flex-shrink:0;margin-top:1px">02</span>
-        <span style="font-size:14px;color:var(--tx);line-height:1.6">Arrumado Jogos que não funcionavam para adicionar na Steam</span>
-      </div>
-      <div style="display:flex;gap:14px;align-items:flex-start">
-        <span style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--acc);background:rgba(0,212,255,.1);border-radius:4px;padding:2px 8px;flex-shrink:0;margin-top:1px">03</span>
-        <span style="font-size:14px;color:var(--tx);line-height:1.6">Agora o Launcher tem suporte para <strong style="color:var(--grn)">Linux</strong></span>
-      </div>
-      <div style="display:flex;gap:14px;align-items:flex-start">
-        <span style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--acc);background:rgba(0,212,255,.1);border-radius:4px;padding:2px 8px;flex-shrink:0;margin-top:1px">04</span>
-        <span style="font-size:14px;color:var(--tx);line-height:1.6">Site atualizado com novas mudanças</span>
+    <div class="reveal d1">
+      <div style="font-size:9.5px;color:var(--t2);font-family:var(--font-mono);margin-bottom:14px;letter-spacing:1px;text-transform:uppercase">Requisitos mínimos</div>
+      <div class="dl-req-grid">
+        <div class="dl-req-item"><div class="dl-req-k">Sistema</div><div class="dl-req-v">Windows 10 / 11</div></div>
+        <div class="dl-req-item"><div class="dl-req-k">Arquitetura</div><div class="dl-req-v">64-bit</div></div>
+        <div class="dl-req-item"><div class="dl-req-k">RAM</div><div class="dl-req-v">4 GB</div></div>
+        <div class="dl-req-item"><div class="dl-req-k">Armazenamento</div><div class="dl-req-v">200 MB</div></div>
+        <div class="dl-req-item"><div class="dl-req-k">Python</div><div class="dl-req-v">Não necessário</div></div>
+        <div class="dl-req-item"><div class="dl-req-k">Versão</div><div class="dl-req-v">v4.2</div></div>
       </div>
     </div>
   </div>
+</div>
 
-  <!-- EM DESENVOLVIMENTO -->
-  <div class="reveal d2" style="background:var(--bg1);border:1px solid rgba(245,197,24,.2);border-radius:20px;padding:36px;position:relative;overflow:hidden">
-    <div style="position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--gold),transparent)"></div>
-    <div style="display:flex;align-items:center;gap:14px;margin-bottom:8px;flex-wrap:wrap">
-      <span style="font-family:'Bebas Neue',sans-serif;font-size:28px;letter-spacing:1px;color:var(--gold)">v4.0</span>
-      <span style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--gold);background:rgba(245,197,24,.08);border:1px solid rgba(245,197,24,.25);border-radius:6px;padding:3px 10px">⚙ EM DESENVOLVIMENTO</span>
+
+<!-- REGRAS E LEGALIZAÇÃO -->
+<div id="regras" style="background:var(--bg1);border-top:1px solid var(--brd);position:relative;overflow:hidden">
+  <div style="position:absolute;top:0;left:10%;right:10%;height:1px;background:linear-gradient(90deg,transparent,var(--acc) 40%,var(--acc2) 60%,transparent);opacity:.3"></div>
+  <div style="max-width:1240px;margin:0 auto;padding:96px 40px">
+
+    <div class="reveal" style="margin-bottom:52px">
+      <span class="sec-label">Regras &amp; Legalização</span>
+      <h2 class="sec-title">Uso responsável</h2>
+      <p class="sec-sub">Leia com atenção antes de usar o GMBR Launcher. O uso da plataforma implica concordância com estas diretrizes.</p>
     </div>
-    <p style="font-size:13px;color:var(--tx2);margin-bottom:24px;font-family:'JetBrains Mono',monospace;letter-spacing:.3px">Lançamento previsto da segunda atualização:</p>
-    <div style="display:flex;flex-direction:column;gap:14px">
-      <div style="display:flex;gap:14px;align-items:flex-start">
-        <span style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--gold);background:rgba(245,197,24,.08);border-radius:4px;padding:2px 8px;flex-shrink:0;margin-top:1px">01</span>
-        <span style="font-size:14px;color:var(--tx2);line-height:1.6">Sistema de download interno com opção de baixar via <strong style="color:var(--tx)">Launcher</strong> ou via <strong style="color:var(--tx)">Torrent</strong></span>
+
+    <!-- TABS -->
+    <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:36px" id="rulesTabs">
+      <button onclick="showTab('tab-usuario')" id="btn-tab-usuario" class="rtab rtab-active">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+        Para Usuários
+      </button>
+      <button onclick="showTab('tab-dev')" id="btn-tab-dev" class="rtab">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+        Para Desenvolvedores
+      </button>
+      <button onclick="showTab('tab-conteudo')" id="btn-tab-conteudo" class="rtab">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/></svg>
+        Conteúdo Proibido
+      </button>
+      <button onclick="showTab('tab-monetiz')" id="btn-tab-monetiz" class="rtab">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg>
+        Monetização
+      </button>
+      <button onclick="showTab('tab-esclarec')" id="btn-tab-esclarec" class="rtab">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+        Por Que Essas Regras?
+      </button>
+    </div>
+
+    <!-- TAB: USUÁRIOS -->
+    <div id="tab-usuario" class="rtab-content">
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:14px">
+
+        <div class="rcard" style="--rc:#00d4ff;--rcb:rgba(0,212,255,.08);--rcc:rgba(0,212,255,.18)">
+          <div class="rcard-ico"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
+          <div class="rcard-title">Isenção de responsabilidade</div>
+          <p class="rcard-text">O GMBR Launcher é uma ferramenta de organização e indexação. Ele não armazena, distribui nem hospeda nenhum arquivo de jogo. Todo o conteúdo listado é proveniente de fontes públicas de terceiros. A responsabilidade pelo uso é inteiramente do usuário.</p>
+        </div>
+
+        <div class="rcard" style="--rc:#7c3aed;--rcb:rgba(124,58,237,.08);--rcc:rgba(124,58,237,.2)">
+          <div class="rcard-ico"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></div>
+          <div class="rcard-title">Direitos autorais</div>
+          <p class="rcard-text">Todos os jogos, filmes e séries exibidos no catálogo pertencem aos seus respectivos detentores de direitos. O GMBR não reivindica propriedade sobre nenhum desses conteúdos. Caso seja titular de algum direito e queira solicitar remoção, entre em contato via Discord.</p>
+        </div>
+
+        <div class="rcard" style="--rc:#00e5a0;--rcb:rgba(0,229,160,.07);--rcc:rgba(0,229,160,.2)">
+          <div class="rcard-ico"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div>
+          <div class="rcard-title">Uso pessoal</div>
+          <p class="rcard-text">O GMBR é destinado exclusivamente ao uso pessoal e não comercial. Você pode jogar, assistir filmes, organizar sua biblioteca e personalizar sua experiência livremente, inclusive sem criar conta para a maioria das funcionalidades.</p>
+        </div>
+
+        <div class="rcard" style="--rc:#fb923c;--rcb:rgba(251,146,60,.08);--rcc:rgba(251,146,60,.2)">
+          <div class="rcard-ico"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg></div>
+          <div class="rcard-title">Sem garantias</div>
+          <p class="rcard-text">O software é fornecido "como está", sem garantia de qualquer tipo. Os desenvolvedores não se responsabilizam por danos diretos ou indiretos decorrentes do uso do launcher, incluindo perda de dados ou incompatibilidades de sistema.</p>
+        </div>
+
+        <div class="rcard" style="--rc:#ff3355;--rcb:rgba(255,51,85,.07);--rcc:rgba(255,51,85,.2)">
+          <div class="rcard-ico"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg></div>
+          <div class="rcard-title">Conduta na comunidade</div>
+          <p class="rcard-text">É proibido o uso do GMBR para distribuição de malware, spam, conteúdo ilegal ou qualquer atividade que viole leis locais ou internacionais. Violações resultam em banimento permanente da plataforma e comunidade.</p>
+        </div>
+
+        <div class="rcard rcard-cta" style="--rc:#00d4ff;--rcb:rgba(0,212,255,.04);--rcc:rgba(0,212,255,.15)">
+          <div class="rcard-title">Onde ficam seus dados?</div>
+          <p class="rcard-text" style="margin-bottom:16px">Todos os dados pessoais (biblioteca, histórico, favoritos, configurações) ficam salvos em <code style="font-family:var(--font-mono);font-size:11px;background:rgba(0,212,255,.08);padding:2px 7px;border-radius:5px;color:var(--acc)">C:\Users\...\AppData\Roaming\GMBR\</code>. Esses arquivos sobrevivem a reinstalações do launcher.</p>
+          <p class="rcard-text">Dados sensíveis são cifrados com <strong style="color:var(--t0)">AES-256-GCM</strong>. A chave é derivada do identificador único da sua máquina — o banco não pode ser lido em outro computador.</p>
+        </div>
+
       </div>
-      <div style="display:flex;gap:14px;align-items:flex-start">
-        <span style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--gold);background:rgba(245,197,24,.08);border-radius:4px;padding:2px 8px;flex-shrink:0;margin-top:1px">02</span>
-        <span style="font-size:14px;color:var(--tx2);line-height:1.6">Sistema de fontes para filmes</span>
+    </div>
+
+    <!-- TAB: DESENVOLVEDORES -->
+    <div id="tab-dev" class="rtab-content" style="display:none">
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px">
+
+        <div class="rcard" style="--rc:#00e5a0;--rcb:rgba(0,229,160,.07);--rcc:rgba(0,229,160,.2)">
+          <div class="rcard-ico"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg></div>
+          <div class="rcard-title">O que você PODE fazer</div>
+          <ul class="rcard-list">
+            <li>Otimizar código para melhor performance</li>
+            <li>Criar equipe de desenvolvimento para colaborar</li>
+            <li>Mudar completamente a aparência visual (cores, layouts, fontes)</li>
+            <li>Compartilhar sua versão modificada gratuitamente</li>
+            <li>Cobrar pelo seu trabalho de desenvolvimento via meios externos</li>
+            <li>Mudar a linguagem nativa / traduzir para outros idiomas</li>
+            <li>Pedir ajuda diretamente ao desenvolvedor oficial</li>
+            <li>Modificar código backend, lógica, integrações, estrutura de arquivos</li>
+          </ul>
+          <p class="rcard-text" style="margin-top:14px;font-size:11.5px;color:var(--acc)">Você não precisa pedir permissão para modificar — mas precisa informar ao usuário final que é uma versão modificada.</p>
+        </div>
+
+        <div class="rcard" style="--rc:#ff3355;--rcb:rgba(255,51,85,.07);--rcc:rgba(255,51,85,.2)">
+          <div class="rcard-ico"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></div>
+          <div class="rcard-title">O que você NÃO pode fazer</div>
+          <ul class="rcard-list">
+            <li><strong style="color:var(--t0)">Nome e marca:</strong> O app deve continuar sendo chamado "GMBR Launcher". Não pode renomear.</li>
+            <li><strong style="color:var(--t0)">Logo:</strong> O logo do GMBR não pode ser substituído, removido ou alterado.</li>
+            <li><strong style="color:var(--t0)">Código fechado:</strong> A versão modificada precisa permanecer open source.</li>
+            <li><strong style="color:var(--t0)">Branding oculto:</strong> Não esconda o nome "GMBR Launcher" na interface.</li>
+            <li><strong style="color:var(--t0)">Monetização interna:</strong> Nenhuma loja, pagamento, assinatura ou paywall dentro do app.</li>
+          </ul>
+        </div>
+
+        <div class="rcard" style="--rc:#00d4ff;--rcb:rgba(0,212,255,.06);--rcc:rgba(0,212,255,.18);grid-column:1/-1">
+          <div class="rcard-ico"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div>
+          <div class="rcard-title">Como informar que é uma versão modificada</div>
+          <p class="rcard-text" style="margin-bottom:14px">Escolha <strong style="color:var(--t0)">apenas uma</strong> das opções abaixo e mantenha o crédito <strong style="color:var(--t0)">discreto</strong> — sem fontes gigantes, cores chamativas ou repetições:</p>
+          <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px">
+            <div style="background:rgba(0,212,255,.04);border:1px solid rgba(0,212,255,.1);border-radius:10px;padding:14px 16px">
+              <div style="font-family:var(--font-mono);font-size:9px;color:var(--acc);letter-spacing:1px;margin-bottom:6px">OPÇÃO 1</div>
+              <div style="font-size:12.5px;color:var(--t0);font-weight:600;margin-bottom:4px">Via interface</div>
+              <p style="font-size:12px;color:var(--t1)">Aba "Sobre" ou "Mod por [seu nome]"</p>
+            </div>
+            <div style="background:rgba(0,212,255,.04);border:1px solid rgba(0,212,255,.1);border-radius:10px;padding:14px 16px">
+              <div style="font-family:var(--font-mono);font-size:9px;color:var(--acc);letter-spacing:1px;margin-bottom:6px">OPÇÃO 2</div>
+              <div style="font-size:12.5px;color:var(--t0);font-weight:600;margin-bottom:4px">Splash screen</div>
+              <p style="font-size:12px;color:var(--t1)">Assinatura por 2-3s no canto ao iniciar</p>
+            </div>
+            <div style="background:rgba(0,212,255,.04);border:1px solid rgba(0,212,255,.1);border-radius:10px;padding:14px 16px">
+              <div style="font-family:var(--font-mono);font-size:9px;color:var(--acc);letter-spacing:1px;margin-bottom:6px">OPÇÃO 3</div>
+              <div style="font-size:12.5px;color:var(--t0);font-weight:600;margin-bottom:4px">Tela de saída</div>
+              <p style="font-size:12px;color:var(--t1)">Mensagem na tela de encerramento do app</p>
+            </div>
+            <div style="background:rgba(0,212,255,.04);border:1px solid rgba(0,212,255,.1);border-radius:10px;padding:14px 16px">
+              <div style="font-family:var(--font-mono);font-size:9px;color:var(--acc);letter-spacing:1px;margin-bottom:6px">OPÇÃO 4</div>
+              <div style="font-size:12.5px;color:var(--t0);font-weight:600;margin-bottom:4px">Rodapé</div>
+              <p style="font-size:12px;color:var(--t1)">Texto discreto no rodapé de todas as telas</p>
+            </div>
+          </div>
+        </div>
+
       </div>
-      <div style="display:flex;gap:14px;align-items:flex-start">
-        <span style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--gold);background:rgba(245,197,24,.08);border-radius:4px;padding:2px 8px;flex-shrink:0;margin-top:1px">03</span>
-        <span style="font-size:14px;color:var(--tx2);line-height:1.6">Sistema de horas jogadas semelhante à Steam</span>
+    </div>
+
+    <!-- TAB: CONTEÚDO PROIBIDO -->
+    <div id="tab-conteudo" class="rtab-content" style="display:none">
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:14px">
+
+        <div class="rcard" style="--rc:#ff3355;--rcb:rgba(255,51,85,.07);--rcc:rgba(255,51,85,.2)">
+          <div class="rcard-ico"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="8" y1="8" x2="16" y2="16"/><line x1="16" y1="8" x2="8" y2="16"/></svg></div>
+          <div class="rcard-title">Conteúdo NSFW</div>
+          <p class="rcard-text">Conteúdo sexual explícito, imagens adultas, referências sexuais ou qualquer coisa inapropriada está estritamente proibido. O app é voltado para jogos e filmes — um ambiente familiar para todos os usuários.</p>
+        </div>
+
+        <div class="rcard" style="--rc:#ff3355;--rcb:rgba(255,51,85,.07);--rcc:rgba(255,51,85,.2)">
+          <div class="rcard-ico"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg></div>
+          <div class="rcard-title">Apologia às drogas</div>
+          <p class="rcard-text">Referências a substâncias ilegais, glorificação de drogas ou incentivo ao uso de entorpecentes são proibidos. Isso inclui qualquer imagem, texto ou funcionalidade que promova esse tipo de conteúdo.</p>
+        </div>
+
+        <div class="rcard" style="--rc:#ff3355;--rcb:rgba(255,51,85,.07);--rcc:rgba(255,51,85,.2)">
+          <div class="rcard-ico"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></div>
+          <div class="rcard-title">Conteúdo armamentista</div>
+          <p class="rcard-text">Conteúdo focado em armas ou violência armamentista é proibido. A exceção são armas que já existem nos jogos ou capas de jogos — isso é natural e perfeitamente esperado num launcher de games.</p>
+        </div>
+
+        <div class="rcard" style="--rc:#ff3355;--rcb:rgba(255,51,85,.07);--rcc:rgba(255,51,85,.2)">
+          <div class="rcard-ico"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></div>
+          <div class="rcard-title">Malware e código malicioso</div>
+          <p class="rcard-text">É absolutamente proibido inserir qualquer tipo de malware, spyware, minerador, código de coleta não autorizada de dados, ou qualquer funcionalidade que prejudique o usuário ou terceiros.</p>
+        </div>
+
+        <div class="rcard" style="--rc:#fb923c;--rcb:rgba(251,146,60,.07);--rcc:rgba(251,146,60,.2);grid-column:1/-1">
+          <div class="rcard-ico"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg></div>
+          <div class="rcard-title">Consequências de violação</div>
+          <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:10px;margin-top:10px">
+            <div style="background:rgba(255,51,85,.06);border:1px solid rgba(255,51,85,.15);border-radius:10px;padding:14px">
+              <div style="font-size:12.5px;color:var(--t0);font-weight:600;margin-bottom:5px">Ações legais</div>
+              <p style="font-size:12px;color:var(--t1)">Dependendo da gravidade, podem ser tomadas medidas legais por quebra de contrato ou violação de direitos autorais.</p>
+            </div>
+            <div style="background:rgba(255,51,85,.06);border:1px solid rgba(255,51,85,.15);border-radius:10px;padding:14px">
+              <div style="font-size:12.5px;color:var(--t0);font-weight:600;margin-bottom:5px">Exposição pública</div>
+              <p style="font-size:12px;color:var(--t1)">A violação pode ser exposta publicamente para informar a comunidade sobre o ocorrido.</p>
+            </div>
+            <div style="background:rgba(255,51,85,.06);border:1px solid rgba(255,51,85,.15);border-radius:10px;padding:14px">
+              <div style="font-size:12.5px;color:var(--t0);font-weight:600;margin-bottom:5px">Sem suporte</div>
+              <p style="font-size:12px;color:var(--t1)">Versões que violam os termos não recebem nenhum suporte do desenvolvedor oficial.</p>
+            </div>
+          </div>
+        </div>
+
       </div>
-      <div style="display:flex;gap:14px;align-items:flex-start">
-        <span style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--gold);background:rgba(245,197,24,.08);border-radius:4px;padding:2px 8px;flex-shrink:0;margin-top:1px">04</span>
-        <span style="font-size:14px;color:var(--tx2);line-height:1.6">Aplicativo Mobile Completo</span>
+    </div>
+
+    <!-- TAB: MONETIZAÇÃO -->
+    <div id="tab-monetiz" class="rtab-content" style="display:none">
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px">
+
+        <div class="rcard" style="--rc:#ff3355;--rcb:rgba(255,51,85,.07);--rcc:rgba(255,51,85,.2)">
+          <div class="rcard-ico"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></div>
+          <div class="rcard-title">Proibido dentro do app</div>
+          <ul class="rcard-list">
+            <li>Lojas ou sistemas de compra dentro do launcher</li>
+            <li>Itens para vender ou DLCs pagos</li>
+            <li>Assinaturas ou premium features com paywall</li>
+            <li>Propagandas inseridas no app</li>
+            <li>Botões de PIX, transferência ou pagamento direto</li>
+            <li>Qualquer transação financeira realizada dentro do software</li>
+          </ul>
+        </div>
+
+        <div class="rcard" style="--rc:#00e5a0;--rcb:rgba(0,229,160,.07);--rcc:rgba(0,229,160,.2)">
+          <div class="rcard-ico"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg></div>
+          <div class="rcard-title">Formas legítimas de monetizar</div>
+          <ul class="rcard-list">
+            <li>Site próprio para divulgar seu projeto e aceitar doações</li>
+            <li>Plataformas como GitHub Sponsors, Ko-fi, PicPay</li>
+            <li>Links de afiliados no seu site (não dentro do app)</li>
+            <li>Anúncios display no seu site externo</li>
+            <li>Conteúdo premium no seu próprio site</li>
+          </ul>
+          <p class="rcard-text" style="margin-top:14px;font-size:11.5px;color:var(--grn)">Se você quer ganhar dinheiro com seu trabalho, faça isso fora do app — é simples, limpo, e não prejudica ninguém.</p>
+        </div>
+
+        <div class="rcard" style="--rc:#00d4ff;--rcb:rgba(0,212,255,.05);--rcc:rgba(0,212,255,.18);grid-column:1/-1">
+          <div class="rcard-ico"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg></div>
+          <div class="rcard-title">Por que essa regra existe?</div>
+          <p class="rcard-text">O desenvolvedor não ganhou nada com o GMBR Launcher — nenhum centavo com o site ou o projeto. Se você criar uma versão paga, estaria ganhando dinheiro com trabalho que não é seu. Além disso, os usuários estariam pagando por algo que deveria ser gratuito, e isso criaria confusão sobre a versão oficial do projeto.</p>
+        </div>
+
       </div>
+    </div>
+
+    <!-- TAB: ESCLARECIMENTOS -->
+    <div id="tab-esclarec" class="rtab-content" style="display:none">
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:14px">
+
+        <div class="rcard" style="--rc:#7c3aed;--rcb:rgba(124,58,237,.08);--rcc:rgba(124,58,237,.2)">
+          <div class="rcard-ico"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></div>
+          <div class="rcard-title">Por que proibir código fechado?</div>
+          <p class="rcard-text">Código fechado abre margem para mineração de dados, spywares e malwares — o usuário não tem como saber o que está rodando. Com código aberto, qualquer pessoa pode auditar e verificar. O GMBR existe porque acredita em software aberto e comunidade: fechar o código mata esse espírito.</p>
+        </div>
+
+        <div class="rcard" style="--rc:#00d4ff;--rcb:rgba(0,212,255,.06);--rcc:rgba(0,212,255,.18)">
+          <div class="rcard-ico"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
+          <div class="rcard-title">Por que proteger nome e logo?</div>
+          <p class="rcard-text">Se alguém renomear o app e fizer coisas ruins, a culpa recairia sobre o GMBR — destruindo a reputação de anos de trabalho honesto. Se você quer sua própria marca, crie um fork completo com nome diferente. É assim que projetos open source funcionam.</p>
+        </div>
+
+        <div class="rcard" style="--rc:#00e5a0;--rcb:rgba(0,229,160,.07);--rcc:rgba(0,229,160,.2)">
+          <div class="rcard-ico"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div>
+          <div class="rcard-title">Por que exigir transparência para o usuário?</div>
+          <p class="rcard-text">O usuário merece saber exatamente o que está usando. Se ele tiver problemas com uma versão modificada e vier perguntar ao desenvolvedor oficial, é preciso esclarecer que não é a versão oficial. Sem essa transparência, o desenvolvedor original ficaria respondendo por erros de terceiros.</p>
+        </div>
+
+        <div class="rcard" style="--rc:#fb923c;--rcb:rgba(251,146,60,.07);--rcc:rgba(251,146,60,.2)">
+          <div class="rcard-ico"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg></div>
+          <div class="rcard-title">Por que pedir discrição no crédito?</div>
+          <p class="rcard-text">Flood de créditos e assinaturas gigantescas degradam a experiência do usuário e parecem amadoras. Nem o desenvolvedor oficial exibe o nome do projeto de forma agressiva por todo lugar. Existe um equilíbrio entre dar crédito e não incomodar.</p>
+        </div>
+
+        <div class="rcard" style="--rc:#00d4ff;--rcb:rgba(0,212,255,.04);--rcc:rgba(0,212,255,.15);grid-column:1/-1">
+          <div class="rcard-ico"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg></div>
+          <div class="rcard-title">Por que tanta liberdade?</div>
+          <p class="rcard-text" style="margin-bottom:8px">O GMBR foi construído para a comunidade. Otimizar, traduzir, criar equipes, mudar a aparência — isso é ótimo e o projeto só ganha com isso. A confiança é a base: você tem liberdade, só precisa respeitar as regras básicas.</p>
+          <p class="rcard-text"><strong style="color:var(--t0)">Use bom senso.</strong> Nem tudo que não foi explicitamente proibido significa que é permitido. Se algo parece errado, provavelmente é. Em caso de dúvida, entre em contato antes de fazer — é melhor perguntar do que violar sem querer.</p>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- CTA Discord -->
+    <div style="margin-top:40px;display:flex;align-items:center;gap:16px;flex-wrap:wrap">
+      <a href="https://discord.gg/HPRE3aSCWr" target="_blank" style="display:inline-flex;align-items:center;gap:8px;background:linear-gradient(135deg,var(--acc),var(--acc2));color:#000;border-radius:10px;padding:11px 22px;font-family:var(--font-display);font-size:12px;font-weight:800;letter-spacing:.3px;text-transform:uppercase;text-decoration:none;transition:all .2s;box-shadow:0 0 20px rgba(0,212,255,.2)" onmouseover="this.style.boxShadow='0 0 35px rgba(0,212,255,.5)';this.style.transform='translateY(-2px)'" onmouseout="this.style.boxShadow='0 0 20px rgba(0,212,255,.2)';this.style.transform='none'">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057c.002.022.015.043.033.057a19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66z"/></svg>
+        Falar no Discord
+      </a>
+      <span style="font-size:12.5px;color:var(--t1)">Dúvidas sobre o que é permitido? Entre em contato antes de fazer.</span>
+    </div>
+
+  </div>
+</div>
+
+<style>
+.rtab{
+  display:inline-flex;align-items:center;gap:7px;
+  font-family:var(--font-body);font-size:12.5px;font-weight:500;
+  color:rgba(255,255,255,.4);background:rgba(255,255,255,.04);
+  border:1px solid rgba(255,255,255,.08);border-radius:10px;
+  padding:8px 16px;cursor:pointer;transition:all .18s;
+}
+.rtab:hover{color:rgba(255,255,255,.7);background:rgba(255,255,255,.07)}
+.rtab-active{
+  color:var(--acc);
+  background:rgba(0,212,255,.08);
+  border-color:rgba(0,212,255,.28);
+}
+.rcard{
+  background:var(--bg2);
+  border:1px solid var(--brd);
+  border-radius:16px;
+  padding:26px 24px;
+  transition:border-color .25s,transform .25s;
+}
+.rcard:hover{
+  border-color:color-mix(in srgb, var(--rc) 40%, transparent);
+  transform:translateY(-3px);
+}
+.rcard-ico{
+  width:40px;height:40px;border-radius:11px;
+  background:var(--rcb);border:1px solid var(--rcc);
+  display:flex;align-items:center;justify-content:center;
+  margin-bottom:16px;color:var(--rc);
+}
+.rcard-title{
+  font-family:var(--font-display);font-size:14.5px;font-weight:700;
+  color:var(--t0);margin-bottom:10px;
+}
+.rcard-text{font-size:13px;color:var(--t1);line-height:1.8}
+.rcard-list{
+  list-style:none;display:flex;flex-direction:column;gap:8px;
+  font-size:12.5px;color:var(--t1);line-height:1.6;
+}
+.rcard-list li{display:flex;gap:10px;align-items:baseline}
+.rcard-list li::before{
+  content:'';width:4px;height:4px;border-radius:50%;
+  background:var(--rc);flex-shrink:0;margin-top:6px;opacity:.7;
+}
+@media(max-width:720px){
+  #tab-dev > div,#tab-monetiz > div,#tab-conteudo > div,#tab-esclarec > div,#tab-usuario > div{grid-template-columns:1fr}
+  #tab-dev > div .rcard,#tab-monetiz > div .rcard,#tab-conteudo > div .rcard,#tab-esclarec > div .rcard,#tab-usuario > div .rcard{grid-column:auto!important}
+}
+</style>
+
+<!-- VERSÕES ANTERIORES -->
+<div class="prev-wrap">
+  <div class="prev-inner">
+    <button class="prev-toggle" id="prevToggle" onclick="togglePrev()">
+      <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+      Versões anteriores
+    </button>
+    <div class="prev-body" id="prevBody">
+      <table class="prev-table">
+        <thead>
+          <tr>
+            <th>Versão</th>
+            <th>Data</th>
+            <th>Windows</th>
+            <th>Linux</th>
+            <th>Notas</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><span class="ver-badge latest">v4.2</span></td>
+            <td>Abril 2026</td>
+            <td><a href="https://github.com/Pixelmodeler/DownloadGBR/releases/download/BETA/GMBR_Launcher_Setup_v4.2.exe" class="prev-dl-link">↓ .exe</a></td>
+            <td><a href="https://github.com/Pixelmodeler/DownloadGBR/releases/download/BETA/GMBR_Launcher_Linux4.2.zip" class="prev-dl-link">↓ .zip</a></td>
+            <td style="font-size:12px;color:var(--t1)">Versão atual — bundle criptografado, modo performance, dados nerds</td>
+          </tr>
+          <tr>
+            <td><span class="ver-badge old">v4.1</span></td>
+            <td>—</td>
+            <td><span class="prev-dl-link ghost" style="cursor:default;opacity:.5">indisponível</span></td>
+            <td><span class="prev-dl-link ghost" style="cursor:default;opacity:.5">indisponível</span></td>
+            <td style="font-size:12px;color:var(--t1)">Versão legada — não recomendada</td>
+          </tr>
+        </tbody>
+      </table>
     </div>
   </div>
-</section>
+</div>
 
-<!-- DOAÇÃO -->
-<section id="doacao" style="position:relative;z-index:2;padding:100px 24px;text-align:center;overflow:hidden">
-  <div class="dl-glow"></div>
-  <div class="dl-inner reveal" style="max-width:680px;margin:0 auto">
-    <div class="tag-sm" style="display:inline-block;margin-bottom:20px">// APOIE O PROJETO</div>
-    <h2 class="h2" style="margin-bottom:16px">FAÇA UMA<br><span style="color:var(--grn)">DOAÇÃO</span></h2>
-    <p style="font-size:15px;color:var(--tx2);line-height:1.75;margin-bottom:40px;font-weight:300">O GMBR Launcher é 100% gratuito e feito com muito carinho. Se quiser apoiar o desenvolvimento, qualquer valor já ajuda muito! 🦝</p>
-
-    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px;margin-bottom:32px">
-
-      <!-- Chave pix celular -->
-      <div style="background:var(--bg1);border:1px solid var(--brd);border-radius:16px;padding:24px;text-align:left">
-        <div style="font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--grn);letter-spacing:1px;margin-bottom:10px">📱 CELULAR</div>
-        <div style="font-family:'JetBrains Mono',monospace;font-size:14px;color:var(--tx);letter-spacing:.5px;word-break:break-all;margin-bottom:12px">199953230076</div>
-        <button onclick="navigator.clipboard.writeText('199953230076');this.textContent='✓ Copiado!';setTimeout(()=>this.textContent='Copiar',2000)" style="font-family:'JetBrains Mono',monospace;font-size:11px;background:rgba(0,229,170,.1);color:var(--grn);border:1px solid rgba(0,229,170,.25);border-radius:6px;padding:5px 14px;cursor:pointer;transition:all .2s">Copiar</button>
-      </div>
-
-      <!-- Chave pix CPF -->
-      <div style="background:var(--bg1);border:1px solid var(--brd);border-radius:16px;padding:24px;text-align:left">
-        <div style="font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--grn);letter-spacing:1px;margin-bottom:10px">🪪 CPF</div>
-        <div style="font-family:'JetBrains Mono',monospace;font-size:14px;color:var(--tx);letter-spacing:.5px;word-break:break-all;margin-bottom:12px">53235500820</div>
-        <button onclick="navigator.clipboard.writeText('53235500820');this.textContent='✓ Copiado!';setTimeout(()=>this.textContent='Copiar',2000)" style="font-family:'JetBrains Mono',monospace;font-size:11px;background:rgba(0,229,170,.1);color:var(--grn);border:1px solid rgba(0,229,170,.25);border-radius:6px;padding:5px 14px;cursor:pointer;transition:all .2s">Copiar</button>
-      </div>
-
-      <!-- Chave pix Gmail -->
-      <div style="background:var(--bg1);border:1px solid var(--brd);border-radius:16px;padding:24px;text-align:left">
-        <div style="font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--grn);letter-spacing:1px;margin-bottom:10px">📧 E-MAIL</div>
-        <div style="font-family:'JetBrains Mono',monospace;font-size:14px;color:var(--tx);letter-spacing:.5px;word-break:break-all;margin-bottom:12px">c26448015@gmail.com</div>
-        <button onclick="navigator.clipboard.writeText('c26448015@gmail.com');this.textContent='✓ Copiado!';setTimeout(()=>this.textContent='Copiar',2000)" style="font-family:'JetBrains Mono',monospace;font-size:11px;background:rgba(0,229,170,.1);color:var(--grn);border:1px solid rgba(0,229,170,.25);border-radius:6px;padding:5px 14px;cursor:pointer;transition:all .2s">Copiar</button>
-      </div>
-    </div>
-
-    <!-- Copia e cola -->
-    <div style="background:var(--bg1);border:1px solid rgba(0,212,255,.2);border-radius:16px;padding:24px;text-align:left">
-      <div style="font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--acc);letter-spacing:1px;margin-bottom:12px">📋 COPIA E COLA (QR CODE PIX)</div>
-      <div style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--tx2);line-height:1.7;word-break:break-all;background:var(--bg2);border:1px solid var(--brd);border-radius:8px;padding:14px;margin-bottom:14px;letter-spacing:.3px">00020126590014BR.GOV.BCB.PIX0114+55199532300760219Obrigado! by oliver5204000053039865802BR5925Christian Bernardo de Oli6009SAO PAULO62140510ZpUWjjV7CX63048D5F</div>
-      <button onclick="navigator.clipboard.writeText('00020126590014BR.GOV.BCB.PIX0114+55199532300760219Obrigado! by oliver5204000053039865802BR5925Christian Bernardo de Oli6009SAO PAULO62140510ZpUWjjV7CX63048D5F');this.textContent='✓ Código Copiado!';setTimeout(()=>this.textContent='Copiar Código PIX',2000)" style="font-family:'JetBrains Mono',monospace;font-size:12px;background:var(--acc);color:#000;border:none;border-radius:8px;padding:10px 22px;cursor:pointer;font-weight:700;transition:all .2s">Copiar Código PIX</button>
-    </div>
-
-    <p style="margin-top:20px;font-size:12px;color:var(--tx3);font-family:'JetBrains Mono',monospace">Obrigado pelo apoio! — Oliver 🦝</p>
-  </div>
-</section>
-
-<!-- FOOTER -->
 <footer>
-  <div>
-    <div class="foot-logo">GM<span>BR</span> LAUNCHER</div>
-    <div class="foot-sub">© 2026 · v3.2.9 · O Futuro é Open Source</div>
+  <div class="footer-line"></div>
+  <div class="foot-left">
+    <span class="foot-brand">GM<em>BR</em> Launcher</span>
+    <span class="foot-copy">© 2026 · Open Source</span>
   </div>
   <div class="foot-links">
     <a href="https://discord.gg/HPRE3aSCWr" target="_blank">Discord</a>
     <a href="https://github.com/Pixelmodeler/DownloadGBR/releases" target="_blank">GitHub</a>
+    <a href="#roadmap">Roadmap</a>
+    <a href="#regras">Regras</a>
     <a href="#faq">FAQ</a>
-    <a href="#atualizacoes">Atualizações</a>
-    <a href="#doacao">Doação</a>
+  </div>
+  <div style="width:100%;border-top:1px solid var(--brd);margin-top:16px;padding-top:14px;text-align:center">
+    <span style="font-family:var(--font-mono);font-size:10px;color:var(--t2);letter-spacing:.4px">
+      pensando, planejado, executado e em desenvolvimento by <em style="font-style:normal;color:var(--t1);font-weight:500">oliver</em>
+    </span>
   </div>
 </footer>
 
 <script>
-// ── CURSOR ──
-const cur = document.getElementById('cur');
-const ring = document.getElementById('curRing');
-let mx=0,my=0,rx=0,ry=0;
-document.addEventListener('mousemove',e=>{
-  mx=e.clientX; my=e.clientY;
-  cur.style.left=mx+'px'; cur.style.top=my+'px';
+/* ─── UTILS ─── */
+function showTab(id) {
+  document.querySelectorAll('.rtab-content').forEach(el => el.style.display = 'none');
+  document.querySelectorAll('.rtab').forEach(btn => btn.classList.remove('rtab-active'));
+  document.getElementById(id).style.display = 'block';
+  document.getElementById('btn-' + id).classList.add('rtab-active');
+}
+function togglePrev() {
+  const btn  = document.getElementById('prevToggle');
+  const body = document.getElementById('prevBody');
+  const open = body.classList.toggle('open');
+  btn.classList.toggle('open', open);
+}
+
+document.querySelectorAll('.reveal').forEach(el => {
+  new IntersectionObserver(([e]) => { if(e.isIntersecting) el.classList.add('vis'); }, {threshold:.07}).observe(el);
 });
-function animRing(){
-  rx+=(mx-rx)*.12; ry+=(my-ry)*.12;
-  ring.style.left=rx+'px'; ring.style.top=ry+'px';
-  requestAnimationFrame(animRing);
-}
-animRing();
-document.querySelectorAll('a,button,.cdot,.abtn,.stab,.faq-q').forEach(el=>{
-  el.addEventListener('mouseenter',()=>{ring.style.width='52px';ring.style.height='52px';ring.style.borderColor='rgba(0,212,255,.7)'});
-  el.addEventListener('mouseleave',()=>{ring.style.width='36px';ring.style.height='36px';ring.style.borderColor='rgba(0,212,255,.4)'});
-});
 
-// ── BRAND STRIP ──
-const strip = document.getElementById('brandStrip');
-const items = [
-  {hi:true,txt:'GMBR LAUNCHER'},
-  {hi:false,txt:'+40.000 JOGOS'},
-  {hi:false,txt:'FILMES & SÉRIES'},
-  {hi:true,txt:'SAICON'},
-  {hi:false,txt:'100% GRATUITO'},
-  {hi:false,txt:'MULTI-AUTH'},
-  {hi:true,txt:'SEM LIMITE'},
-  {hi:false,txt:'WINDOWS 10/11'},
-];
-function makeSaiconSVG(c1,c2){return`<svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" style="width:48px;height:48px"><ellipse cx="32" cy="40" rx="16" ry="12" fill="${c1}"/><ellipse cx="32" cy="38" rx="12" ry="9" fill="${c2}"/><circle cx="32" cy="20" r="14" fill="${c1}"/><circle cx="32" cy="18" r="12" fill="${c2}"/><ellipse cx="26" cy="21" rx="8" ry="6" fill="#1a1a1a"/><ellipse cx="38" cy="21" rx="8" ry="6" fill="#1a1a1a"/><ellipse cx="26" cy="20" rx="3" ry="4" fill="#0a0f1a"/><ellipse cx="38" cy="20" rx="3" ry="4" fill="#0a0f1a"/><circle cx="27" cy="18.5" r="1" fill="#e8f0fe"/><circle cx="39" cy="18.5" r="1" fill="#e8f0fe"/><circle cx="20" cy="10" r="8" fill="${c1}"/><circle cx="20" cy="10" r="5" fill="${c2}"/><circle cx="44" cy="10" r="8" fill="${c1}"/><circle cx="44" cy="10" r="5" fill="${c2}"/></svg>`}
-const saiconColors=[['#4a4a4a','#5c5c5c'],['#1a4a7a','#1a6fa8'],['#4c1d95','#7c3aed'],['#7f1d1d','#dc2626'],['#064e3b','#059669'],['#78350f','#d97706'],['#831843','#db2777'],['#0891b2','#06b6d4']];
-let stripHTML='';
-for(let rep=0;rep<2;rep++){
-  items.forEach((item,i)=>{
-    const c=saiconColors[i%saiconColors.length];
-    stripHTML+=`<div class="brand-item">${makeSaiconSVG(c[0],c[1])}<div class="brand-item-txt ${item.hi?'hi':''}">${item.txt}</div></div><div class="brand-sep">◆</div>`;
+window.addEventListener('scroll', () => {
+  document.getElementById('mainNav').classList.toggle('scrolled', window.scrollY > 10);
+}, {passive:true});
+
+function faq(el) {
+  const item = el.closest('.faq-item'), was = item.classList.contains('open');
+  document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
+  if(!was) item.classList.add('open');
+}
+
+/* ─── STATS COUNT-UP ─── */
+(function(){
+  const els = document.querySelectorAll('[data-count]');
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if(!e.isIntersecting) return;
+      const el = e.target;
+      const target = parseInt(el.dataset.count), suffix = el.dataset.suffix || '';
+      const dur = 1800, start = performance.now();
+      (function tick(now){
+        const t = Math.min((now-start)/dur,1), ease = 1-Math.pow(1-t,4);
+        el.textContent = Math.round(ease*target).toLocaleString('pt-BR') + suffix;
+        if(t<1) requestAnimationFrame(tick);
+      })(performance.now());
+      obs.unobserve(el);
+    });
+  }, {threshold:.5});
+  els.forEach(el => obs.observe(el));
+})();
+
+/* ─── 3D TILT SCREENSHOT ─── */
+(function(){
+  const ss = document.getElementById('heroSS');
+  const shine = document.getElementById('ssShine');
+  if(!ss || window.innerWidth < 900) return;
+
+  const BASE_RY = -12, BASE_RX = 4, DEPTH = 13, LIFT = 6;
+  let currentRY = BASE_RY, currentRX = BASE_RX;
+  let targetRY  = BASE_RY, targetRX  = BASE_RX;
+  let isHovered = false;
+  let floatT = 0;
+  const FLOAT_SPEED = 0.0006, FLOAT_AMP = 5;
+
+  function lerp(a,b,t){ return a+(b-a)*t; }
+
+  function tick(){
+    floatT += FLOAT_SPEED;
+    const floatY = isHovered ? 0 : Math.sin(floatT)*FLOAT_AMP;
+    const lerpF = isHovered ? 0.12 : 0.04;
+    currentRY = lerp(currentRY, targetRY, lerpF);
+    currentRX = lerp(currentRX, targetRX, lerpF);
+    ss.style.transform = `translateY(calc(-50% + ${floatY}px)) perspective(1800px) rotateY(${currentRY}deg) rotateX(${currentRX}deg)`;
+    requestAnimationFrame(tick);
+  }
+  tick();
+
+  ss.addEventListener('mouseenter', () => { isHovered = true; });
+  ss.addEventListener('mousemove', (e) => {
+    const rect = ss.getBoundingClientRect();
+    const cx = ((e.clientX - rect.left)/rect.width  - 0.5)*2;
+    const cy = ((e.clientY - rect.top) /rect.height - 0.5)*2;
+    targetRY = BASE_RY + cx*DEPTH;
+    targetRX = BASE_RX - cy*DEPTH*0.6;
+    if(shine){
+      shine.style.background = `radial-gradient(circle 200px at ${e.clientX-rect.left}px ${e.clientY-rect.top}px, rgba(255,255,255,.1), transparent 70%)`;
+    }
   });
-}
-strip.innerHTML=stripHTML;
-
-// ── REVEAL ──
-const revEls = document.querySelectorAll('.reveal');
-const obs = new IntersectionObserver(entries=>{
-  entries.forEach(e=>{ if(e.isIntersecting) e.target.classList.add('vis'); });
-},{threshold:.1});
-revEls.forEach(el=>obs.observe(el));
-
-// ── FAQ ──
-function toggleFaq(el){
-  const item=el.closest('.faq-item');
-  const open=item.classList.contains('open');
-  document.querySelectorAll('.faq-item').forEach(i=>i.classList.remove('open'));
-  if(!open) item.classList.add('open');
-}
-
-// ── SCREEN TABS ──
-function showScreen(id,btn){
-  document.querySelectorAll('.screen-panel').forEach(p=>p.classList.remove('on'));
-  document.querySelectorAll('.stab').forEach(b=>b.classList.remove('on'));
-  document.getElementById('sp-'+id).classList.add('on');
-  btn.classList.add('on');
-}
-
-// ── SAICON PICKER ──
-const ACCS={
-  '':'',
-  crown:`<path d="M20 8 L24 2 L28 8 L32 4 L36 8 L40 2 L44 8 L42 6 L32 4 L22 6 Z" fill="#f5c842" stroke="#c9a227" stroke-width="0.8"/><rect x="20" y="7" width="24" height="4" rx="2" fill="#f5c842"/>`,
-  glasses:`<ellipse cx="24" cy="20" rx="6" ry="5" fill="none" stroke="rgba(0,212,255,0.9)" stroke-width="2"/><ellipse cx="40" cy="20" rx="6" ry="5" fill="none" stroke="rgba(0,212,255,0.9)" stroke-width="2"/><line x1="30" y1="20" x2="34" y2="20" stroke="rgba(0,212,255,0.9)" stroke-width="2"/><line x1="14" y1="19" x2="18" y2="20" stroke="rgba(0,212,255,0.9)" stroke-width="1.5"/><line x1="46" y1="20" x2="50" y2="19" stroke="rgba(0,212,255,0.9)" stroke-width="1.5"/>`,
-  hat:`<ellipse cx="32" cy="9" rx="14" ry="3.5" fill="#1a1a1a"/><rect x="24" y="1" width="16" height="9" rx="2" fill="#1a1a1a"/><rect x="24" y="8" width="16" height="2" rx="1" fill="#f5c842"/>`,
-  headset:`<path d="M16 14 Q16 4 32 4 Q48 4 48 14" fill="none" stroke="#888" stroke-width="3" stroke-linecap="round"/><rect x="12" y="13" width="6" height="9" rx="3" fill="#555"/><rect x="46" y="13" width="6" height="9" rx="3" fill="#555"/><circle cx="13" cy="18" r="2" fill="#00d4ff"/><circle cx="51" cy="18" r="2" fill="#00d4ff"/>`,
-  star:`<polygon points="32,0 34.9,8.8 44.1,8.8 36.6,14.2 39.5,23 32,17.6 24.5,23 27.4,14.2 19.9,8.8 29.1,8.8" fill="#f5c842"/>`,
-  wizard:`<path d="M20 8 L24 2 L28 8 L32 4 L36 8 L40 2 L44 8" fill="#4B0082" stroke="#2E0844" stroke-width="0.8"/><circle cx="32" cy="2" r="6" fill="#9333EA"/><path d="M32 8 L32 14" stroke="#FFD700" stroke-width="2"/>`,
-};
-
-let curC={c1:'#4a4a4a',c2:'#5c5c5c',c3:'#6b6b6b',sn:'#3d3d3d',gl:'rgba(90,90,90,.5)'};
-let curA='';
-
-function applyBig(){
-  const svg=document.getElementById('saiconBig');
-  svg.querySelectorAll('[data-r]').forEach(el=>{
-    const r=el.getAttribute('data-r');
-    if(r==='body1') el.setAttribute('fill',curC.c1);
-    else if(r==='body2') el.setAttribute('fill',curC.c2);
-    else if(r==='body3') el.setAttribute('fill',curC.c3);
-    else if(r==='ear1') el.setAttribute('fill',curC.c1);
-    else if(r==='ear2') el.setAttribute('fill',curC.c2);
-    else if(r==='snout') el.setAttribute('fill',curC.sn);
+  ss.addEventListener('mouseleave', () => {
+    isHovered = false;
+    targetRY = BASE_RY; targetRX = BASE_RX;
+    if(shine) shine.style.background = '';
   });
-  svg.style.filter=`drop-shadow(0 20px 60px ${curC.gl})`;
-  document.getElementById('bigAcc').innerHTML=ACCS[curA]||'';
-}
+})();
 
-document.querySelectorAll('.cdot').forEach(d=>{
-  d.addEventListener('click',()=>{
-    document.querySelectorAll('.cdot').forEach(x=>x.classList.remove('on'));
-    d.classList.add('on');
-    curC={c1:d.dataset.c1,c2:d.dataset.c2,c3:d.dataset.c3||d.dataset.c2,sn:d.dataset.sn||d.dataset.c1,gl:d.dataset.gl};
-    applyBig();
-  });
-});
-document.querySelectorAll('.abtn').forEach(b=>{
-  b.addEventListener('click',()=>{
-    document.querySelectorAll('.abtn').forEach(x=>x.classList.remove('on'));
-    b.classList.add('on');
-    curA=b.dataset.acc;
-    applyBig();
-  });
-});
-applyBig();
+/* ─── HERO PARTICLES ─── */
+(function(){
+  const c = document.getElementById('heroCanvas');
+  if(!c) return;
+  const ctx = c.getContext('2d');
+  let W, H;
+  function resize(){ W = c.width = innerWidth; H = c.height = innerHeight; }
+  resize(); window.addEventListener('resize', resize, {passive:true});
+  function rnd(a,b){ return a+Math.random()*(b-a); }
+  const COLORS = ['rgba(0,212,255,','rgba(0,85,255,','rgba(100,40,220,'];
+  const pts = [];
+  for(let i=0;i<70;i++){
+    pts.push({x:rnd(0,1),y:rnd(0,1),vx:rnd(-.00009,.00009),vy:rnd(-.00016,-.00005),r:rnd(.7,2.8),a:rnd(.06,.5),c:COLORS[Math.floor(rnd(0,3))]});
+  }
+  function draw(){
+    ctx.clearRect(0,0,W,H);
+    pts.forEach(p=>{
+      p.x+=p.vx; p.y+=p.vy;
+      if(p.y<-.02) p.y=1.02;
+      if(p.x<-.02) p.x=1.02;
+      if(p.x>1.02) p.x=-.02;
+      ctx.beginPath();
+      ctx.arc(p.x*W,p.y*H,p.r,0,Math.PI*2);
+      ctx.fillStyle=p.c+p.a+')';
+      ctx.fill();
+    });
+    requestAnimationFrame(draw);
+  }
+  draw();
+})();
+
+/* ─── TICKER AUTO-CLONE ─── */
+(function(){
+  const track = document.querySelector('.ticker-track');
+  if(!track) return;
+  // Remove manual duplicate items (keep only first half)
+  const items = track.querySelectorAll('.ticker-item');
+  const half = Math.ceil(items.length / 2);
+  for(let i = half; i < items.length; i++) items[i].remove();
+  // Clone remaining items for seamless loop
+  const originals = track.querySelectorAll('.ticker-item');
+  originals.forEach(item => track.appendChild(item.cloneNode(true)));
+})();
+
+/* ─── CUSTOM CURSOR ─── */
+(function(){
+  const cur = document.getElementById('cursor');
+  const ring = document.getElementById('cursorRing');
+  if(!cur) return;
+  let cx=0,cy=0,rx=0,ry=0;
+  document.addEventListener('mousemove',e=>{cx=e.clientX;cy=e.clientY;},{passive:true});
+  function tick(){
+    cur.style.left=cx+'px'; cur.style.top=cy+'px';
+    rx+=(cx-rx)*0.12; ry+=(cy-ry)*0.12;
+    ring.style.left=rx+'px'; ring.style.top=ry+'px';
+    requestAnimationFrame(tick);
+  }
+  tick();
+})();
+
+
 </script>
 </body>
 </html>
