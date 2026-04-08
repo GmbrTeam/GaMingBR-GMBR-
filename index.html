@@ -1790,60 +1790,191 @@ footer{
   <!-- Divisor -->
   <div style="width:100%;height:1px;background:var(--brd);margin:4px 0"></div>
 
-  <!-- Card do autor -->
-  <div style="width:100%;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px">
-    <a href="https://discord.com/users/1324060825350307942" target="_blank" class="foot-author-card">
-      <img src="https://i.postimg.cc/hjd4zW9X/image.png" alt="oliver" class="foot-author-avatar">
-      <div class="foot-author-info">
-        <span class="foot-author-name">oliver</span>
-        <span class="foot-author-sub">idealizador & desenvolvedor</span>
-      </div>
-      <span class="foot-author-discord">
-        <svg width="11" height="11" viewBox="0 0 127.14 96.36" fill="currentColor"><path d="M107.7 8.07A105.15 105.15 0 0 0 81.47 0a72.06 72.06 0 0 0-3.36 6.83 97.68 97.68 0 0 0-29.11 0A72.37 72.37 0 0 0 45.64 0a105.89 105.89 0 0 0-26.25 8.09C2.79 32.65-1.71 56.6.54 80.21a105.73 105.73 0 0 0 32.17 16.15 77.7 77.7 0 0 0 6.89-11.11 68.42 68.42 0 0 1-10.85-5.18c.91-.66 1.8-1.34 2.66-2a75.57 75.57 0 0 0 64.32 0c.87.71 1.76 1.39 2.66 2a68.68 68.68 0 0 1-10.87 5.19 77 77 0 0 0 6.89 11.1 105.25 105.25 0 0 0 32.19-16.14c2.64-27.38-4.51-51.11-18.9-72.15zM42.45 65.69C36.18 65.69 31 60 31 53s5-12.74 11.43-12.74S54 46 53.89 53s-5.05 12.69-11.44 12.69zm42.24 0C78.41 65.69 73.25 60 73.25 53s5-12.74 11.44-12.74S96.23 46 96.12 53s-5.04 12.69-11.43 12.69z"/></svg>
-        __oliversilva
-      </span>
-    </a>
-    <span id="footerTypewriter" style="font-family:var(--font-mono);font-size:10px;color:var(--t2);letter-spacing:.4px"></span>
+  <!-- Equipe -->
+  <div style="width:100%;margin-top:4px">
+    <div style="font-family:var(--font-mono);font-size:9px;color:var(--t2);letter-spacing:1.2px;text-transform:uppercase;margin-bottom:12px">Equipe</div>
+    <div style="display:flex;gap:10px;flex-wrap:wrap;align-items:center">
+
+      <!-- Oliver -->
+      <button class="team-chip" onclick="openMemberModal('oliver')" aria-label="Ver perfil de Oliver">
+        <img src="https://i.postimg.cc/hjd4zW9X/image.png" alt="oliver" class="team-chip-avatar">
+        <div class="team-chip-info">
+          <span class="team-chip-name">oliver</span>
+          <span class="team-chip-role c-acc">Dono · Dev Principal · Idealizador</span>
+        </div>
+        <span class="team-chip-badge owner">DONO</span>
+      </button>
+
+      <!-- Mayck -->
+      <button class="team-chip" onclick="openMemberModal('mayck')" aria-label="Ver perfil de Mayck">
+        <img src="https://i.postimg.cc/V6CMYhvd/image.png" alt="mayck" class="team-chip-avatar">
+        <div class="team-chip-info">
+          <span class="team-chip-name">Mayck</span>
+          <span class="team-chip-role c-purple">Subdono · Elaborador de Texto</span>
+        </div>
+        <span class="team-chip-badge subdono">SUBDONO</span>
+      </button>
+
+      <!-- Joao Simba -->
+      <button class="team-chip" onclick="openMemberModal('simba')" aria-label="Ver perfil de Joao Simba">
+        <img src="https://i.postimg.cc/SNJ4Jpqw/image.png" alt="Joao Simba" class="team-chip-avatar">
+        <div class="team-chip-info">
+          <span class="team-chip-name">Joao Simba</span>
+          <span class="team-chip-role c-green">Distribuição & Site</span>
+        </div>
+        <span class="team-chip-badge site">SITE</span>
+      </button>
+
+    </div>
   </div>
+
+  <div style="width:100%;height:1px;background:var(--brd);margin:16px 0 8px"></div>
+  <span id="footerTypewriter" style="font-family:var(--font-mono);font-size:10px;color:var(--t2);letter-spacing:.4px"></span>
 </footer>
 
+<!-- ─── MODALS DA EQUIPE ─── -->
+<div id="memberModalOverlay" onclick="closeMemberModal()" style="display:none;position:fixed;inset:0;z-index:9990;background:rgba(0,0,0,.72);backdrop-filter:blur(14px);cursor:pointer"></div>
+
+<div id="memberModal" style="display:none;position:fixed;z-index:9991;top:50%;left:50%;transform:translate(-50%,-50%);width:min(480px,92vw);cursor:default" role="dialog" aria-modal="true">
+  <div class="mmodal-card">
+    <!-- close btn -->
+    <button onclick="closeMemberModal()" class="mmodal-close" aria-label="Fechar">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+    </button>
+    <!-- banner glow -->
+    <div class="mmodal-banner" id="mmodalBanner"></div>
+    <!-- avatar -->
+    <div class="mmodal-avatar-wrap">
+      <img id="mmodalAvatar" src="" alt="" class="mmodal-avatar">
+      <span class="mmodal-badge-pill" id="mmodalBadge"></span>
+    </div>
+    <div class="mmodal-body">
+      <div class="mmodal-name" id="mmodalName"></div>
+      <div class="mmodal-handle" id="mmodalHandle"></div>
+      <div class="mmodal-roles" id="mmodalRoles"></div>
+      <p class="mmodal-desc" id="mmodalDesc"></p>
+      <div class="mmodal-tags" id="mmodalTags"></div>
+      <a id="mmodalDiscordBtn" href="#" target="_blank" class="mmodal-discord-btn">
+        <svg width="15" height="15" viewBox="0 0 127.14 96.36" fill="currentColor"><path d="M107.7 8.07A105.15 105.15 0 0 0 81.47 0a72.06 72.06 0 0 0-3.36 6.83 97.68 97.68 0 0 0-29.11 0A72.37 72.37 0 0 0 45.64 0a105.89 105.89 0 0 0-26.25 8.09C2.79 32.65-1.71 56.6.54 80.21a105.73 105.73 0 0 0 32.17 16.15 77.7 77.7 0 0 0 6.89-11.11 68.42 68.42 0 0 1-10.85-5.18c.91-.66 1.8-1.34 2.66-2a75.57 75.57 0 0 0 64.32 0c.87.71 1.76 1.39 2.66 2a68.68 68.68 0 0 1-10.87 5.19 77 77 0 0 0 6.89 11.1 105.25 105.25 0 0 0 32.19-16.14c2.64-27.38-4.51-51.11-18.9-72.15zM42.45 65.69C36.18 65.69 31 60 31 53s5-12.74 11.43-12.74S54 46 53.89 53s-5.05 12.69-11.44 12.69zm42.24 0C78.41 65.69 73.25 60 73.25 53s5-12.74 11.44-12.74S96.23 46 96.12 53s-5.04 12.69-11.43 12.69z"/></svg>
+        Ver no Discord
+      </a>
+    </div>
+  </div>
+</div>
+
 <style>
-.foot-author-card{
-  display:inline-flex;align-items:center;gap:12px;
-  text-decoration:none;
+/* ─── TEAM CHIPS ─── */
+.team-chip{
+  display:inline-flex;align-items:center;gap:10px;
   background:rgba(255,255,255,.03);
-  border:1px solid rgba(255,255,255,.07);
-  border-radius:12px;padding:10px 16px;
-  transition:border-color .2s,background .2s;
+  border:1px solid rgba(255,255,255,.08);
+  border-radius:12px;padding:8px 14px 8px 10px;
+  cursor:pointer;transition:all .2s;
+  position:relative;
 }
-.foot-author-card:hover{
-  border-color:rgba(0,212,255,.22);
-  background:rgba(0,212,255,.04);
+.team-chip:hover{
+  border-color:rgba(0,212,255,.28);
+  background:rgba(0,212,255,.05);
+  transform:translateY(-2px);
+  box-shadow:0 4px 20px rgba(0,212,255,.1);
 }
-.foot-author-avatar{
-  width:32px;height:32px;border-radius:50%;
-  border:1.5px solid rgba(0,212,255,.25);
+.team-chip-avatar{
+  width:30px;height:30px;border-radius:50%;
+  border:1.5px solid rgba(0,212,255,.2);
   object-fit:cover;flex-shrink:0;
 }
-.foot-author-info{display:flex;flex-direction:column;gap:1px}
-.foot-author-name{
-  font-family:var(--font-display);font-size:13px;font-weight:700;
-  color:var(--t0);letter-spacing:-.1px;
+.team-chip-info{display:flex;flex-direction:column;gap:1px;text-align:left}
+.team-chip-name{font-family:var(--font-display);font-size:12.5px;font-weight:700;color:var(--t0)}
+.team-chip-role{font-family:var(--font-mono);font-size:9px;letter-spacing:.2px}
+.c-acc{color:var(--acc)}
+.c-purple{color:#a78bfa}
+.c-green{color:#34d399}
+.team-chip-badge{
+  font-family:var(--font-mono);font-size:8px;letter-spacing:.8px;
+  border-radius:4px;padding:2px 7px;font-weight:700;
 }
-.foot-author-sub{font-size:10px;color:var(--t2);font-family:var(--font-mono);letter-spacing:.2px}
-.foot-author-discord{
-  display:inline-flex;align-items:center;gap:5px;
+.team-chip-badge.owner{background:rgba(0,212,255,.1);color:var(--acc);border:1px solid rgba(0,212,255,.25)}
+.team-chip-badge.subdono{background:rgba(167,139,250,.1);color:#a78bfa;border:1px solid rgba(167,139,250,.25)}
+.team-chip-badge.site{background:rgba(52,211,153,.1);color:#34d399;border:1px solid rgba(52,211,153,.25)}
+
+/* ─── MEMBER MODAL ─── */
+.mmodal-card{
+  background:var(--bg2);
+  border:1px solid rgba(255,255,255,.09);
+  border-radius:20px;
+  overflow:hidden;
+  box-shadow:0 24px 80px rgba(0,0,0,.8), 0 0 0 1px rgba(255,255,255,.05);
+  animation:mmodal-in .22s cubic-bezier(.25,.46,.45,.94);
+}
+@keyframes mmodal-in{
+  from{opacity:0;transform:scale(.93)}
+  to{opacity:1;transform:scale(1)}
+}
+.mmodal-close{
+  position:absolute;top:14px;right:14px;z-index:10;
+  width:28px;height:28px;border-radius:50%;
+  background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.1);
+  color:rgba(255,255,255,.5);cursor:pointer;
+  display:flex;align-items:center;justify-content:center;
+  transition:all .15s;
+}
+.mmodal-close:hover{background:rgba(255,255,255,.14);color:#fff}
+.mmodal-banner{
+  height:90px;width:100%;position:relative;
+}
+.mmodal-avatar-wrap{
+  display:flex;align-items:flex-end;gap:12px;
+  padding:0 24px;margin-top:-28px;
+  position:relative;z-index:2;
+}
+.mmodal-avatar{
+  width:72px;height:72px;border-radius:50%;
+  border:3px solid var(--bg2);
+  object-fit:cover;flex-shrink:0;
+  box-shadow:0 0 0 2px rgba(0,212,255,.3);
+}
+.mmodal-badge-pill{
+  font-family:var(--font-mono);font-size:9px;letter-spacing:.8px;
+  border-radius:6px;padding:3px 10px;font-weight:700;margin-bottom:6px;
+}
+.mmodal-body{padding:12px 24px 24px}
+.mmodal-name{
+  font-family:var(--font-display);font-size:20px;font-weight:800;
+  color:var(--t0);letter-spacing:-.3px;margin-bottom:2px;
+}
+.mmodal-handle{
+  font-family:var(--font-mono);font-size:11px;
+  color:rgba(88,101,242,.8);margin-bottom:12px;
+}
+.mmodal-roles{display:flex;gap:7px;flex-wrap:wrap;margin-bottom:14px}
+.mmodal-role-chip{
   font-family:var(--font-mono);font-size:10px;
-  color:rgba(88,101,242,.8);
-  background:rgba(88,101,242,.08);
-  border:1px solid rgba(88,101,242,.18);
-  border-radius:100px;padding:3px 10px;
-  margin-left:4px;
-  transition:color .15s,background .15s;
+  border-radius:6px;padding:3px 10px;
+  border:1px solid;
 }
-.foot-author-card:hover .foot-author-discord{
-  color:rgba(88,101,242,1);
-  background:rgba(88,101,242,.14);
+.mmodal-desc{
+  font-size:13px;color:var(--t1);line-height:1.75;margin-bottom:16px;
+}
+.mmodal-tags{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:20px}
+.mmodal-tag{
+  font-family:var(--font-mono);font-size:9px;
+  color:var(--t2);border:1px solid var(--t3);
+  border-radius:4px;padding:3px 9px;
+}
+.mmodal-discord-btn{
+  display:inline-flex;align-items:center;gap:8px;
+  background:rgba(88,101,242,.12);
+  border:1px solid rgba(88,101,242,.28);
+  color:rgba(120,130,255,.9);
+  border-radius:10px;padding:10px 18px;
+  font-family:var(--font-display);font-size:12px;font-weight:700;
+  text-decoration:none;letter-spacing:.2px;
+  transition:all .18s;
+}
+.mmodal-discord-btn:hover{
+  background:rgba(88,101,242,.22);
+  color:#fff;
+  box-shadow:0 0 20px rgba(88,101,242,.2);
 }
 </style>
 
@@ -1989,6 +2120,96 @@ function faq(el) {
   originals.forEach(item => track.appendChild(item.cloneNode(true)));
 })();
 
+/* ─── MEMBER MODALS ─── */
+const MEMBERS = {
+  oliver: {
+    name: 'oliver',
+    handle: '__oliversilva',
+    avatar: 'https://i.postimg.cc/hjd4zW9X/image.png',
+    discord: 'https://discord.com/users/1324060825350307942',
+    badge: 'DONO',
+    badgeClass: 'owner',
+    bannerColor: 'linear-gradient(135deg, rgba(0,212,255,.3) 0%, rgba(0,85,255,.25) 50%, rgba(124,58,237,.2) 100%)',
+    roles: [
+      {label:'Dono', color:'#00d4ff', bg:'rgba(0,212,255,.1)', border:'rgba(0,212,255,.25)'},
+      {label:'Developer Principal', color:'#00d4ff', bg:'rgba(0,212,255,.07)', border:'rgba(0,212,255,.18)'},
+      {label:'Idealizador', color:'#7c3aed', bg:'rgba(124,58,237,.1)', border:'rgba(124,58,237,.25)'},
+    ],
+    desc: 'Criador e desenvolvedor principal do GMBR Launcher. Responsável por toda a arquitetura, código-fonte, segurança, backend e evolução do projeto. Idealizou o conceito desde o zero e lidera ativamente o desenvolvimento.',
+    tags: ['Python','Electron','XOR-512','SHA-256','AES-256-GCM','UI/UX','Open Source'],
+  },
+  mayck: {
+    name: 'Mayck',
+    handle: 'mayck',
+    avatar: 'https://i.postimg.cc/V6CMYhvd/image.png',
+    discord: 'https://discord.com/users/1360728055500509224',
+    badge: 'SUBDONO',
+    badgeClass: 'subdono',
+    bannerColor: 'linear-gradient(135deg, rgba(167,139,250,.25) 0%, rgba(124,58,237,.2) 60%, rgba(0,85,255,.15) 100%)',
+    roles: [
+      {label:'Subdono', color:'#a78bfa', bg:'rgba(167,139,250,.1)', border:'rgba(167,139,250,.25)'},
+      {label:'Elaborador de Texto', color:'#a78bfa', bg:'rgba(167,139,250,.07)', border:'rgba(167,139,250,.18)'},
+    ],
+    desc: 'Subdono do projeto e responsável pela elaboração de textos, comunicados, descrições e conteúdo escrito do GMBR Launcher. Garante que a comunicação com a comunidade seja clara, objetiva e bem apresentada.',
+    tags: ['Copywriting','Comunicação','Comunidade','Discord'],
+  },
+  simba: {
+    name: 'Joao Simba',
+    handle: 'joaosimba',
+    avatar: 'https://i.postimg.cc/SNJ4Jpqw/image.png',
+    discord: 'https://discord.com/users/1324060825350307942',
+
+    badge: 'SITE',
+
+    badgeClass: 'site',
+    bannerColor: 'linear-gradient(135deg, rgba(52,211,153,.2) 0%, rgba(0,212,255,.15) 60%, rgba(0,85,255,.1) 100%)',
+    roles: [
+      {label:'Distribuição', color:'#34d399', bg:'rgba(52,211,153,.1)', border:'rgba(52,211,153,.25)'},
+      {label:'Site', color:'#34d399', bg:'rgba(52,211,153,.07)', border:'rgba(52,211,153,.18)'},
+    ],
+    desc: 'Responsável pela distribuição do GMBR Launcher e pela manutenção do site oficial. Garante que o launcher chegue até os usuários de forma acessível e que a página de download esteja sempre atualizada.',
+    tags: ['Distribuição','GitHub','Site','Download','Mirrors'],
+  }
+};
+
+function openMemberModal(key) {
+  const m = MEMBERS[key];
+  if(!m) return;
+  document.getElementById('mmodalBanner').style.background = m.bannerColor;
+  document.getElementById('mmodalAvatar').src = m.avatar;
+  document.getElementById('mmodalAvatar').alt = m.name;
+  // badge pill
+  const bp = document.getElementById('mmodalBadge');
+  bp.textContent = m.badge;
+  bp.className = 'mmodal-badge-pill team-chip-badge ' + m.badgeClass;
+  document.getElementById('mmodalName').textContent = m.name;
+  document.getElementById('mmodalHandle').textContent = '@' + m.handle;
+  // roles
+  const rolesEl = document.getElementById('mmodalRoles');
+  rolesEl.innerHTML = m.roles.map(r =>
+    `<span class="mmodal-role-chip" style="color:${r.color};background:${r.bg};border-color:${r.border}">${r.label}</span>`
+  ).join('');
+  document.getElementById('mmodalDesc').textContent = m.desc;
+  // tags
+  document.getElementById('mmodalTags').innerHTML = m.tags.map(t => `<span class="mmodal-tag">${t}</span>`).join('');
+  document.getElementById('mmodalDiscordBtn').href = m.discord;
+  // show
+  document.getElementById('memberModalOverlay').style.display = 'block';
+  document.getElementById('memberModal').style.display = 'block';
+  document.body.style.overflow = 'hidden';
+}
+
+function closeMemberModal() {
+  document.getElementById('memberModalOverlay').style.display = 'none';
+  document.getElementById('memberModal').style.display = 'none';
+  document.body.style.overflow = '';
+}
+
+document.addEventListener('keydown', e => { if(e.key === 'Escape') closeMemberModal(); });
+
+</script>
+
+<script>
 /* ─── CUSTOM CURSOR ─── */
 (function(){
   const cur = document.getElementById('cursor');
