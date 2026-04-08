@@ -1852,7 +1852,21 @@ footer{
       <div class="mmodal-name" id="mmodalName"></div>
       <div class="mmodal-handle" id="mmodalHandle"></div>
       <div class="mmodal-roles" id="mmodalRoles"></div>
+
+      <!-- entry date + proximity -->
+      <div class="mmodal-meta" id="mmodalMeta"></div>
+
       <p class="mmodal-desc" id="mmodalDesc"></p>
+
+      <!-- note complementar (para mayck/simba) -->
+      <div class="mmodal-note" id="mmodalNote" style="display:none"></div>
+
+      <!-- screenshots -->
+      <div class="mmodal-screenshots" id="mmodalScreenshots" style="display:none">
+        <div class="mmodal-sec-label">Registros do Beta</div>
+        <div class="mmodal-ss-grid" id="mmodalSsGrid"></div>
+      </div>
+
       <div class="mmodal-tags" id="mmodalTags"></div>
       <a id="mmodalDiscordBtn" href="#" target="_blank" class="mmodal-discord-btn">
         <svg width="15" height="15" viewBox="0 0 127.14 96.36" fill="currentColor"><path d="M107.7 8.07A105.15 105.15 0 0 0 81.47 0a72.06 72.06 0 0 0-3.36 6.83 97.68 97.68 0 0 0-29.11 0A72.37 72.37 0 0 0 45.64 0a105.89 105.89 0 0 0-26.25 8.09C2.79 32.65-1.71 56.6.54 80.21a105.73 105.73 0 0 0 32.17 16.15 77.7 77.7 0 0 0 6.89-11.11 68.42 68.42 0 0 1-10.85-5.18c.91-.66 1.8-1.34 2.66-2a75.57 75.57 0 0 0 64.32 0c.87.71 1.76 1.39 2.66 2a68.68 68.68 0 0 1-10.87 5.19 77 77 0 0 0 6.89 11.1 105.25 105.25 0 0 0 32.19-16.14c2.64-27.38-4.51-51.11-18.9-72.15zM42.45 65.69C36.18 65.69 31 60 31 53s5-12.74 11.43-12.74S54 46 53.89 53s-5.05 12.69-11.44 12.69zm42.24 0C78.41 65.69 73.25 60 73.25 53s5-12.74 11.44-12.74S96.23 46 96.12 53s-5.04 12.69-11.43 12.69z"/></svg>
@@ -1903,6 +1917,8 @@ footer{
   border:1px solid rgba(255,255,255,.09);
   border-radius:20px;
   overflow:hidden;
+  max-height:90vh;
+  overflow-y:auto;
   box-shadow:0 24px 80px rgba(0,0,0,.8), 0 0 0 1px rgba(255,255,255,.05);
   animation:mmodal-in .22s cubic-bezier(.25,.46,.45,.94);
 }
@@ -1975,6 +1991,59 @@ footer{
   background:rgba(88,101,242,.22);
   color:#fff;
   box-shadow:0 0 20px rgba(88,101,242,.2);
+}
+
+/* entry date & proximity */
+.mmodal-meta{display:flex;flex-direction:column;gap:7px;margin-bottom:14px}
+.mmodal-entry{
+  display:inline-flex;align-items:center;gap:7px;
+  font-family:var(--font-mono);font-size:10px;
+  color:var(--ec, var(--acc));
+  background:color-mix(in srgb, var(--ec, var(--acc)) 10%, transparent);
+  border:1px solid color-mix(in srgb, var(--ec, var(--acc)) 25%, transparent);
+  border-radius:7px;padding:5px 10px;width:fit-content;
+}
+.mmodal-entry-date{font-weight:700;letter-spacing:.3px}
+.mmodal-entry-label{color:rgba(255,255,255,.45);font-size:9.5px}
+.mmodal-proximity{
+  display:flex;align-items:center;gap:7px;
+  font-size:11.5px;color:var(--t1);
+  background:rgba(255,255,255,.025);
+  border:1px solid rgba(255,255,255,.07);
+  border-radius:7px;padding:6px 10px;
+}
+.mmodal-proximity svg{color:var(--t2);flex-shrink:0}
+
+/* complementar note */
+.mmodal-note{
+  display:flex;align-items:flex-start;gap:9px;
+  background:rgba(255,180,0,.05);
+  border:1px solid rgba(255,180,0,.18);
+  border-radius:9px;padding:10px 13px;
+  font-size:11.5px;color:rgba(255,200,80,.7);
+  line-height:1.6;margin-bottom:14px;
+}
+.mmodal-note svg{color:rgba(255,180,0,.6);flex-shrink:0;margin-top:1px}
+
+/* screenshots */
+.mmodal-screenshots{margin-bottom:16px}
+.mmodal-sec-label{
+  font-family:var(--font-mono);font-size:9px;letter-spacing:1px;
+  text-transform:uppercase;color:var(--t2);margin-bottom:9px;
+}
+.mmodal-ss-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.mmodal-ss-item{
+  display:flex;flex-direction:column;gap:5px;
+  text-decoration:none;border-radius:8px;overflow:hidden;
+  border:1px solid rgba(255,255,255,.07);
+  transition:border-color .18s,transform .18s;
+}
+.mmodal-ss-item:hover{border-color:rgba(0,212,255,.3);transform:scale(1.02)}
+.mmodal-ss-img{width:100%;aspect-ratio:16/9;object-fit:cover;display:block}
+.mmodal-ss-label{
+  font-family:var(--font-mono);font-size:9px;
+  color:var(--t2);padding:4px 8px 6px;
+  background:var(--bg3);
 }
 </style>
 
@@ -2129,14 +2198,22 @@ const MEMBERS = {
     discord: 'https://discord.com/users/1324060825350307942',
     badge: 'DONO',
     badgeClass: 'owner',
-    bannerColor: 'linear-gradient(135deg, rgba(0,212,255,.3) 0%, rgba(0,85,255,.25) 50%, rgba(124,58,237,.2) 100%)',
+    bannerColor: 'linear-gradient(135deg, rgba(0,212,255,.35) 0%, rgba(0,85,255,.28) 50%, rgba(124,58,237,.22) 100%)',
     roles: [
       {label:'Dono', color:'#00d4ff', bg:'rgba(0,212,255,.1)', border:'rgba(0,212,255,.25)'},
       {label:'Developer Principal', color:'#00d4ff', bg:'rgba(0,212,255,.07)', border:'rgba(0,212,255,.18)'},
       {label:'Idealizador', color:'#7c3aed', bg:'rgba(124,58,237,.1)', border:'rgba(124,58,237,.25)'},
     ],
-    desc: 'Criador e desenvolvedor principal do GMBR Launcher. Responsável por toda a arquitetura, código-fonte, segurança, backend e evolução do projeto. Idealizou o conceito desde o zero e lidera ativamente o desenvolvimento.',
-    tags: ['Python','Electron','XOR-512','SHA-256','AES-256-GCM','UI/UX','Open Source'],
+    entry: { date: '12/07/2025', label: 'Fundador — desde o dia zero' },
+    entryColor: '#00d4ff',
+    proximity: null,
+    desc: 'Idealizou o GMBR Launcher em 12 de julho de 2025 — planejou a execução do zero, sozinho, e construiu toda a base: arquitetura, código-fonte, segurança, backend, interface e identidade do projeto. Cada linha, cada detalhe, cada versão saiu do zero das mãos dele. Todo o sacrifício do começo foi seu.',
+    note: null,
+    screenshots: [
+      { url: 'https://i.postimg.cc/QCcyWS4q/image.png', label: 'Beta — tela inicial' },
+      { url: 'https://i.postimg.cc/fTjPz2SG/image.png', label: 'Beta — perfil do oliver' },
+    ],
+    tags: ['Fundador','Python','Electron','XOR-512','SHA-256','AES-256-GCM','UI/UX','Open Source','Solo Dev'],
   },
   mayck: {
     name: 'Mayck',
@@ -2150,24 +2227,32 @@ const MEMBERS = {
       {label:'Subdono', color:'#a78bfa', bg:'rgba(167,139,250,.1)', border:'rgba(167,139,250,.25)'},
       {label:'Elaborador de Texto', color:'#a78bfa', bg:'rgba(167,139,250,.07)', border:'rgba(167,139,250,.18)'},
     ],
-    desc: 'Subdono do projeto e responsável pela elaboração de textos, comunicados, descrições e conteúdo escrito do GMBR Launcher. Garante que a comunicação com a comunidade seja clara, objetiva e bem apresentada.',
-    tags: ['Copywriting','Comunicação','Comunidade','Discord'],
+    entry: { date: '05/01/2026', label: 'Entrou no início de 2026' },
+    entryColor: '#a78bfa',
+    proximity: 'Próximo ao oliver — entrou como sub para apoiar e complementar.',
+    desc: 'Entrou no projeto em janeiro de 2026 para ajudar como subdono, assumindo a elaboração de textos, comunicados e conteúdo escrito. Chegou quando a fundação já estava construída — toda a parte dura, o desenvolvimento real, os meses de trabalho solo, já eram história.',
+    note: 'Membro complementar — entrou depois que todo o trabalho de base e sacrifício inicial já estava feito pelo oliver.',
+    screenshots: null,
+    tags: ['Copywriting','Comunicação','Comunidade','Discord','Texto'],
   },
   simba: {
     name: 'Joao Simba',
     handle: 'joaosimba',
     avatar: 'https://i.postimg.cc/SNJ4Jpqw/image.png',
     discord: 'https://discord.com/users/1324060825350307942',
-
     badge: 'SITE',
-
     badgeClass: 'site',
     bannerColor: 'linear-gradient(135deg, rgba(52,211,153,.2) 0%, rgba(0,212,255,.15) 60%, rgba(0,85,255,.1) 100%)',
     roles: [
       {label:'Distribuição', color:'#34d399', bg:'rgba(52,211,153,.1)', border:'rgba(52,211,153,.25)'},
       {label:'Site', color:'#34d399', bg:'rgba(52,211,153,.07)', border:'rgba(52,211,153,.18)'},
     ],
-    desc: 'Responsável pela distribuição do GMBR Launcher e pela manutenção do site oficial. Garante que o launcher chegue até os usuários de forma acessível e que a página de download esteja sempre atualizada.',
+    entry: { date: '01/03/2026', label: 'Entrou em março de 2026' },
+    entryColor: '#34d399',
+    proximity: 'Complementar — entrou para ajudar na frente de distribuição e site.',
+    desc: 'Entrou no projeto em março de 2026 para cuidar da distribuição do launcher e da manutenção do site. Chegou quando o projeto já estava consolidado — o desenvolvimento, o planejamento e o sacrifício do começo já eram passado.',
+    note: 'Membro complementar — entrou depois que todo o trabalho de base e sacrifício inicial já estava feito pelo oliver.',
+    screenshots: null,
     tags: ['Distribuição','GitHub','Site','Download','Mirrors'],
   }
 };
@@ -2175,25 +2260,72 @@ const MEMBERS = {
 function openMemberModal(key) {
   const m = MEMBERS[key];
   if(!m) return;
+
   document.getElementById('mmodalBanner').style.background = m.bannerColor;
   document.getElementById('mmodalAvatar').src = m.avatar;
   document.getElementById('mmodalAvatar').alt = m.name;
-  // badge pill
+
   const bp = document.getElementById('mmodalBadge');
   bp.textContent = m.badge;
   bp.className = 'mmodal-badge-pill team-chip-badge ' + m.badgeClass;
+
   document.getElementById('mmodalName').textContent = m.name;
   document.getElementById('mmodalHandle').textContent = '@' + m.handle;
+
   // roles
-  const rolesEl = document.getElementById('mmodalRoles');
-  rolesEl.innerHTML = m.roles.map(r =>
+  document.getElementById('mmodalRoles').innerHTML = m.roles.map(r =>
     `<span class="mmodal-role-chip" style="color:${r.color};background:${r.bg};border-color:${r.border}">${r.label}</span>`
   ).join('');
+
+  // entry date + proximity meta
+  const metaEl = document.getElementById('mmodalMeta');
+  let metaHTML = '';
+  if(m.entry) {
+    metaHTML += `<div class="mmodal-entry" style="--ec:${m.entryColor}">
+      <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+      <span class="mmodal-entry-date">${m.entry.date}</span>
+      <span class="mmodal-entry-label">${m.entry.label}</span>
+    </div>`;
+  }
+  if(m.proximity) {
+    metaHTML += `<div class="mmodal-proximity">
+      <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+      ${m.proximity}
+    </div>`;
+  }
+  metaEl.innerHTML = metaHTML;
+
+  // desc
   document.getElementById('mmodalDesc').textContent = m.desc;
+
+  // note
+  const noteEl = document.getElementById('mmodalNote');
+  if(m.note) {
+    noteEl.style.display = 'flex';
+    noteEl.innerHTML = `<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="flex-shrink:0;margin-top:1px"><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg><span>${m.note}</span>`;
+  } else {
+    noteEl.style.display = 'none';
+  }
+
+  // screenshots
+  const ssWrap = document.getElementById('mmodalScreenshots');
+  const ssGrid = document.getElementById('mmodalSsGrid');
+  if(m.screenshots && m.screenshots.length) {
+    ssWrap.style.display = 'block';
+    ssGrid.innerHTML = m.screenshots.map(s =>
+      `<a href="${s.url}" target="_blank" class="mmodal-ss-item">
+        <img src="${s.url}" alt="${s.label}" class="mmodal-ss-img" loading="lazy">
+        <span class="mmodal-ss-label">${s.label}</span>
+      </a>`
+    ).join('');
+  } else {
+    ssWrap.style.display = 'none';
+  }
+
   // tags
   document.getElementById('mmodalTags').innerHTML = m.tags.map(t => `<span class="mmodal-tag">${t}</span>`).join('');
   document.getElementById('mmodalDiscordBtn').href = m.discord;
-  // show
+
   document.getElementById('memberModalOverlay').style.display = 'block';
   document.getElementById('memberModal').style.display = 'block';
   document.body.style.overflow = 'hidden';
