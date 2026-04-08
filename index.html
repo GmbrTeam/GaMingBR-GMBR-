@@ -2017,13 +2017,13 @@ footer{
 /* complementar note */
 .mmodal-note{
   display:flex;align-items:flex-start;gap:9px;
-  background:rgba(255,180,0,.05);
-  border:1px solid rgba(255,180,0,.18);
+  background:rgba(0,212,255,.04);
+  border:1px solid rgba(0,212,255,.14);
   border-radius:9px;padding:10px 13px;
-  font-size:11.5px;color:rgba(255,200,80,.7);
+  font-size:11.5px;color:rgba(160,210,255,.65);
   line-height:1.6;margin-bottom:14px;
 }
-.mmodal-note svg{color:rgba(255,180,0,.6);flex-shrink:0;margin-top:1px}
+.mmodal-note svg{color:rgba(0,212,255,.45);flex-shrink:0;margin-top:1px}
 
 /* screenshots */
 .mmodal-screenshots{margin-bottom:16px}
@@ -2033,19 +2033,65 @@ footer{
 }
 .mmodal-ss-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
 .mmodal-ss-item{
-  display:flex;flex-direction:column;gap:5px;
+  display:flex;flex-direction:column;gap:0;
   text-decoration:none;border-radius:8px;overflow:hidden;
   border:1px solid rgba(255,255,255,.07);
-  transition:border-color .18s,transform .18s;
+  cursor:zoom-in;
+  transition:border-color .18s,transform .18s,box-shadow .18s;
 }
-.mmodal-ss-item:hover{border-color:rgba(0,212,255,.3);transform:scale(1.02)}
+.mmodal-ss-item:hover{
+  border-color:rgba(0,212,255,.35);
+  transform:scale(1.03);
+  box-shadow:0 4px 20px rgba(0,0,0,.5);
+}
 .mmodal-ss-img{width:100%;aspect-ratio:16/9;object-fit:cover;display:block}
 .mmodal-ss-label{
   font-family:var(--font-mono);font-size:9px;
-  color:var(--t2);padding:4px 8px 6px;
+  color:var(--t2);padding:5px 8px 7px;
   background:var(--bg3);
 }
+
+/* ─── LIGHTBOX ─── */
+#lightbox{
+  display:none;position:fixed;inset:0;z-index:10000;
+  background:rgba(0,0,0,.92);backdrop-filter:blur(20px);
+  cursor:zoom-out;
+  align-items:center;justify-content:center;
+}
+#lightbox.active{display:flex}
+#lightbox img{
+  max-width:min(90vw,1100px);max-height:88vh;
+  border-radius:10px;object-fit:contain;
+  box-shadow:0 0 80px rgba(0,0,0,.9);
+  animation:lb-in .2s cubic-bezier(.25,.46,.45,.94);
+  cursor:default;
+}
+@keyframes lb-in{from{opacity:0;transform:scale(.93)}to{opacity:1;transform:scale(1)}}
+#lightboxCaption{
+  position:fixed;bottom:28px;left:50%;transform:translateX(-50%);
+  font-family:var(--font-mono);font-size:11px;color:rgba(255,255,255,.4);
+  background:rgba(0,0,0,.5);border-radius:6px;padding:5px 14px;
+  pointer-events:none;
+}
+#lightboxClose{
+  position:fixed;top:18px;right:22px;
+  width:34px;height:34px;border-radius:50%;
+  background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.14);
+  color:rgba(255,255,255,.6);font-size:18px;cursor:pointer;
+  display:flex;align-items:center;justify-content:center;
+  transition:all .15s;z-index:10001;
+}
+#lightboxClose:hover{background:rgba(255,255,255,.16);color:#fff}
 </style>
+
+<!-- LIGHTBOX -->
+<div id="lightbox" onclick="closeLightbox()">
+  <button id="lightboxClose" onclick="closeLightbox()" aria-label="Fechar">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+  </button>
+  <img id="lightboxImg" src="" alt="" onclick="event.stopPropagation()">
+  <div id="lightboxCaption"></div>
+</div>
 
 <script>
 /* ─── UTILS ─── */
@@ -2229,9 +2275,9 @@ const MEMBERS = {
     ],
     entry: { date: '05/01/2026', label: 'Entrou no início de 2026' },
     entryColor: '#a78bfa',
-    proximity: 'Próximo ao oliver — entrou como sub para apoiar e complementar.',
-    desc: 'Entrou no projeto em janeiro de 2026 para ajudar como subdono, assumindo a elaboração de textos, comunicados e conteúdo escrito. Chegou quando a fundação já estava construída — toda a parte dura, o desenvolvimento real, os meses de trabalho solo, já eram história.',
-    note: 'Membro complementar — entrou depois que todo o trabalho de base e sacrifício inicial já estava feito pelo oliver.',
+    proximity: 'Próximo ao oliver — entrou como subdono para ajudar e fortalecer o projeto.',
+    desc: 'Entrou em janeiro de 2026 como subdono, assumindo a frente de textos, comunicados e conteúdo escrito. Contribuiu muito para a comunicação do projeto crescer de forma clara e organizada — a voz do GMBR pra comunidade tem muito dele.',
+    note: 'Chegou depois da fundação, mas chegou pra somar de verdade.',
     screenshots: null,
     tags: ['Copywriting','Comunicação','Comunidade','Discord','Texto'],
   },
@@ -2249,9 +2295,9 @@ const MEMBERS = {
     ],
     entry: { date: '01/03/2026', label: 'Entrou em março de 2026' },
     entryColor: '#34d399',
-    proximity: 'Complementar — entrou para ajudar na frente de distribuição e site.',
-    desc: 'Entrou no projeto em março de 2026 para cuidar da distribuição do launcher e da manutenção do site. Chegou quando o projeto já estava consolidado — o desenvolvimento, o planejamento e o sacrifício do começo já eram passado.',
-    note: 'Membro complementar — entrou depois que todo o trabalho de base e sacrifício inicial já estava feito pelo oliver.',
+    proximity: 'Complementar ao time — assumiu distribuição e site com dedicação.',
+    desc: 'Entrou em março de 2026 pra cuidar da distribuição e do site. Desde que chegou, garantiu que o launcher chegasse a mais gente e que a página estivesse sempre em dia. Contribuição real, mesmo que tenha chegado com o projeto já rodando.',
+    note: 'Chegou depois da fundação, mas chegou pra somar de verdade.',
     screenshots: null,
     tags: ['Distribuição','GitHub','Site','Download','Mirrors'],
   }
@@ -2313,10 +2359,10 @@ function openMemberModal(key) {
   if(m.screenshots && m.screenshots.length) {
     ssWrap.style.display = 'block';
     ssGrid.innerHTML = m.screenshots.map(s =>
-      `<a href="${s.url}" target="_blank" class="mmodal-ss-item">
+      `<div class="mmodal-ss-item" onclick="openLightbox('${s.url}','${s.label}')">
         <img src="${s.url}" alt="${s.label}" class="mmodal-ss-img" loading="lazy">
-        <span class="mmodal-ss-label">${s.label}</span>
-      </a>`
+        <span class="mmodal-ss-label">🔍 ${s.label}</span>
+      </div>`
     ).join('');
   } else {
     ssWrap.style.display = 'none';
@@ -2337,7 +2383,29 @@ function closeMemberModal() {
   document.body.style.overflow = '';
 }
 
-document.addEventListener('keydown', e => { if(e.key === 'Escape') closeMemberModal(); });
+function openLightbox(url, caption) {
+  document.getElementById('lightboxImg').src = url;
+  document.getElementById('lightboxImg').alt = caption;
+  document.getElementById('lightboxCaption').textContent = caption;
+  document.getElementById('lightbox').classList.add('active');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeLightbox() {
+  document.getElementById('lightbox').classList.remove('active');
+  document.getElementById('lightboxImg').src = '';
+  document.body.style.overflow = 'hidden'; // keep modal scroll locked
+}
+
+document.addEventListener('keydown', e => {
+  if(e.key === 'Escape') {
+    if(document.getElementById('lightbox').classList.contains('active')) {
+      closeLightbox();
+    } else {
+      closeMemberModal();
+    }
+  }
+});
 
 </script>
 
