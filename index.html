@@ -940,33 +940,11 @@ footer{
   if(!window.chrome && /HeadlessChrome/.test(navigator.userAgent)) score += 40;
   if(/bot|crawl|spider|slurp|mediapartners/i.test(navigator.userAgent)) score += 60;
 
-  // se já passou do threshold, mostra na hora
   if(score >= 40){
     var s = document.getElementById('botScreen');
     s.style.display = 'flex';
     document.body.style.overflow = 'hidden';
-    return;
   }
-
-  // senão, aguarda interação humana por 4s
-  var human = false;
-  var timer = setTimeout(function(){
-    if(!human){
-      var s = document.getElementById('botScreen');
-      s.style.display = 'flex';
-      document.body.style.overflow = 'hidden';
-    }
-  }, 4000);
-
-  function markHuman(){
-    if(human) return;
-    human = true;
-    clearTimeout(timer);
-  }
-  window.addEventListener('mousemove', markHuman, {once:true, passive:true});
-  window.addEventListener('touchstart', markHuman, {once:true, passive:true});
-  window.addEventListener('keydown',    markHuman, {once:true, passive:true});
-  window.addEventListener('scroll',     markHuman, {once:true, passive:true});
 })();
 </script>
 
