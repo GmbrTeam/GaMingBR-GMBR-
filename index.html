@@ -187,37 +187,11 @@ nav.scrolled::after{
     linear-gradient(170deg,#050310 0%,#060818 40%,#04060d 100%);
 }
 
-/* ── Moving aurora ── */
-.hero-atm::before{
-  content:'';position:absolute;inset:0;z-index:1;pointer-events:none;
-  background:
-    radial-gradient(ellipse 100% 45% at 55% 18%, rgba(0,212,255,.11), transparent 62%),
-    radial-gradient(ellipse  75% 35% at 25% 65%, rgba(124,58,237,.14), transparent 62%),
-    radial-gradient(ellipse  65% 28% at 82% 72%, rgba(0,85,255,.10),  transparent 62%),
-    radial-gradient(ellipse  50% 22% at 10% 30%, rgba(0,212,255,.07), transparent 55%);
-  animation:aurora-shift 14s ease-in-out infinite alternate;
-  mix-blend-mode:screen;
-}
-
-/* ── Scanline / horizontal light streak ── */
+/* ── Scanline only ── */
 .hero-atm::after{
   content:'';position:absolute;inset:0;z-index:2;pointer-events:none;
-  background:repeating-linear-gradient(
-    0deg,
-    transparent,
-    transparent 3px,
-    rgba(0,212,255,.012) 3px,
-    rgba(0,212,255,.012) 4px
-  );
-  opacity:.6;
-}
-
-@keyframes aurora-shift{
-  0%  {transform:translate(0,0)    scale(1);    opacity:.75}
-  25% {transform:translate(-28px, 22px) scale(1.07); opacity:1}
-  50% {transform:translate(18px, -18px) scale(.95);  opacity:.88}
-  75% {transform:translate(-14px, 32px) scale(1.04); opacity:1}
-  100%{transform:translate(10px,  -8px) scale(.98);  opacity:.8}
+  background:repeating-linear-gradient(0deg,transparent,transparent 3px,rgba(0,212,255,.008) 3px,rgba(0,212,255,.008) 4px);
+  opacity:.5;
 }
 
 /* ── Orbs ── */
@@ -275,22 +249,13 @@ nav.scrolled::after{
 /* ── Diagonal light beam ── */
 .hero-beam{
   position:absolute;z-index:3;pointer-events:none;
-  top:-20%;left:30%;
-  width:2px;height:140%;
-  background:linear-gradient(180deg,transparent 0%,rgba(0,212,255,.18) 35%,rgba(80,120,255,.28) 55%,transparent 100%);
+  top:-20%;left:33%;width:1px;height:140%;
+  background:linear-gradient(180deg,transparent 0%,rgba(0,212,255,.12) 35%,rgba(80,120,255,.18) 55%,transparent 100%);
   transform:rotate(22deg);
-  animation:beam-drift 8s ease-in-out infinite alternate;
-  filter:blur(3px);
+  animation:beam-fade 10s ease-in-out infinite alternate;
+  filter:blur(2px);
 }
-.hero-beam::after{
-  content:'';position:absolute;top:0;left:-20px;right:-20px;bottom:0;
-  background:linear-gradient(180deg,transparent 0%,rgba(0,212,255,.06) 40%,transparent 100%);
-  filter:blur(18px);
-}
-@keyframes beam-drift{
-  0%{left:28%;opacity:.7}
-  100%{left:38%;opacity:1}
-}
+@keyframes beam-fade{0%{opacity:.45}100%{opacity:.9}}
 
 .hero-grain{
   position:absolute;inset:0;z-index:4;pointer-events:none;
@@ -2474,29 +2439,142 @@ function faq(el) {
   let W, H;
   function resize(){ W = c.width = innerWidth; H = c.height = innerHeight; }
   resize(); window.addEventListener('resize', resize, {passive:true});
-  function rnd(a,b){ return a+Math.random()*(b-a); }
+  function rnd(a,b){ return a + Math.random()*(b-a); }
+
+  /* ── STARS (original inalterado) ── */
   const COLORS = ['rgba(0,212,255,','rgba(0,85,255,','rgba(100,40,220,'];
-  // Fewer particles on mobile for performance
   const COUNT = isMobile ? 30 : 70;
   const pts = [];
   for(let i=0;i<COUNT;i++){
-    pts.push({x:rnd(0,1),y:rnd(0,1),vx:rnd(-.00009,.00009),vy:rnd(-.00016,-.00005),r:rnd(.7,2.2),a:rnd(.06,.4),c:COLORS[Math.floor(rnd(0,3))]});
+    pts.push({
+      x:rnd(0,1), y:rnd(0,1),
+      vx:rnd(-.00009,.00009), vy:rnd(-.00016,-.00005),
+      r:rnd(.7,2.2), a:rnd(.06,.4),
+      c:COLORS[Math.floor(rnd(0,3))],
+      blinkSpd: rnd(.003,.009), blinkDir:1
+    });
   }
+
+  /* ── METEORS ── */
+  // Paletas: cada meteoro tem uma cor dominante do tema
+  const PALETTES = [
+    { core:'#ffffff', inner:'#a0f0ff', mid:'#00d4ff', outer:'#0055ff' }, // cyan
+    { core:'#ffffff', inner:'#d4b0ff', mid:'#7c3aed', outer:'#3b0fa0' }, // violet
+    { core:'#ffffff', inner:'#ffffff', mid:'#88aaff', outer:'#0040cc' }, // blue-white
+  ];
+
+  const meteors = [];
+  const MAX_METEORS = isMobile ? 2 : 4;
+  const SPAWN_CHANCE = isMobile ? 0.004 : 0.008;
+
+  function spawnMeteor(){
+    if(meteors.length >= MAX_METEORS) return;
+    const pal = PALETTES[Math.floor(rnd(0, PALETTES.length))];
+    const speed = rnd(7, 16);
+    const angle = rnd(Math.PI/5, Math.PI/3.2);
+    meteors.push({
+      x: rnd(0, W * .85),
+      y: rnd(-180, -20),
+      vx: Math.cos(angle) * speed,
+      vy: Math.sin(angle) * speed,
+      size: rnd(2, 5),
+      tailLen: rnd(130, 300),
+      opacity: 1,
+      pal,
+      active: true
+    });
+  }
+
+  function updateMeteor(m){
+    m.x += m.vx;
+    m.y += m.vy;
+    if(m.y > H * .6) m.opacity -= .018;
+    if(m.opacity <= 0 || m.x > W + 200 || m.y > H + 200) m.active = false;
+  }
+
+  function drawMeteor(m){
+    if(!m.active) return;
+    ctx.save();
+    ctx.globalAlpha = m.opacity;
+
+    // cauda de plasma
+    const tailX = m.x - m.vx * (m.tailLen / m.speed || m.tailLen / 12);
+    const tailY = m.y - m.vy * (m.tailLen / m.speed || m.tailLen / 12);
+    const grad = ctx.createLinearGradient(m.x, m.y, tailX, tailY);
+    grad.addColorStop(0,   m.pal.inner);
+    grad.addColorStop(0.25, m.pal.mid);
+    grad.addColorStop(0.6,  m.pal.outer);
+    grad.addColorStop(1,   'transparent');
+
+    ctx.beginPath();
+    ctx.moveTo(m.x, m.y);
+    ctx.lineTo(tailX, tailY);
+    ctx.strokeStyle = grad;
+    ctx.lineWidth = m.size * 1.4;
+    ctx.lineCap = 'round';
+    ctx.stroke();
+
+    // glow ao redor da cauda
+    ctx.beginPath();
+    ctx.moveTo(m.x, m.y);
+    ctx.lineTo(tailX, tailY);
+    ctx.strokeStyle = grad;
+    ctx.lineWidth = m.size * 4;
+    ctx.globalAlpha = m.opacity * .15;
+    ctx.stroke();
+    ctx.globalAlpha = m.opacity;
+
+    // núcleo brilhante
+    ctx.shadowBlur = 18;
+    ctx.shadowColor = m.pal.mid;
+    ctx.fillStyle = m.pal.core;
+    ctx.beginPath();
+    ctx.arc(m.x, m.y, m.size, 0, Math.PI*2);
+    ctx.fill();
+
+    // calor interno
+    ctx.shadowBlur = 0;
+    ctx.fillStyle = m.pal.inner;
+    ctx.beginPath();
+    ctx.arc(m.x - m.vx*.08, m.y - m.vy*.08, m.size * .6, 0, Math.PI*2);
+    ctx.fill();
+
+    ctx.restore();
+  }
+
+  /* ── DRAW LOOP ── */
   function draw(){
     ctx.clearRect(0,0,W,H);
+
+    // stars com blink
     pts.forEach(p=>{
+      p.a += p.blinkSpd * p.blinkDir;
+      if(p.a > .42 || p.a < .04) p.blinkDir *= -1;
       p.x+=p.vx; p.y+=p.vy;
       if(p.y<-.02) p.y=1.02;
       if(p.x<-.02) p.x=1.02;
       if(p.x>1.02) p.x=-.02;
       ctx.beginPath();
-      ctx.arc(p.x*W,p.y*H,p.r,0,Math.PI*2);
+      ctx.arc(p.x*W, p.y*H, p.r, 0, Math.PI*2);
       ctx.fillStyle=p.c+p.a+')';
       ctx.fill();
     });
+
+    // meteors
+    if(Math.random() < SPAWN_CHANCE) spawnMeteor();
+    meteors.forEach(m => updateMeteor(m));
+    meteors.forEach(m => drawMeteor(m));
+    // limpa inativos
+    for(let i=meteors.length-1;i>=0;i--){
+      if(!meteors[i].active) meteors.splice(i,1);
+    }
+
     requestAnimationFrame(draw);
   }
+
   draw();
+  // spawna 1 logo de cara
+  setTimeout(spawnMeteor, 600);
 })();
 
 /* ─── TICKER AUTO-CLONE ─── */
