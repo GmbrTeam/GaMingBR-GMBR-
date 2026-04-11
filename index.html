@@ -55,6 +55,20 @@ body{
 ::-webkit-scrollbar-track{background:transparent}
 ::-webkit-scrollbar-thumb{background:var(--t2);border-radius:2px}
 
+/* ─── REDUCE MOTION ─── */
+@media (prefers-reduced-motion: reduce) {
+  .hero-orb,.hero-beam,.hero-grid,
+  .hero-grain,.btn-hero-dl,
+  .hero-v-badge,.hero-v-dot,
+  .ticker-track { animation: none !important; }
+  html { scroll-behavior: auto; }
+}
+@media (max-width:640px) {
+  .hero-orb { animation-duration: 18s; filter: blur(120px); opacity: .6; }
+  .hero-beam { display: none; }
+  .hero-grid { display: none; }
+}
+
 /* ─── CUSTOM CURSOR ─── */
 #cursor{
   position:fixed;z-index:9999;pointer-events:none;
@@ -413,6 +427,102 @@ nav.scrolled::after{
   color:var(--t2);border:1px solid var(--t3);border-radius:5px;padding:3px 9px;
   letter-spacing:.3px;
 }
+
+
+/* ─── DISCORD CARD ─── */
+.discord-card{
+  display:flex;align-items:center;justify-content:space-between;
+  margin-top:22px;
+  background:linear-gradient(135deg,rgba(88,101,242,.12),rgba(88,101,242,.06));
+  border:1px solid rgba(88,101,242,.35);
+  border-radius:14px;padding:14px 18px;
+  text-decoration:none;
+  transition:all .25s cubic-bezier(.25,.46,.45,.94);
+  position:relative;overflow:hidden;
+  max-width:360px;
+}
+.discord-card::before{
+  content:'';position:absolute;inset:0;
+  background:radial-gradient(ellipse 80% 60% at 0% 50%,rgba(88,101,242,.12),transparent);
+  opacity:0;transition:opacity .3s;pointer-events:none;
+}
+.discord-card:hover{
+  border-color:rgba(88,101,242,.65);
+  box-shadow:0 0 32px rgba(88,101,242,.2),0 4px 20px rgba(0,0,0,.3);
+  transform:translateY(-2px);
+}
+.discord-card:hover::before{opacity:1}
+.discord-card-left{display:flex;align-items:center;gap:12px}
+.discord-card-icon{
+  width:42px;height:42px;border-radius:12px;
+  background:rgba(88,101,242,.18);
+  border:1px solid rgba(88,101,242,.3);
+  display:flex;align-items:center;justify-content:center;
+  flex-shrink:0;
+  transition:background .25s,box-shadow .25s;
+}
+.discord-card:hover .discord-card-icon{
+  background:rgba(88,101,242,.28);
+  box-shadow:0 0 20px rgba(88,101,242,.3);
+}
+.discord-card-title{
+  display:block;
+  font-family:var(--font-display);font-size:14px;font-weight:700;
+  color:var(--t0);letter-spacing:-.1px;margin-bottom:4px;
+}
+.discord-card-sub{
+  display:flex;align-items:center;gap:6px;
+  font-family:var(--font-mono);font-size:10px;color:var(--t1);
+}
+.dc-online-dot{
+  width:7px;height:7px;border-radius:50%;
+  background:#23a55a;
+  box-shadow:0 0 6px rgba(35,165,90,.6);
+  flex-shrink:0;
+  animation:dc-pulse 2.5s ease-in-out infinite;
+}
+@keyframes dc-pulse{
+  0%,100%{box-shadow:0 0 6px rgba(35,165,90,.5)}
+  50%{box-shadow:0 0 12px rgba(35,165,90,.9),0 0 20px rgba(35,165,90,.4)}
+}
+.discord-card-cta{
+  display:flex;align-items:center;gap:6px;
+  font-family:var(--font-display);font-size:12px;font-weight:700;
+  color:#5865F2;letter-spacing:.3px;text-transform:uppercase;
+  background:rgba(88,101,242,.12);
+  border:1px solid rgba(88,101,242,.3);
+  border-radius:8px;padding:7px 14px;
+  transition:all .2s;white-space:nowrap;flex-shrink:0;
+}
+.discord-card:hover .discord-card-cta{
+  background:rgba(88,101,242,.22);
+  color:#fff;border-color:rgba(88,101,242,.6);
+}
+@media(max-width:900px){.discord-card{max-width:100%}}
+/* ─── SOCIAL PROOF BADGES ─── */
+.sp-badge{
+  display:inline-flex;align-items:center;gap:6px;
+  font-family:var(--font-mono);font-size:10px;
+  color:rgba(255,255,255,.45);
+  background:rgba(255,255,255,.04);
+  border:1px solid rgba(255,255,255,.09);
+  border-radius:100px;padding:5px 12px;
+  text-decoration:none;transition:all .18s;
+  white-space:nowrap;
+}
+.sp-badge:hover{color:rgba(255,255,255,.75);border-color:rgba(0,212,255,.28);background:rgba(0,212,255,.06)}
+.sp-badge svg{opacity:.6;flex-shrink:0}
+.sp-badge:hover svg{opacity:1}
+.sp-titles-note{
+  display:inline-flex;align-items:center;gap:6px;
+  font-family:var(--font-mono);font-size:10px;
+  color:rgba(255,255,255,.3);
+  cursor:help;
+  border-bottom:1px dashed rgba(255,255,255,.15);
+  padding-bottom:1px;
+  white-space:nowrap;
+}
+.sp-titles-note svg{opacity:.5;flex-shrink:0}
 
 /* Right — screenshot */
 .hero-right{flex:1;min-width:0;display:flex;align-items:flex-start;justify-content:flex-end;padding:0 0 0 150px;}
@@ -964,6 +1074,8 @@ footer{
 /* ─── REVEAL ─── */
 .reveal{opacity:0;transform:translateY(20px);transition:opacity .65s ease,transform .65s ease}
 .reveal.vis{opacity:1;transform:none}
+/* GSAP override — elementos animados pelo ScrollTrigger não usam .reveal CSS */
+.feat.reveal,.rm-col.reveal,.vcard.reveal,.sec-title.reveal,.sec-label.reveal{opacity:0;transform:translateY(24px);transition:none}
 .d1{transition-delay:.1s}.d2{transition-delay:.2s}.d3{transition-delay:.3s}
 
 /* ════════════════════════════════════
@@ -1129,7 +1241,7 @@ footer{
 
 <!-- NAV -->
 <nav id="mainNav">
-  <a class="nav-logo" href="#">
+  <a class="nav-logo" href="#" onclick="scrollToTop(event)">
     <svg width="26" height="26" viewBox="0 0 28 28" fill="none">
       <rect width="28" height="28" rx="7" fill="rgba(0,153,255,.15)"/>
       <path d="M7 14h3.5L14 7l3.5 7H21" stroke="#00d4ff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
@@ -1140,9 +1252,9 @@ footer{
   </a>
   <div class="nav-right">
     <!-- Download -->
-    <a href="https://github.com/Pixelmodeler/DownloadGBR/releases/download/BETA/GMBR_Launcher_Setup_v4.2.exe" class="nav-link">
-      <svg class="nav-link-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-      Baixar
+    <a href="#" class="nav-link" onclick="scrollToTop(event)">
+      <svg class="nav-link-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+      Início
     </a>
     <!-- Roadmap -->
     <a href="#roadmap" class="nav-link">
@@ -1154,15 +1266,20 @@ footer{
       <svg class="nav-link-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
       Visão
     </a>
+    <!-- Suporte / FAQ -->
+    <a href="#faq" class="nav-link">
+      <svg class="nav-link-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+      Suporte
+    </a>
     <!-- Regras -->
     <a href="#regras" class="nav-link">
       <svg class="nav-link-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
       Regras
     </a>
-    <!-- Suporte / FAQ -->
-    <a href="#faq" class="nav-link">
-      <svg class="nav-link-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
-      Suporte
+    <!-- Fim -->
+    <a href="#fim" class="nav-link">
+      <svg class="nav-link-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      Fim
     </a>
     <!-- Discord CTA -->
     <a href="https://discord.gg/HPRE3aSCWr" target="_blank" class="nav-dl">
@@ -1171,6 +1288,131 @@ footer{
     </a>
   </div>
 </nav>
+
+<!-- ─── SCROLL PORTAL (sobre o hero) ─── -->
+<style>
+#portal-word{
+  position:absolute;
+  top:50%;left:50%;
+  z-index:20;
+  font-family:'Syne',sans-serif;
+  font-size:clamp(72px,18vw,200px);
+  font-weight:800;letter-spacing:-4px;text-transform:uppercase;
+  background:linear-gradient(135deg,#00d4ff 0%,#7dd8ff 45%,#0055ff 100%);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+  white-space:nowrap;
+  transform:translate(-50%,-50%);
+  transform-origin:center center;
+  will-change:transform,opacity;
+  user-select:none;
+  pointer-events:none;
+  /* 3D extrusion effect with layered shadows */
+  text-shadow: 
+    0 1px 0 #ccc,
+    0 2px 0 #b9b9b9,
+    0 3px 0 #aaa,
+    0 4px 0 #999,
+    0 5px 0 #888,
+    0 6px 1px rgba(0,0,0,.1),
+    0 0 5px rgba(0,0,0,.1),
+    0 1px 3px rgba(0,0,0,.3),
+    0 3px 5px rgba(0,0,0,.2),
+    0 5px 10px rgba(0,0,0,.25),
+    0 10px 10px rgba(0,0,0,.2),
+    0 20px 20px rgba(0,0,0,.15),
+    0 0 30px rgba(0,212,255,.3),
+    0 0 60px rgba(0,212,255,.2);
+  filter:drop-shadow(0 0 40px rgba(0,212,255,.4));
+}
+
+/* 3D depth layers behind the text */
+#portal-word::before{
+  content:'GMBR';
+  position:absolute;
+  top:3px;left:3px;
+  right:0;bottom:0;
+  background:linear-gradient(135deg,rgba(0,60,180,.9) 0%,rgba(0,30,120,.7) 100%);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+  z-index:-1;
+}
+
+#portal-word::after{
+  content:'GMBR';
+  position:absolute;
+  top:6px;left:6px;
+  right:0;bottom:0;
+  background:linear-gradient(135deg,rgba(0,40,120,.7) 0%,rgba(0,20,80,.5) 100%);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+  z-index:-2;
+}
+
+#portal-subtitle{
+  position:absolute;
+  top:65%;left:50%;
+  transform:translate(-50%,0);
+  z-index:21;
+  font-family:'Space Grotesk',sans-serif;
+  font-size:clamp(14px,3vw,24px);
+  font-weight:400;
+  letter-spacing:4px;
+  text-transform:uppercase;
+  color:rgba(255,255,255,.7);
+  text-align:center;
+  will-change:transform,opacity;
+  user-select:none;
+  pointer-events:none;
+  text-shadow:0 2px 10px rgba(0,0,0,.8),0 0 20px rgba(0,0,0,.5);
+}
+
+#portal-subtitle-2{
+  position:absolute;
+  top:65%;left:50%;
+  transform:translate(-50%,-100%);
+  z-index:21;
+  font-family:'Space Grotesk',sans-serif;
+  font-size:clamp(14px,3vw,24px);
+  font-weight:400;
+  letter-spacing:4px;
+  text-transform:uppercase;
+  color:rgba(255,255,255,.7);
+  text-align:center;
+  will-change:transform,opacity;
+  user-select:none;
+  pointer-events:none;
+  opacity:0;
+  text-shadow:0 2px 10px rgba(0,0,0,.8),0 0 20px rgba(0,0,0,.5);
+}
+
+.hero{
+  perspective:1000px;
+  transform-style:preserve-3d;
+}
+#portal-hint{
+  position:absolute;bottom:36px;left:50%;transform:translateX(-50%);
+  display:flex;flex-direction:column;align-items:center;gap:10px;
+  pointer-events:none;z-index:21;
+}
+#portal-hint-label{
+  font-family:'Space Grotesk',sans-serif;font-size:11px;
+  color:rgba(255,255,255,.35);letter-spacing:1.5px;
+}
+#portal-hint-mouse{
+  animation:mouse-bob 2s ease-in-out infinite;
+}
+@keyframes mouse-bob{
+  0%,100%{transform:translateY(0);opacity:.5}
+  50%{transform:translateY(5px);opacity:1}
+}
+#portal-hint-mouse .scroll-wheel{
+  animation:wheel-scroll 2s ease-in-out infinite;
+}
+@keyframes wheel-scroll{
+  0%{opacity:1;transform:translateY(0)}
+  60%{opacity:0;transform:translateY(5px)}
+  100%{opacity:0;transform:translateY(5px)}
+}
+@media(max-width:640px){#portal-word{font-size:28vw;letter-spacing:-2px}}
+</style>
 
 <!-- HERO -->
 <div class="hero">
@@ -1187,6 +1429,21 @@ footer{
   <div class="hero-grain"></div>
   <canvas id="heroCanvas"></canvas>
   <div class="hero-fade"></div>
+  <!-- portal de entrada: fica sobre o hero e some ao scrollar -->
+  <span id="portal-word">GMBR</span>
+  <span id="portal-subtitle">Descubra mais de 120.000 jogos grátis em um só lugar<br>Filmes, séries e muito mais esperando por você<br>Gerencie tudo de forma simples e rápida</span>
+  <span id="portal-subtitle-2">Baixe agora gratuitamente<br>Sem anúncios, 100% open source e disponível para Windows e Linux<br>Experimente a melhor experiência de jogos</span>
+  <div id="portal-hint">
+    <span id="portal-hint-label">Role a rodinha do mouse</span>
+    <svg id="portal-hint-mouse" width="26" height="38" viewBox="0 0 26 38" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <!-- corpo do mouse -->
+      <rect x="1" y="1" width="24" height="36" rx="12" stroke="rgba(0,212,255,0.55)" stroke-width="1.5"/>
+      <!-- linha divisória dos botões -->
+      <line x1="13" y1="1" x2="13" y2="16" stroke="rgba(0,212,255,0.3)" stroke-width="1"/>
+      <!-- rodinha -->
+      <rect class="scroll-wheel" x="11" y="8" width="4" height="7" rx="2" fill="rgba(0,212,255,0.8)"/>
+    </svg>
+  </div>
 
   <div class="hero-layout">
     <!-- LEFT -->
@@ -1199,11 +1456,12 @@ footer{
       <p class="hero-tagline">Gerenciador de jogos para PC.<br><strong>+120.000 títulos.</strong> Gratuito. Sem anúncios.</p>
 
       <div class="hero-dl-group">
-        <a href="https://github.com/Pixelmodeler/DownloadGBR/releases/download/BETA/GMBR_Launcher_Setup_v4.2.exe" class="btn-hero-dl">
+        <a href="https://github.com/Pixelmodeler/DownloadGBR/releases/download/BETA/GMBR_Launcher_Setup_v4.2.exe" id="btnWindows" class="btn-hero-dl" aria-label="Baixar GMBR Launcher para Windows (v4.2, ~65 MB)">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M0 3.449L9.75 2.1v9.451H0m10.949-9.602L24 0v11.4H10.949M0 12.6h9.75v9.451L0 20.699M10.949 12.6H24V24l-12.9-1.801"/></svg>
           Baixar para Windows
           <span class="btn-size-badge">~65 MB</span>
-        <a href="https://github.com/Pixelmodeler/DownloadGBR/releases/download/BETA/GMBR_Launcher_Linux4.2.zip" class="btn-hero-linux">
+        </a>
+        <a href="https://github.com/Pixelmodeler/DownloadGBR/releases/download/BETA/GMBR_Launcher_Linux4.2.zip" id="btnLinux" class="btn-hero-linux" aria-label="Baixar GMBR Launcher para Linux (v4.2)">
           <svg width="17" height="17" viewBox="0 0 448 512" fill="currentColor"><path d="M220.8 123.3c1 .5 1.8 1.7 3 1.7 1.1 0 2.8-.4 2.9-1.5.2-1.4-1.9-2.3-3.2-2.9-1.7-.7-3.9-1-5.5-.1-.4.2-.8.7-.6 1.1.3 1.1 2.4 1.1 3.4 1.7zm-21.9 1.7c1.2 0 2-1.2 3-1.7 1-.6 3.1-.6 3.4-1.8.2-.4-.2-.9-.6-1.1-1.6-.9-3.8-.6-5.5.1-1.3.6-3.4 1.5-3.2 2.9.1 1.1 1.8 1.5 2.9 1.6zM420 403.8c-3.6-4-5.3-11.6-7.2-19.7-1.8-8.1-3.9-16.8-10.5-22.4-1.3-1.1-2.6-2.1-4-2.9-1.3-.8-2.7-1.5-4.1-2 9.2-27.3 5.6-54.5-3.7-79.1-11.4-30.1-31.3-56.4-46.5-74.4-17.1-21.5-33.7-41.9-33.4-72C311.1 85.4 315.7.1 234.8 0 132.4-.2 158 103.4 156.9 135.2c-1.7 23.4-6.4 41.8-22.5 64.7-18.9 22.5-45.5 58.8-58.1 96.7-6 17.9-8.8 36.1-6.2 53.3-6.5 5.8-11.4 14.7-16.6 20.2-4.2 4.3-10.3 5.9-17 8.3s-14 6-18.5 14.5c-2.1 3.9-2.8 8.1-2.8 12.4 0 3.9.6 7.9 1.2 11.8 1.2 8.1 2.5 15.7.8 20.8-5.2 14.4-5.9 24.4-2.2 31.7 3.8 7.3 11.4 10.5 20.1 12.3 17.3 3.6 40.8 2.7 59.3 12.5 19.8 10.4 39.9 14.1 55.9 10.4 11.6-2.6 21.1-9.6 25.9-20.2 12.5-.1 26.3-5.4 48.3-6.6 14.9-1.2 33.6 5.3 55.1 4.1.6 2.3 1.4 4.6 2.5 6.7v.1c5.6 10.8 16.9 19.2 31.2 19.2 19.3 0 32.2-5.7 38.4-17.4zm-371.4-34c2.1-4.6 6.3-7.2 12-9.2 5.6-2 11.5-3.4 17.3-6.6 5.8-3.2 11.1-8.9 13.6-16.3 1.6-5.3 0-13.8-1.2-21.7-1.2-7.9-1.8-15.3 1.2-18.6.6-.7 1.6-.8 2.8-.5l1.4.6c6.4 2.7 19.6 8.2 29.5 3.6 3.4-1.6 6.1-4.7 7.2-8.5 1.5-5.2.8-11.1-.2-16.7-.7-3.8-1.8-7.6-2.8-11.5-2.1-7.5-4.1-15.3-2.9-23 1.4-9.1 7.7-15.9 15.5-18.5 7.1-2.4 14.8-1.7 21.8.4 6.4 1.9 11.2 5.9 13.7 11.7 2.5 5.7 2.7 12 1.7 17.8-1.9 10.6-6.7 20.7-3.5 33.2 1 3.9 4.2 7.7 7.8 9.3 3.6 1.6 7.8 1.6 11.6.8 8.3-1.8 14.2-8 19.5-14.6 6-7.5 11.5-15.3 18.8-20.7 3.4-2.5 7.2-4.1 11.2-4.4 4-.3 8.4.8 11.8 3.1 6.9 4.7 10.2 13 12.4 21.1 2.2 8.2 3.3 16.6 4.1 25 .7 8.6 1.5 17.3 3.2 25.8 1 4.8 2.3 9.5 4.3 14 1.7 4 4.1 7.5 7.2 10.3 3.5 3 7.9 5.2 12.8 6.3 4.9 1 10.3 1.2 15.7 1.4 5.4.2 10.7.3 15.7.8 10 .9 19.2 3 27.2 7.7-7.1 3.3-16.3 5.6-28.7 6.2-19.4.9-24.3-2.9-28.3-5.4-3.3-2.1-5.7-3.4-10.4-3.1-4.7.4-7.9 1.8-10.6 3.1-5.3 2.8-8.9 5.4-21.8 6.9-18.3 2.1-26.5-7.4-40.9-7.3-11.2 0-26.1 3.7-30.2 6.5.1-4.2.9-8.1 2.6-11.6 5.2-11 15.2-18.2 25.2-25.2 4.8-3.4 9.6-6.8 13.5-10.8 3.9-4 6.9-8.7 7.7-14.2 1.5-10.3-4.6-19.6-8-28.7-3.4-9.2-3.5-18.5 2.2-26.9 5.7-8.5 14.6-13.1 23.7-17.8 9.2-4.7 18.7-9.5 24.6-18.4 2.9-4.4 4.6-9.5 5.3-14.8.7-5.2.4-10.7-.6-16.1-2-11-7-22.4-9.2-31.9-2.2-9.6-1.9-17.5 3.2-23.8 4.5-5.5 11.2-8.1 18.5-8.1 7.3 0 15 2.5 21 7.6 6 5.1 9.4 12.8 9.4 20.9 0 8.1-3.4 15.8-9.4 20.9-6 5.1-13.7 7.6-21 7.6-.9 0-1.8-.1-2.7-.2-10.3-1.3-20.3-5.9-28.5-12.7 1.2 3.9 3.4 7.5 6.9 10.2 3.4 2.7 7.6 4.2 11.8 4.7 4.2.4 8.6-.1 12.7-1.6 4.1-1.5 7.7-3.8 10.6-6.9 5.7-6 8.6-14 8.6-22.5 0-8.6-2.8-17.1-8.3-23.4-5.5-6.2-13.6-9.8-22-10.5-8.3-.7-16.8 1.9-23.1 7.2-6.3 5.2-9.9 12.8-10.2 21-.3 7.5 2.2 15.2 5.3 22.3 3.1 7.1 6.9 14 9.5 21.3 2.5 7.2 3.8 15.1 1.4 22.8-2.4 7.6-8.1 13.5-15.3 17.8-7.1 4.3-15.3 7.1-22.6 11.2-7.3 4.1-13.5 10.2-14.7 19-1.3 9.2 3.2 18 7.3 26 4.1 8 8 16 7.1 24.6-.9 8.5-6.6 15.5-14.7 19.1-8 3.6-17.4 3.7-25.6 1.2-8.2-2.5-15.3-7.7-20.5-14.7-5.2-7-8.4-15.8-8.8-24.7-.4-8.9 2.2-17.9 7.8-24.8 5.6-6.9 13.7-11.3 22.3-13 8.6-1.7 17.7-.7 25.6 2.9-2.7-5.2-7-9.5-12.4-12.1-5.3-2.5-11.3-3.2-17.2-2.1-5.9 1.1-11.5 4-15.8 8.5-4.3 4.5-7 10.4-7.6 16.7-.3 2.8-.2 5.7.1 8.5-3.4-1.7-6.5-3.9-9-6.7-4.2-4.5-6.7-10.5-6.9-16.8-.2-6.3 2.1-12.5 6.5-17.1 2.2-2.3 4.9-4.1 7.9-5.2 3-1.1 6.2-1.5 9.5-1.1 6.6.8 13 4.3 17.5 9.6-1.6-5.4-4.8-10.3-9.2-13.8-4.4-3.5-9.9-5.5-15.5-5.7-5.7-.2-11.3 1.7-15.7 5.2-4.4 3.4-7.5 8.5-8.4 14.1-.5 2.8-.4 5.7.2 8.5-7.7-6.7-12.2-16.6-11.9-26.8.2-7.7 3.2-15.3 8.5-21.3-1.9 1.4-3.7 3-5.2 4.8-4.9 5.7-7.6 13.2-7.4 20.8.2 7.6 3.2 15 8.5 20.4 2.7 2.7 5.8 4.8 9.2 6.2-3.9.6-7.9.4-11.7-.7-7.5-2.2-14-7.7-17.4-14.8-3.4-7-3.5-15.4-.3-22.6-6.1 4.4-10.2 11.1-11.3 18.5-1.1 7.3.9 15 5.5 20.9 2.3 3 5.3 5.5 8.6 7.3-9.2 1.5-17.3 7.1-21.9 15.1-4.4 7.8-4.8 17.4-1 25.5-2.9-1.8-5.5-4.1-7.7-6.8-6.8-8.4-9-19.9-5.8-30.2z"/></svg>
           Baixar para Linux
         </a>
@@ -1224,6 +1482,38 @@ footer{
         <span class="hero-tag">Windows 10/11</span>
         <span class="hero-tag">64-bit</span>
         <span class="hero-tag">v4.2</span>
+      </div>
+
+      <!-- DISCORD CARD -->
+      <a href="https://discord.gg/HPRE3aSCWr" target="_blank" rel="noopener" class="discord-card" aria-label="Entrar no servidor do Discord GMBR">
+        <div class="discord-card-left">
+          <div class="discord-card-icon">
+            <svg width="20" height="20" viewBox="0 0 127.14 96.36" fill="#5865F2"><path d="M107.7 8.07A105.15 105.15 0 0 0 81.47 0a72.06 72.06 0 0 0-3.36 6.83 97.68 97.68 0 0 0-29.11 0A72.37 72.37 0 0 0 45.64 0a105.89 105.89 0 0 0-26.25 8.09C2.79 32.65-1.71 56.6.54 80.21a105.73 105.73 0 0 0 32.17 16.15 77.7 77.7 0 0 0 6.89-11.11 68.42 68.42 0 0 1-10.85-5.18c.91-.66 1.8-1.34 2.66-2a75.57 75.57 0 0 0 64.32 0c.87.71 1.76 1.39 2.66 2a68.68 68.68 0 0 1-10.87 5.19 77 77 0 0 0 6.89 11.1 105.25 105.25 0 0 0 32.19-16.14c2.64-27.38-4.51-51.11-18.9-72.15zM42.45 65.69C36.18 65.69 31 60 31 53s5-12.74 11.43-12.74S54 46 53.89 53s-5.05 12.69-11.44 12.69zm42.24 0C78.41 65.69 73.25 60 73.25 53s5-12.74 11.44-12.74S96.23 46 96.12 53s-5.04 12.69-11.43 12.69z"/></svg>
+          </div>
+          <div class="discord-card-text">
+            <span class="discord-card-title">Entre no nosso Discord</span>
+            <span class="discord-card-sub">
+              <span class="dc-online-dot"></span>
+              <span id="dcMembers">carregando...</span>
+            </span>
+          </div>
+        </div>
+        <div class="discord-card-cta">
+          Entrar
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </div>
+      </a>
+
+      <!-- GITHUB + TITLES -->
+      <div style="margin-top:10px;display:flex;align-items:center;gap:10px;flex-wrap:wrap">
+        <a href="https://github.com/Pixelmodeler/DownloadGBR" target="_blank" rel="noopener" class="sp-badge" aria-label="Ver repositório no GitHub">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.44 9.8 8.21 11.39.6.11.82-.26.82-.58v-2.03c-3.34.73-4.04-1.61-4.04-1.61-.55-1.39-1.34-1.76-1.34-1.76-1.09-.75.08-.73.08-.73 1.2.08 1.84 1.24 1.84 1.24 1.07 1.83 2.81 1.3 3.5.99.11-.78.42-1.3.76-1.6-2.67-.3-5.47-1.33-5.47-5.93 0-1.31.47-2.38 1.24-3.22-.13-.3-.54-1.52.12-3.18 0 0 1.01-.32 3.3 1.23a11.5 11.5 0 0 1 3-.4c1.02.005 2.04.14 3 .4 2.28-1.55 3.29-1.23 3.29-1.23.66 1.66.25 2.88.12 3.18.77.84 1.24 1.91 1.24 3.22 0 4.61-2.81 5.63-5.48 5.92.43.37.81 1.1.81 2.22v3.29c0 .32.22.7.83.58C20.57 21.8 24 17.3 24 12c0-6.63-5.37-12-12-12z"/></svg>
+          <span id="ghStars">GitHub</span>
+        </a>
+        <span class="sp-titles-note" title="Títulos indexados de fontes como FitGirl, DODI e ElAmigos — visível no catálogo dentro do launcher">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>
+          120.000+ títulos indexados
+        </span>
       </div>
     </div>
 
@@ -1427,40 +1717,6 @@ footer{
         </div>
       </div>
 
-      <div class="vcard c-orange reveal d2">
-        <span class="vcard-hover-stat">removido</span>
-        <div class="vcard-icon">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
-            <circle cx="12" cy="12" r="10"/>
-            <line x1="12" y1="8" x2="12" y2="12"/>
-            <line x1="12" y1="16" x2="12.01" y2="16"/>
-          </svg>
-        </div>
-        <div class="vcard-name">Loja in-app — descartada</div>
-        <div class="vcard-desc">A ideia de uma loja com pagamentos via PIX foi removida permanentemente do roadmap. Integrar APIs de pagamento, lidar com estornos, conformidade fiscal e obrigações legais envolvendo dinheiro de terceiros é um trabalho complexo demais para um projeto mantido por um único desenvolvedor — e qualquer erro nessa área tem consequências sérias, jurídicas e financeiras. O GMBR permanece 100% gratuito e sem qualquer sistema de pagamento.</div>
-        <div class="vcard-tags">
-          <span class="vcard-tag" style="color:var(--red);border-color:rgba(255,51,85,.25);background:rgba(255,51,85,.06)">descartado</span>
-          <span class="vcard-tag">100% gratuito</span>
-        </div>
-      </div>
-
-      <div class="vcard c-blue reveal">
-        <span class="vcard-hover-stat">removido</span>
-        <div class="vcard-icon">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
-            <circle cx="12" cy="12" r="10"/>
-            <line x1="12" y1="8" x2="12" y2="12"/>
-            <line x1="12" y1="16" x2="12.01" y2="16"/>
-          </svg>
-        </div>
-        <div class="vcard-name">Social — descartado</div>
-        <div class="vcard-desc">Feed, chat em tempo real, amizades e status online foram removidos do planejamento. Implementar infraestrutura de WebSocket confiável, moderar conteúdo gerado por usuários e manter servidores de mensagens é uma responsabilidade operacional grande demais para um projeto solo. O foco permanece no que o GMBR faz bem: jogos e conteúdo.</div>
-        <div class="vcard-tags">
-          <span class="vcard-tag" style="color:var(--red);border-color:rgba(255,51,85,.25);background:rgba(255,51,85,.06)">descartado</span>
-          <span class="vcard-tag">foco no core</span>
-        </div>
-      </div>
-
 
 
       <div class="vcard c-pink reveal d2">
@@ -1516,48 +1772,6 @@ footer{
       <div class="faq-item"><div class="faq-q" onclick="faq(this)">O que é o Dados Nerds?<span class="faq-icon"><svg width="9" height="9" viewBox="0 0 10 10" fill="currentColor"><path d="M5 0v10M0 5h10"/></svg></span></div><div class="faq-a">Painel de diagnóstico nas configurações com métricas em tempo real: CPU, RAM, GPU, VRAM, temperaturas, uptime, cache e DOM. Atualizado via /api/nerdstats com intervalo configurável.</div></div>
       <div class="faq-item"><div class="faq-q" onclick="faq(this)">Como gerar um log de suporte?<span class="faq-icon"><svg width="9" height="9" viewBox="0 0 10 10" fill="currentColor"><path d="M5 0v10M0 5h10"/></svg></span></div><div class="faq-a">Na aba Suporte do launcher, clique em "Salvar Log — Escolher Pasta". O arquivo gerado contém o diagnóstico completo. Envie-o em um ticket no Discord.</div></div>
       <div class="faq-item"><div class="faq-q" onclick="faq(this)">Há versão para macOS?<span class="faq-icon"><svg width="9" height="9" viewBox="0 0 10 10" fill="currentColor"><path d="M5 0v10M0 5h10"/></svg></span></div><div class="faq-a">Não ainda. O macOS está no roadmap como item planejado. Acompanhe as atualizações no Discord.</div></div>
-    </div>
-  </div>
-</div>
-
-<!-- TRANSITION: faq → download -->
-<div class="sec-transition" style="background:linear-gradient(180deg,var(--bg),var(--bg1))">
-  <svg viewBox="0 0 1440 80" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
-    <path d="M0,0 C480,80 960,0 1440,60 L1440,80 L0,80 Z" fill="var(--bg1)" opacity="0.7"/>
-  </svg>
-</div>
-
-<!-- DL BOTTOM -->
-<div class="dl-bottom">
-  <div class="dl-bottom-glow"></div>
-  <div class="dl-bottom-inner">
-    <div class="reveal">
-      <span class="sec-label">Download</span>
-      <h2 class="sec-title" style="font-size:clamp(28px,3.5vw,44px);margin-bottom:14px">Pronto para instalar.</h2>
-      <p style="font-size:14px;color:var(--t1);line-height:1.8;max-width:380px;margin-bottom:30px">Windows 10 ou 11, 64 bits. Sem Python, sem configuração. O installer cuida de tudo.</p>
-      <div style="display:flex;flex-direction:column;gap:12px;align-items:flex-start">
-        <a href="https://github.com/Pixelmodeler/DownloadGBR/releases/download/BETA/GMBR_Launcher_Setup_v4.2.exe" class="btn-dl-main">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M0 3.449L9.75 2.1v9.451H0m10.949-9.602L24 0v11.4H10.949M0 12.6h9.75v9.451L0 20.699M10.949 12.6H24V24l-12.9-1.801"/></svg>
-          Baixar para Windows
-          <span class="btn-size-badge">~65 MB</span>
-          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-        </a>
-        <a href="https://pixeldrain.com/u/qVxfAFkG" target="_blank" style="font-family:var(--font-mono);font-size:11px;color:var(--t2);text-decoration:none;display:flex;align-items:center;gap:6px;transition:color .15s" onmouseover="this.style.color='var(--t1)'" onmouseout="this.style.color='var(--t2)'">
-          <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-          Mirror alternativo (Pixeldrain)
-        </a>
-      </div>
-    </div>
-    <div class="reveal d1">
-      <div style="font-size:9.5px;color:var(--t2);font-family:var(--font-mono);margin-bottom:14px;letter-spacing:1px;text-transform:uppercase">Requisitos mínimos</div>
-      <div class="dl-req-grid">
-        <div class="dl-req-item"><div class="dl-req-k">Sistema</div><div class="dl-req-v">Windows 10 / 11</div></div>
-        <div class="dl-req-item"><div class="dl-req-k">Arquitetura</div><div class="dl-req-v">64-bit</div></div>
-        <div class="dl-req-item"><div class="dl-req-k">RAM</div><div class="dl-req-v">4 GB</div></div>
-        <div class="dl-req-item"><div class="dl-req-k">Armazenamento</div><div class="dl-req-v">200 MB</div></div>
-        <div class="dl-req-item"><div class="dl-req-k">Python</div><div class="dl-req-v">Não necessário</div></div>
-        <div class="dl-req-item"><div class="dl-req-k">Versão</div><div class="dl-req-v">v4.2</div></div>
-      </div>
     </div>
   </div>
 </div>
@@ -1843,6 +2057,50 @@ footer{
   </div>
 </div>
 
+<!-- TRANSITION: faq → download -->
+<div class="sec-transition" style="background:linear-gradient(180deg,var(--bg),var(--bg1))">
+  <svg viewBox="0 0 1440 80" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M0,0 C480,80 960,0 1440,60 L1440,80 L0,80 Z" fill="var(--bg1)" opacity="0.7"/>
+  </svg>
+</div>
+
+<!-- DL BOTTOM -->
+<div class="dl-bottom">
+  <div class="dl-bottom-glow"></div>
+  <div class="dl-bottom-inner">
+    <div class="reveal">
+      <span class="sec-label">Download</span>
+      <h2 class="sec-title" style="font-size:clamp(28px,3.5vw,44px);margin-bottom:14px">Pronto para instalar.</h2>
+      <p style="font-size:14px;color:var(--t1);line-height:1.8;max-width:380px;margin-bottom:30px">Windows 10 ou 11, 64 bits. Sem Python, sem configuração. O installer cuida de tudo.</p>
+      <div style="display:flex;flex-direction:column;gap:12px;align-items:flex-start">
+        <a href="https://github.com/Pixelmodeler/DownloadGBR/releases/download/BETA/GMBR_Launcher_Setup_v4.2.exe" class="btn-dl-main">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M0 3.449L9.75 2.1v9.451H0m10.949-9.602L24 0v11.4H10.949M0 12.6h9.75v9.451L0 20.699M10.949 12.6H24V24l-12.9-1.801"/></svg>
+          Baixar para Windows
+          <span class="btn-size-badge">~65 MB</span>
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+        </a>
+        <a href="https://pixeldrain.com/u/qVxfAFkG" target="_blank" style="font-family:var(--font-mono);font-size:11px;color:var(--t2);text-decoration:none;display:flex;align-items:center;gap:6px;transition:color .15s" onmouseover="this.style.color='var(--t1)'" onmouseout="this.style.color='var(--t2)'">
+          <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+          Mirror alternativo (Pixeldrain)
+        </a>
+      </div>
+    </div>
+    <div class="reveal d1">
+      <div style="font-size:9.5px;color:var(--t2);font-family:var(--font-mono);margin-bottom:14px;letter-spacing:1px;text-transform:uppercase">Requisitos mínimos</div>
+      <div class="dl-req-grid">
+        <div class="dl-req-item"><div class="dl-req-k">Sistema</div><div class="dl-req-v">Windows 10 / 11</div></div>
+        <div class="dl-req-item"><div class="dl-req-k">Arquitetura</div><div class="dl-req-v">64-bit</div></div>
+        <div class="dl-req-item"><div class="dl-req-k">RAM</div><div class="dl-req-v">4 GB</div></div>
+        <div class="dl-req-item"><div class="dl-req-k">Armazenamento</div><div class="dl-req-v">200 MB</div></div>
+        <div class="dl-req-item"><div class="dl-req-k">Python</div><div class="dl-req-v">Não necessário</div></div>
+        <div class="dl-req-item"><div class="dl-req-k">Versão</div><div class="dl-req-v">v4.2</div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
 <style>
 .rtab{
   display:inline-flex;align-items:center;gap:7px;
@@ -1933,7 +2191,7 @@ footer{
   </div>
 </div>
 
-<footer>
+<footer id="fim">
   <div class="footer-line"></div>
 
   <!-- Linha superior: brand + nav -->
@@ -1958,9 +2216,9 @@ footer{
   <!-- Divisor -->
   <div style="width:100%;height:1px;background:var(--brd);margin:4px 0"></div>
 
-  <!-- Equipe -->
+  <!-- Criador -->
   <div style="width:100%;margin-top:4px">
-    <div style="font-family:var(--font-mono);font-size:9px;color:var(--t2);letter-spacing:1.2px;text-transform:uppercase;margin-bottom:12px">Equipe</div>
+    <div style="font-family:var(--font-mono);font-size:9px;color:var(--t2);letter-spacing:1.2px;text-transform:uppercase;margin-bottom:12px">Criado por</div>
     <div style="display:flex;gap:10px;flex-wrap:wrap;align-items:center">
 
       <!-- Oliver -->
@@ -1968,29 +2226,9 @@ footer{
         <img src="https://i.postimg.cc/hjd4zW9X/image.png" alt="oliver" class="team-chip-avatar">
         <div class="team-chip-info">
           <span class="team-chip-name">oliver</span>
-          <span class="team-chip-role c-acc">Dono · Dev Principal · Idealizador</span>
+          <span class="team-chip-role c-acc">Criador · Dev · Designer · Idealizador</span>
         </div>
-        <span class="team-chip-badge owner">DONO</span>
-      </button>
-
-      <!-- Mayck -->
-      <button class="team-chip" onclick="openMemberModal('mayck')" aria-label="Ver perfil de Mayck">
-        <img src="https://i.postimg.cc/V6CMYhvd/image.png" alt="mayck" class="team-chip-avatar">
-        <div class="team-chip-info">
-          <span class="team-chip-name">Mayck</span>
-          <span class="team-chip-role c-purple">Subdono · Elaborador de Texto</span>
-        </div>
-        <span class="team-chip-badge subdono">SUBDONO</span>
-      </button>
-
-      <!-- Joao Simba -->
-      <button class="team-chip" onclick="openMemberModal('simba')" aria-label="Ver perfil de Joao Simba">
-        <img src="https://i.postimg.cc/SNJ4Jpqw/image.png" alt="Joao Simba" class="team-chip-avatar">
-        <div class="team-chip-info">
-          <span class="team-chip-name">Joao Simba</span>
-          <span class="team-chip-role c-green">Distribuição & Site</span>
-        </div>
-        <span class="team-chip-badge site">SITE</span>
+        <span class="team-chip-badge owner">AUTOR</span>
       </button>
 
     </div>
@@ -2026,6 +2264,15 @@ footer{
 
       <p class="mmodal-desc" id="mmodalDesc"></p>
 
+      <!-- quote -->
+      <div class="mmodal-quote" id="mmodalQuote" style="display:none"><p></p></div>
+
+      <!-- stats -->
+      <div class="mmodal-stats" id="mmodalStats" style="display:none"></div>
+
+      <!-- timeline -->
+      <div id="mmodalTimeline" style="display:none"></div>
+
       <!-- note complementar (para mayck/simba) -->
       <div class="mmodal-note" id="mmodalNote" style="display:none"></div>
 
@@ -2043,6 +2290,7 @@ footer{
     </div>
   </div>
 </div>
+
 
 <style>
 /* ─── TEAM CHIPS ─── */
@@ -2199,6 +2447,28 @@ footer{
 }
 .mmodal-note svg{color:rgba(0,212,255,.45);flex-shrink:0;margin-top:1px}
 
+/* ─── TIMELINE ─── */
+.mmodal-timeline{margin-bottom:18px}
+.mmodal-timeline-item{display:flex;gap:12px;position:relative;padding-bottom:16px}
+.mmodal-timeline-item:last-child{padding-bottom:0}
+.mmodal-timeline-left{display:flex;flex-direction:column;align-items:center;flex-shrink:0;width:28px}
+.mmodal-timeline-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0;border:2px solid;margin-top:3px;box-shadow:0 0 8px currentColor}
+.mmodal-timeline-line{width:1px;flex:1;margin-top:4px;background:linear-gradient(180deg,rgba(255,255,255,.1),transparent)}
+.mmodal-timeline-content{flex:1}
+.mmodal-timeline-date{font-family:var(--font-mono);font-size:9px;letter-spacing:.5px;color:var(--t2);margin-bottom:3px;text-transform:uppercase}
+.mmodal-timeline-title{font-size:12.5px;font-weight:600;color:var(--t0);margin-bottom:3px}
+.mmodal-timeline-text{font-size:11.5px;color:var(--t1);line-height:1.6}
+
+/* ─── STATS ROW ─── */
+.mmodal-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:18px}
+.mmodal-stat{background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.07);border-radius:10px;padding:10px 8px;text-align:center}
+.mmodal-stat-n{font-family:var(--font-display);font-size:18px;font-weight:800;background:linear-gradient(135deg,var(--acc),var(--acc2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;display:block;line-height:1.1}
+.mmodal-stat-l{font-family:var(--font-mono);font-size:9px;color:var(--t2);letter-spacing:.3px;margin-top:3px}
+
+/* ─── QUOTE ─── */
+.mmodal-quote{border-left:2px solid rgba(0,212,255,.3);padding:8px 14px;margin-bottom:18px;background:rgba(0,212,255,.03);border-radius:0 8px 8px 0}
+.mmodal-quote p{font-size:12px;color:rgba(255,255,255,.5);font-style:italic;line-height:1.7;margin:0}
+
 /* screenshots */
 .mmodal-screenshots{margin-bottom:16px}
 .mmodal-sec-label{
@@ -2286,25 +2556,50 @@ document.querySelectorAll('.reveal').forEach(el => {
   new IntersectionObserver(([e]) => { if(e.isIntersecting) el.classList.add('vis'); }, {threshold:.07}).observe(el);
 });
 
+let _wasAway = false;
+
+function scrollToTop(e){
+  if(e) e.preventDefault();
+  if(typeof ScrollTrigger !== 'undefined') ScrollTrigger.refresh();
+  window.scrollTo({top:0, behavior:'smooth'});
+}
+
 window.addEventListener('scroll', () => {
-  document.getElementById('mainNav').classList.toggle('scrolled', window.scrollY > 10);
+  const sy = window.scrollY;
+  // Refresh ScrollTrigger ao voltar pro topo para eliminar o vácuo
+  if(sy < 10 && _wasAway){
+    _wasAway = false;
+    if(typeof ScrollTrigger !== 'undefined') ScrollTrigger.refresh();
+  }
+  if(sy > 200) _wasAway = true;
+
+  document.getElementById('mainNav').classList.toggle('scrolled', sy > 10);
   const sp = document.getElementById('scrollProgress');
   if(sp){
-    const pct = window.scrollY / (document.documentElement.scrollHeight - window.innerHeight) * 100;
+    const pct = sy / (document.documentElement.scrollHeight - window.innerHeight) * 100;
     sp.style.width = Math.min(pct,100) + '%';
   }
   // Active nav link highlight
   const sections = [
-    {id:'roadmap', href:'#roadmap'},
+    {id:'hero-anchor', href:'#'},
+    {id:'roadmap',      href:'#roadmap'},
     {id:'grande-visao', href:'#grande-visao'},
-    {id:'regras', href:'#regras'},
-    {id:'faq', href:'#faq'},
+    {id:'faq',          href:'#faq'},
+    {id:'regras',       href:'#regras'},
+    {id:'fim',          href:'#fim'},
   ];
-  let current = '';
-  sections.forEach(s => {
-    const el = document.getElementById(s.id);
-    if(el && window.scrollY >= el.offsetTop - 120) current = s.href;
-  });
+  let current = '#';
+  const atBottom = window.scrollY + window.innerHeight >= document.documentElement.scrollHeight - 80;
+  if(atBottom){
+    current = '#fim';
+  } else {
+    sections.forEach(s => {
+      if(s.href === '#fim' || s.href === '#') return;
+      const el = document.getElementById(s.id);
+      if(el && window.scrollY >= el.offsetTop - 120) current = s.href;
+    });
+    if(window.scrollY < 80) current = '#';
+  }
   document.querySelectorAll('.nav-link').forEach(a => {
     a.classList.toggle('active', a.getAttribute('href') === current);
   });
@@ -2597,65 +2892,39 @@ const MEMBERS = {
     handle: '__oliversilva',
     avatar: 'https://i.postimg.cc/hjd4zW9X/image.png',
     discord: 'https://discord.com/users/1324060825350307942',
-    badge: 'DONO',
+    badge: 'AUTOR',
     badgeClass: 'owner',
     bannerColor: 'linear-gradient(135deg, rgba(0,212,255,.35) 0%, rgba(0,85,255,.28) 50%, rgba(124,58,237,.22) 100%)',
     roles: [
-      {label:'Dono', color:'#00d4ff', bg:'rgba(0,212,255,.1)', border:'rgba(0,212,255,.25)'},
-      {label:'Developer Principal', color:'#00d4ff', bg:'rgba(0,212,255,.07)', border:'rgba(0,212,255,.18)'},
+      {label:'Criador', color:'#00d4ff', bg:'rgba(0,212,255,.1)', border:'rgba(0,212,255,.25)'},
+      {label:'Developer', color:'#00d4ff', bg:'rgba(0,212,255,.07)', border:'rgba(0,212,255,.18)'},
+      {label:'Designer', color:'#00d4ff', bg:'rgba(0,212,255,.07)', border:'rgba(0,212,255,.18)'},
       {label:'Idealizador', color:'#7c3aed', bg:'rgba(124,58,237,.1)', border:'rgba(124,58,237,.25)'},
     ],
     entry: { date: '12/07/2025', label: 'Fundador — desde o dia zero' },
     entryColor: '#00d4ff',
     proximity: null,
-    desc: 'Idealizou o GMBR Launcher em 12 de julho de 2025 — planejou a execução do zero, sozinho, e construiu toda a base: arquitetura, código-fonte, segurança, backend, interface e identidade do projeto. Cada linha, cada detalhe, cada versão saiu do zero das mãos dele. Todo o sacrifício do começo foi seu.',
+    quote: 'Queria um launcher que eu mesmo usaria. Então construí.',
+    stats: [
+      { n: '9', l: 'meses dev' },
+      { n: '4.2', l: 'versão atual' },
+      { n: '120k+', l: 'títulos' },
+    ],
+    timeline: [
+      { date: 'Jul 2025', title: 'Ideia & primeiro código', text: 'Conceito inicial, arquitetura base e primeiros testes. Tudo sozinho, do zero.', color: '#00d4ff' },
+      { date: 'Ago 2025', title: 'Backend & segurança', text: 'Sistema de autenticação com XOR-512, banco AES-256-GCM e estrutura de API.', color: '#7c3aed' },
+      { date: 'Out 2025', title: 'Interface & identidade visual', text: 'Design completo do launcher — telas, ícones, paleta, tipografia e animações.', color: '#00d4ff' },
+      { date: 'Dez 2025', title: 'Beta privado', text: 'Primeiros testes reais com usuários. Coleta de feedback e ajustes críticos.', color: '#00e5a0' },
+      { date: 'Mar 2026', title: 'v4.2 — lançamento público', text: 'Versão estável lançada com installer assinado, +120k títulos e suporte a Linux.', color: '#00d4ff' },
+    ],
+    desc: 'Idealizou, planejou e construiu o GMBR Launcher inteiro do zero. Toda a arquitetura, código-fonte, segurança, backend, interface, identidade visual e site — cada linha, cada detalhe, cada versão saiu das mãos dele. O projeto inteiro é obra de uma só pessoa.',
     note: null,
     screenshots: [
       { url: 'https://i.postimg.cc/QCcyWS4q/image.png', label: 'Beta — tela inicial' },
       { url: 'https://i.postimg.cc/fTjPz2SG/image.png', label: 'Beta — perfil do oliver' },
     ],
-    tags: ['Fundador','Python','Electron','XOR-512','SHA-256','AES-256-GCM','UI/UX','Open Source','Solo Dev'],
+    tags: ['Fundador','Python','XOR-512','SHA-256','AES-256-GCM','UI/UX','Design','Open Source','Solo Dev'],
   },
-  mayck: {
-    name: 'Mayck',
-    handle: 'mayck',
-    avatar: 'https://i.postimg.cc/V6CMYhvd/image.png',
-    discord: 'https://discord.com/users/1360728055500509224',
-    badge: 'SUBDONO',
-    badgeClass: 'subdono',
-    bannerColor: 'linear-gradient(135deg, rgba(167,139,250,.25) 0%, rgba(124,58,237,.2) 60%, rgba(0,85,255,.15) 100%)',
-    roles: [
-      {label:'Subdono', color:'#a78bfa', bg:'rgba(167,139,250,.1)', border:'rgba(167,139,250,.25)'},
-      {label:'Elaborador de Texto', color:'#a78bfa', bg:'rgba(167,139,250,.07)', border:'rgba(167,139,250,.18)'},
-    ],
-    entry: { date: '05/01/2026', label: 'Entrou no início de 2026' },
-    entryColor: '#a78bfa',
-    proximity: 'Próximo ao oliver — entrou como subdono para ajudar e fortalecer o projeto.',
-    desc: 'Entrou em janeiro de 2026 como subdono, assumindo a frente de textos, comunicados e conteúdo escrito. Contribuiu muito para a comunicação do projeto crescer de forma clara e organizada — a voz do GMBR pra comunidade tem muito dele.',
-    note: 'Chegou depois da fundação, mas chegou pra somar de verdade.',
-    screenshots: null,
-    tags: ['Copywriting','Comunicação','Comunidade','Discord','Texto'],
-  },
-  simba: {
-    name: 'Joao Simba',
-    handle: 'joaosimba',
-    avatar: 'https://i.postimg.cc/SNJ4Jpqw/image.png',
-    discord: 'https://discord.com/users/1324060825350307942',
-    badge: 'SITE',
-    badgeClass: 'site',
-    bannerColor: 'linear-gradient(135deg, rgba(52,211,153,.2) 0%, rgba(0,212,255,.15) 60%, rgba(0,85,255,.1) 100%)',
-    roles: [
-      {label:'Distribuição', color:'#34d399', bg:'rgba(52,211,153,.1)', border:'rgba(52,211,153,.25)'},
-      {label:'Site', color:'#34d399', bg:'rgba(52,211,153,.07)', border:'rgba(52,211,153,.18)'},
-    ],
-    entry: { date: '01/03/2026', label: 'Entrou em março de 2026' },
-    entryColor: '#34d399',
-    proximity: 'Complementar ao time — assumiu distribuição e site com dedicação.',
-    desc: 'Entrou em março de 2026 pra cuidar da distribuição e do site. Desde que chegou, garantiu que o launcher chegasse a mais gente e que a página estivesse sempre em dia. Contribuição real, mesmo que tenha chegado com o projeto já rodando.',
-    note: 'Chegou depois da fundação, mas chegou pra somar de verdade.',
-    screenshots: null,
-    tags: ['Distribuição','GitHub','Site','Download','Mirrors'],
-  }
 };
 
 function openMemberModal(key) {
@@ -2698,6 +2967,47 @@ function openMemberModal(key) {
 
   // desc
   document.getElementById('mmodalDesc').textContent = m.desc;
+
+  // quote
+  const quoteEl = document.getElementById('mmodalQuote');
+  if(quoteEl){
+    if(m.quote){ quoteEl.style.display='block'; quoteEl.querySelector('p').textContent = m.quote; }
+    else quoteEl.style.display='none';
+  }
+
+  // stats
+  const statsEl = document.getElementById('mmodalStats');
+  if(statsEl){
+    if(m.stats && m.stats.length){
+      statsEl.style.display='grid';
+      statsEl.innerHTML = m.stats.map(s =>
+        `<div class="mmodal-stat"><span class="mmodal-stat-n">${s.n}</span><div class="mmodal-stat-l">${s.l}</div></div>`
+      ).join('');
+    } else { statsEl.style.display='none'; }
+  }
+
+  // timeline
+  const tlEl = document.getElementById('mmodalTimeline');
+  if(tlEl){
+    if(m.timeline && m.timeline.length){
+      tlEl.style.display='block';
+      tlEl.innerHTML = `<div class="mmodal-sec-label" style="margin-bottom:12px">Linha do tempo</div>` +
+        `<div class="mmodal-timeline">` +
+        m.timeline.map((t,i) => `
+          <div class="mmodal-timeline-item">
+            <div class="mmodal-timeline-left">
+              <div class="mmodal-timeline-dot" style="color:${t.color};border-color:${t.color}"></div>
+              ${i < m.timeline.length-1 ? '<div class="mmodal-timeline-line"></div>' : ''}
+            </div>
+            <div class="mmodal-timeline-content">
+              <div class="mmodal-timeline-date">${t.date}</div>
+              <div class="mmodal-timeline-title">${t.title}</div>
+              <div class="mmodal-timeline-text">${t.text}</div>
+            </div>
+          </div>`).join('') +
+        `</div>`;
+    } else { tlEl.style.display='none'; }
+  }
 
   // note
   const noteEl = document.getElementById('mmodalNote');
@@ -2825,6 +3135,306 @@ document.addEventListener('keydown', e => {
   obs.observe(el);
 })();
 
+/* ─── OS DETECTION ─── */
+(function(){
+  const ua = navigator.userAgent.toLowerCase();
+  const isLinux = ua.includes('linux') && !ua.includes('android');
+  const btnWin = document.getElementById('btnWindows');
+  const btnLin = document.getElementById('btnLinux');
+  if(!btnWin || !btnLin) return;
+  if(isLinux){
+    btnLin.classList.remove('btn-hero-linux');
+    btnLin.classList.add('btn-hero-dl');
+    btnWin.classList.remove('btn-hero-dl');
+    btnWin.classList.add('btn-hero-linux');
+    btnWin.parentNode.insertBefore(btnLin, btnWin);
+  }
+})();
+
+/* ─── GITHUB STARS ─── */
+(function(){
+  const el = document.getElementById('ghStars');
+  if(!el) return;
+  fetch('https://api.github.com/repos/Pixelmodeler/DownloadGBR')
+    .then(r => r.json())
+    .then(d => {
+      const n = d.stargazers_count;
+      if(typeof n === 'number') el.textContent = (n > 0 ? n.toLocaleString('pt-BR') + ' stars' : 'GitHub');
+    })
+    .catch(()=>{ el.textContent = 'GitHub'; });
+})();
+
+/* ─── DISCORD MEMBER COUNT ─── */
+(function(){
+  const el = document.getElementById('dcMembers');
+  if(!el) return;
+  fetch('https://discord.com/api/v10/invites/HPRE3aSCWr?with_counts=true')
+    .then(r => r.json())
+    .then(d => {
+      const n = d.approximate_member_count;
+      if(typeof n === 'number') el.textContent = n.toLocaleString('pt-BR') + ' membros';
+    })
+    .catch(()=>{ el.textContent = 'Discord'; });
+})();
+
 </script>
+
+<!-- ─── STRUCTURED DATA (JSON-LD) ─── -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "GMBR Launcher",
+  "applicationCategory": "GameApplication",
+  "operatingSystem": "Windows 10, Windows 11, Linux",
+  "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "BRL"
+  },
+  "description": "Gerenciador de jogos para PC com mais de 120.000 títulos. 100% gratuito, sem anúncios, open source.",
+  "softwareVersion": "4.2",
+  "downloadUrl": "https://github.com/Pixelmodeler/DownloadGBR/releases/download/BETA/GMBR_Launcher_Setup_v4.2.exe"
+}
+</script>
+
+<!-- ─── GSAP + ScrollTrigger ─── -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script>
+(function(){
+  if(typeof gsap === 'undefined') return;
+  gsap.registerPlugin(ScrollTrigger);
+
+  const isMobile = window.innerWidth < 900;
+  const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if(reducedMotion) return;
+
+  /* ══════════════════════════════════════════
+     0. SCROLL PORTAL — zoom-through na entrada
+        Texto fica sobre o hero e escala ao scroll
+        revelando o conteúdo que já estava atrás
+  ══════════════════════════════════════════ */
+  if(document.getElementById('portal-word')){
+    // hero content começa invisível — o portal revela
+    gsap.set('.hero-left', { opacity:0, x:-40 });
+    if(!isMobile) gsap.set('#heroSS', { opacity:0 });
+
+    const tl = gsap.timeline({
+      scrollTrigger:{
+        trigger:          '.hero',
+        start:            'top top',
+        end:              '+=280%',
+        pin:              true,
+        pinSpacing:       true,
+        scrub:            2.5,
+        anticipatePin:    1,
+        invalidateOnRefresh: true,
+      }
+    });
+
+    // FASE 1: Troca de subtítulo - primeiro desce, segundo sobe
+    tl.to('#portal-subtitle', {
+      y:        50,
+      opacity:  0,
+      ease:     'power2.inOut',
+      duration:  0.40,
+    }, 0);
+    
+    tl.to('#portal-subtitle-2', {
+      y:        0,
+      opacity:  1,
+      ease:     'power2.inOut',
+      duration:  0.40,
+    }, 0);
+    
+    // FASE 2: GMBR faz zoom — opacity some rápido no início para evitar tela branca
+    // (as text-shadows sólidas do efeito 3D cobririam a tela se deixarmos escalar demais)
+    tl.to('#portal-word', {
+      scale:    8,
+      xPercent: -50,
+      yPercent: -50,
+      opacity:  0,
+      ease:     'power3.in',
+      duration:  0.38,
+    }, 0.40);
+    
+    // Segundo subtítulo some durante zoom
+    tl.to('#portal-subtitle-2', {
+      opacity:  0,
+      y:       -20,
+      ease:    'power1.out',
+      duration: 0.18,
+    }, 0.40);
+    
+    // hint some suavemente
+    tl.to('#portal-hint', {
+      opacity:  0,
+      y:       -10,
+      ease:    'power1.out',
+      duration: 0.14,
+    }, 0);
+
+    // hero-left e screenshot entram enquanto letra some
+    tl.to('.hero-left', { opacity:1, x:0, ease:'power2.out', duration:0.32 }, 0.63);
+    tl.to('#heroSS',    { opacity:1,       ease:'power2.out', duration:0.35 }, 0.66);
+  }
+
+  /* ══════════════════════════════════════════
+     3. FEATURES — cada card entra em cascata
+     conforme o scroll avança pela grid
+  ══════════════════════════════════════════ */
+  const feats = document.querySelectorAll('.feat');
+  feats.forEach((el, i) => {
+    // Remove o reveal padrão pra GSAP assumir
+    el.style.opacity = '0';
+    el.style.transform = 'translateY(32px)';
+    gsap.to(el, {
+      scrollTrigger:{
+        trigger: el,
+        start: 'top 88%',
+        toggleActions: 'play none none none',
+      },
+      opacity: 1,
+      y: 0,
+      duration: 0.65,
+      delay: (i % 3) * 0.1,
+      ease: 'power2.out',
+    });
+  });
+
+  /* ══════════════════════════════════════════
+     4. STATS BAR — números contam ao entrar
+  ══════════════════════════════════════════ */
+  document.querySelectorAll('.stat-n[data-count]').forEach(el => {
+    const target = parseInt(el.dataset.count);
+    const suffix = el.dataset.suffix || '';
+    const obj = { val: 0 };
+    ScrollTrigger.create({
+      trigger: el,
+      start: 'top 90%',
+      once: true,
+      onEnter: () => {
+        gsap.to(obj, {
+          val: target,
+          duration: 1.8,
+          ease: 'power2.out',
+          onUpdate(){
+            el.textContent = Math.round(obj.val).toLocaleString('pt-BR') + suffix;
+          }
+        });
+      }
+    });
+  });
+
+  /* ══════════════════════════════════════════
+     5. ROADMAP CARDS — entram da base
+  ══════════════════════════════════════════ */
+  document.querySelectorAll('.rm-col').forEach((el, i) => {
+    el.style.opacity = '0';
+    el.style.transform = 'translateY(40px)';
+    gsap.to(el, {
+      scrollTrigger:{
+        trigger: '.roadmap-cols',
+        start: 'top 82%',
+        toggleActions: 'play none none none',
+      },
+      opacity: 1,
+      y: 0,
+      duration: 0.7,
+      delay: i * 0.15,
+      ease: 'power3.out',
+    });
+  });
+
+  /* ══════════════════════════════════════════
+     6. VISION CARDS — zoom sutil ao entrar
+  ══════════════════════════════════════════ */
+  document.querySelectorAll('.vcard').forEach((el, i) => {
+    el.style.opacity = '0';
+    el.style.transform = 'scale(0.94) translateY(24px)';
+    gsap.to(el, {
+      scrollTrigger:{
+        trigger: el,
+        start: 'top 90%',
+        toggleActions: 'play none none none',
+      },
+      opacity: 1,
+      scale: 1,
+      y: 0,
+      duration: 0.6,
+      delay: (i % 3) * 0.08,
+      ease: 'back.out(1.4)',
+    });
+  });
+
+  /* ══════════════════════════════════════════
+     7. SEC-TITLE pinline — título gruda no
+     topo enquanto o conteúdo da seção passa
+  ══════════════════════════════════════════ */
+  if(!isMobile){
+    document.querySelectorAll('.sec-title').forEach(el => {
+      gsap.fromTo(el,
+        { opacity: 0, y: 30 },
+        {
+          scrollTrigger:{
+            trigger: el,
+            start: 'top 85%',
+            toggleActions: 'play none none none',
+          },
+          opacity: 1,
+          y: 0,
+          duration: 0.8,
+          ease: 'power2.out',
+        }
+      );
+    });
+  }
+
+  /* ══════════════════════════════════════════
+     8. SECTION LABEL — linha cresce da esq
+  ══════════════════════════════════════════ */
+  document.querySelectorAll('.sec-label').forEach(el => {
+    gsap.fromTo(el,
+      { opacity: 0, x: -20 },
+      {
+        scrollTrigger:{
+          trigger: el,
+          start: 'top 88%',
+          toggleActions: 'play none none none',
+        },
+        opacity: 1,
+        x: 0,
+        duration: 0.5,
+        ease: 'power2.out',
+      }
+    );
+  });
+
+  /* ══════════════════════════════════════════
+     9. DISCORD CARD — entra com bounce
+  ══════════════════════════════════════════ */
+  const dcCard = document.querySelector('.discord-card');
+  if(dcCard){
+    gsap.fromTo(dcCard,
+      { opacity: 0, x: -30, scale: 0.96 },
+      {
+        scrollTrigger:{
+          trigger: dcCard,
+          start: 'top 90%',
+          toggleActions: 'play none none none',
+        },
+        opacity: 1,
+        x: 0,
+        scale: 1,
+        duration: 0.6,
+        ease: 'back.out(1.6)',
+      }
+    );
+  }
+
+})();
+</script>
+
 </body>
 </html>
