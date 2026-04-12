@@ -186,6 +186,180 @@ nav.scrolled::after{
 
 @media(max-width:640px){.nav-link{display:none}nav{padding:0 18px}}
 
+/* ══════════════════════════════════════════
+   MOBILE OPTIMIZATIONS — touch & performance
+══════════════════════════════════════════ */
+@media(max-width:640px){
+
+  /* ── Desabilita cursor customizado ── */
+  #cursor,#cursorRing,#cursorGlow{display:none!important}
+  body{cursor:auto!important}
+
+  /* ── Reduz blur e glows pesados ── */
+  .hero-orb{filter:blur(60px)!important;opacity:.45!important;animation-duration:20s!important}
+  .hero-orb:nth-child(1){width:300px!important;height:300px!important}
+  .hero-orb:nth-child(2){width:220px!important;height:220px!important}
+  .hero-orb:nth-child(3){width:160px!important;height:160px!important;display:none}
+  .hero-orb:nth-child(4){display:none}
+  .hero-orb:nth-child(5){display:none}
+  .hero-grid{display:none!important}
+  .hero-beam{display:none!important}
+  .hero-grain{display:none!important}
+  #heroCanvas{display:none!important}
+  body::before{display:none!important}
+
+  /* ── Portal: ocultar no mobile (pesado demais) ── */
+  #portal-word,#portal-subtitle,#portal-subtitle-2{display:none!important}
+  #scroll-hint-corner{display:none!important}
+  #portal-hint{display:none!important}
+
+  /* ── Hero mobile direto ── */
+  .hero-left{opacity:1!important;transform:none!important}
+  #heroSS{opacity:1!important}
+  .hero{min-height:auto!important;padding-bottom:20px}
+  .hero-layout{padding:80px 20px 32px!important;min-height:auto!important}
+
+  /* ── Botões touch-friendly (min 48px) ── */
+  .btn-hero-dl{
+    padding:16px 24px!important;
+    font-size:15px!important;
+    width:100%;justify-content:center;
+    box-shadow:0 0 24px rgba(0,212,255,.25),0 2px 12px rgba(0,0,0,.3)!important;
+    animation:none!important;
+    min-height:52px;
+    -webkit-tap-highlight-color:transparent;
+  }
+  .btn-hero-linux{
+    padding:14px 24px!important;
+    font-size:14px!important;
+    width:100%;justify-content:center;
+    min-height:48px;
+    -webkit-tap-highlight-color:transparent;
+  }
+  .hero-dl-group{width:100%;gap:10px!important}
+
+  /* ── FAQ touch targets ── */
+  .faq-q{padding:20px 4px!important;font-size:14px!important;min-height:52px}
+  .faq-icon{width:28px!important;height:28px!important;flex-shrink:0}
+
+  /* ── Nav botão Discord touch ── */
+  .nav-dl{padding:10px 16px!important;min-height:40px}
+
+  /* ── Scroll progress bar mais visível no mobile ── */
+  #scrollProgress{height:3px!important}
+
+  /* ── Stats bar 2x2 ── */
+  .stats-bar-inner{grid-template-columns:repeat(2,1fr)!important}
+  .stat-item{padding:20px 14px!important}
+  .stat-n{font-size:24px!important}
+
+  /* ── Sections padding ── */
+  .section{padding:48px 16px!important}
+  .roadmap-inner{padding:48px 16px!important}
+  .vision-inner{padding:40px 16px 56px!important}
+
+  /* ── Feature cards: 1 coluna no mobile pequeno ── */
+  .features-grid{grid-template-columns:1fr!important;gap:10px!important}
+  .feat{padding:22px 18px!important}
+
+  /* ── Roadmap cards ── */
+  .roadmap-cols{gap:10px!important}
+  .rm-col{padding:22px 18px!important}
+
+  /* ── Rules tabs: scroll horizontal ── */
+  #rulesTabs{
+    display:flex!important;
+    flex-wrap:nowrap!important;
+    overflow-x:auto!important;
+    -webkit-overflow-scrolling:touch!important;
+    gap:6px!important;
+    padding-bottom:8px!important;
+    scrollbar-width:none!important;
+    -ms-overflow-style:none!important;
+  }
+  #rulesTabs::-webkit-scrollbar{display:none}
+  .rtab{
+    flex-shrink:0!important;
+    min-height:40px!important;
+    padding:8px 14px!important;
+  }
+
+  /* ── rcard grid ── */
+  #tab-dev>div,#tab-monetiz>div{grid-template-columns:1fr!important}
+  #tab-dev .rcard[style*="grid-column"],
+  #tab-monetiz .rcard[style*="grid-column"]{grid-column:1!important}
+
+  /* ── Team modal ── */
+  .mmodal-ss-grid{grid-template-columns:1fr!important}
+
+  /* ── MIT modal ── */
+  #mit-modal{padding:12px!important}
+  #mit-modal-box{border-radius:14px!important}
+
+  /* ── Hero wordmark ── */
+  .hero-wordmark{font-size:clamp(30px,9vw,42px)!important}
+  .hero-tagline{font-size:14px!important}
+
+  /* ── Social proof ── */
+  .hero-mirrors{gap:6px!important}
+  .mirror-pill{font-size:9px!important;padding:4px 10px!important}
+
+  /* ── Discord card ── */
+  .discord-card{padding:12px 14px!important}
+
+  /* ── Active press states para touch ── */
+  .btn-hero-dl:active{transform:scale(.97)!important;opacity:.9}
+  .btn-hero-linux:active{transform:scale(.97)!important;opacity:.9}
+  .nav-dl:active{transform:scale(.97)!important;opacity:.8}
+  .faq-q:active{background:rgba(0,212,255,.04)}
+  .rtab:active{background:rgba(0,212,255,.1)!important}
+  a.mirror-pill:active{background:rgba(0,212,255,.08)!important}
+
+  /* ── Swipe hint no hero (mobile) ── */
+  #mobile-swipe-hint{
+    display:flex!important;
+    position:fixed;bottom:28px;left:50%;
+    transform:translateX(-50%);
+    z-index:400;
+    align-items:center;gap:8px;
+    background:rgba(4,6,15,.82);
+    border:1px solid rgba(0,212,255,.3);
+    border-radius:100px;
+    padding:9px 18px 9px 14px;
+    backdrop-filter:blur(12px);
+    pointer-events:none;
+    transition:opacity .5s,transform .5s;
+  }
+  #mobile-swipe-hint.hidden{opacity:0;transform:translateX(-50%) translateY(16px)}
+
+  /* ── Feat progress badge: esconde no mobile ── */
+  #feat-progress{display:none!important}
+}
+
+/* Swipe hint: oculto no desktop */
+#mobile-swipe-hint{display:none}
+
+/* ── touch-action para scroll suave ── */
+@media(hover:none) and (pointer:coarse){
+  html{-webkit-overflow-scrolling:touch;scroll-behavior:auto}
+  .btn-hero-dl,.btn-hero-linux,.nav-dl,.faq-q,.rtab{
+    touch-action:manipulation;
+    -webkit-tap-highlight-color:transparent;
+  }
+  /* Desativa animação de glow do botão (drena bateria) */
+  .btn-hero-dl{animation:none!important}
+  .hero-v-badge{animation:none!important}
+  .hero-v-dot{animation:none!important}
+  /* Orbs mais lentos para economizar GPU */
+  .hero-orb{animation-duration:20s!important}
+  /* Desativa pin/sticky effects pesados */
+  .hero-orbs{contain:layout style paint!important}
+  /* Reduz box-shadow complexos */
+  .feat,.vcard,.rm-col{box-shadow:none!important}
+  /* Torna scroll mais suave */
+  .features-grid,.roadmap-cols,.vision-grid{contain:layout style}
+}
+
 /* ─── HERO ─── */
 .hero{position:relative;min-height:100vh;display:flex;align-items:center;overflow:hidden}
 
@@ -1291,6 +1465,12 @@ footer{
 <div id="cursor"></div>
 <div id="cursorRing"></div>
 <div id="scrollProgress"></div>
+
+<!-- Mobile swipe hint (only shown on touch) -->
+<div id="mobile-swipe-hint">
+  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="rgba(0,212,255,0.9)" stroke-width="1.8" stroke-linecap="round"><path d="M12 5v14M8 9l4-4 4 4M8 15l4 4 4-4"/></svg>
+  <span style="font-family:'Space Grotesk',sans-serif;font-size:11.5px;font-weight:500;color:rgba(255,255,255,.75);letter-spacing:.6px;text-transform:uppercase">Role para explorar</span>
+</div>
 
 <!-- NAV -->
 <nav id="mainNav">
@@ -3322,6 +3502,7 @@ document.addEventListener('keydown', e => {
 
   const isMobile = window.innerWidth < 900;
   const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const isTouch = ('ontouchstart' in window) || navigator.maxTouchPoints > 0;
   if(reducedMotion) return;
 
   /* ══════════════════════════════════════════
@@ -3329,7 +3510,7 @@ document.addEventListener('keydown', e => {
         Texto fica sobre o hero e escala ao scroll
         revelando o conteúdo que já estava atrás
   ══════════════════════════════════════════ */
-  if(document.getElementById('portal-word')){
+  if(document.getElementById('portal-word') && !isTouch){
     // hero content começa invisível — o portal revela
     gsap.set('.hero-left', { opacity:0, x:-40 });
     if(!isMobile) gsap.set('#heroSS', { opacity:0 });
@@ -3439,7 +3620,7 @@ document.addEventListener('keydown', e => {
   const featProgEl   = document.getElementById('feat-progress');
   const TOTAL_FEATS  = featCards.length;
 
-  if(featSection && featCards.length && !isMobile){
+  if(featSection && featCards.length && !isMobile && !isTouch){
     // remove estado inline antigo
     featCards.forEach(el => { el.style.opacity=''; el.style.transform=''; });
 
@@ -3581,7 +3762,7 @@ document.addEventListener('keydown', e => {
      7. SEC-TITLE pinline — título gruda no
      topo enquanto o conteúdo da seção passa
   ══════════════════════════════════════════ */
-  if(!isMobile){
+  if(!isMobile && !isTouch){
     document.querySelectorAll('.sec-title').forEach(el => {
       gsap.fromTo(el,
         { opacity: 0, y: 30 },
@@ -3764,6 +3945,127 @@ function closeMITModal(){
 document.addEventListener('keydown', e => {
   if(e.key === 'Escape') closeMITModal();
 });
+</script>
+<!-- ─── MOBILE BOTTOM NAV ─── -->
+<style>
+#mobile-bottom-nav{
+  display:none;
+  position:fixed;bottom:0;left:0;right:0;z-index:300;
+  background:rgba(4,6,15,.92);
+  border-top:1px solid rgba(0,212,255,.12);
+  backdrop-filter:blur(24px) saturate(180%);
+  padding:0 0 env(safe-area-inset-bottom,0px);
+  box-shadow:0 -4px 40px rgba(0,0,0,.4);
+}
+#mobile-bottom-nav-inner{
+  display:flex;align-items:center;justify-content:space-around;
+  height:56px;padding:0 4px;
+}
+.mob-nav-btn{
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  gap:3px;flex:1;height:100%;
+  color:rgba(255,255,255,.38);
+  text-decoration:none;font-family:'Space Grotesk',sans-serif;
+  font-size:9px;font-weight:500;letter-spacing:.3px;
+  -webkit-tap-highlight-color:transparent;
+  touch-action:manipulation;
+  transition:color .15s;
+  padding:6px 0;
+}
+.mob-nav-btn svg{width:18px;height:18px;flex-shrink:0}
+.mob-nav-btn.active{color:var(--acc)}
+.mob-nav-btn:active{color:rgba(0,212,255,.7)}
+@media(max-width:640px){
+  #mobile-bottom-nav{display:block}
+  /* Add bottom padding to body so content isn't hidden behind nav */
+  body{padding-bottom:calc(56px + env(safe-area-inset-bottom,0px))!important}
+  /* Move scroll progress to not conflict */
+  #scrollProgress{top:0}
+}
+</style>
+<nav id="mobile-bottom-nav" aria-label="Navegação principal mobile">
+  <div id="mobile-bottom-nav-inner">
+    <a href="#" class="mob-nav-btn active" onclick="scrollToTop(event)" aria-label="Início">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+      Início
+    </a>
+    <a href="#roadmap" class="mob-nav-btn" aria-label="Roadmap">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12h18M3 6h18M3 18h12"/></svg>
+      Roadmap
+    </a>
+    <a href="#faq" class="mob-nav-btn" aria-label="FAQ">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+      FAQ
+    </a>
+    <a href="#regras" class="mob-nav-btn" aria-label="Regras">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+      Regras
+    </a>
+    <a href="https://discord.gg/HPRE3aSCWr" target="_blank" class="mob-nav-btn" aria-label="Discord">
+      <svg viewBox="0 0 127.14 96.36" fill="currentColor"><path d="M107.7 8.07A105.15 105.15 0 0 0 81.47 0a72.06 72.06 0 0 0-3.36 6.83 97.68 97.68 0 0 0-29.11 0A72.37 72.37 0 0 0 45.64 0a105.89 105.89 0 0 0-26.25 8.09C2.79 32.65-1.71 56.6.54 80.21a105.73 105.73 0 0 0 32.17 16.15 77.7 77.7 0 0 0 6.89-11.11 68.42 68.42 0 0 1-10.85-5.18c.91-.66 1.8-1.34 2.66-2a75.57 75.57 0 0 0 64.32 0c.87.71 1.76 1.39 2.66 2a68.68 68.68 0 0 1-10.87 5.19 77 77 0 0 0 6.89 11.1 105.25 105.25 0 0 0 32.19-16.14c2.64-27.38-4.51-51.11-18.9-72.15zM42.45 65.69C36.18 65.69 31 60 31 53s5-12.74 11.43-12.74S54 46 53.89 53s-5.05 12.69-11.44 12.69zm42.24 0C78.41 65.69 73.25 60 73.25 53s5-12.74 11.44-12.74S96.23 46 96.12 53s-5.04 12.69-11.43 12.69z"/></svg>
+      Discord
+    </a>
+  </div>
+</nav>
+
+<script>
+/* ─── MOBILE SWIPE HINT ─── */
+(function(){
+  const hint = document.getElementById('mobile-swipe-hint');
+  if(!hint) return;
+  const isTouch = ('ontouchstart' in window) || navigator.maxTouchPoints > 0;
+  if(!isTouch) return;
+  // Show only at top
+  let hidden = false;
+  setTimeout(()=>{ if(!hidden) hint.classList.remove('hidden'); }, 600);
+  window.addEventListener('scroll', function(){
+    if(window.scrollY > 80 && !hidden){
+      hidden = true;
+      hint.classList.add('hidden');
+      setTimeout(()=>{ hint.style.display='none'; }, 500);
+    }
+  }, {passive:true, once:true});
+})();
+
+/* ─── MOBILE BOTTOM NAV ACTIVE STATE ─── */
+(function(){
+  const nav = document.getElementById('mobile-bottom-nav');
+  if(!nav) return;
+  const btns = nav.querySelectorAll('.mob-nav-btn');
+  window.addEventListener('scroll', function(){
+    const sy = window.scrollY;
+    const sections = [
+      {id:'roadmap', href:'#roadmap'},
+      {id:'faq',     href:'#faq'},
+      {id:'regras',  href:'#regras'},
+    ];
+    let current = '#';
+    const atBottom = sy + window.innerHeight >= document.documentElement.scrollHeight - 100;
+    if(!atBottom){
+      sections.forEach(s => {
+        const el = document.getElementById(s.id);
+        if(el && sy >= el.offsetTop - 100) current = s.href;
+      });
+    }
+    btns.forEach(btn => {
+      const href = btn.getAttribute('href');
+      if(href && href.startsWith('#')){
+        btn.classList.toggle('active', href === current || (current === '#' && href === '#'));
+      }
+    });
+  }, {passive:true});
+})();
+
+/* ─── PORTAL: SKIP NO MOBILE (touch devices) ─── */
+(function(){
+  const isTouch = ('ontouchstart' in window) || navigator.maxTouchPoints > 0;
+  if(!isTouch) return;
+  // Force hero content visible immediately
+  const heroLeft = document.querySelector('.hero-left');
+  const heroSS = document.getElementById('heroSS');
+  if(heroLeft){ heroLeft.style.opacity='1'; heroLeft.style.transform='none'; }
+  if(heroSS){ heroSS.style.opacity='1'; }
+})();
 </script>
 
 </body>
