@@ -659,28 +659,81 @@ nav.scrolled::after{
 }
 .sec-sub{font-size:14px;color:var(--t1);font-weight:400;max-width:520px;line-height:1.8}
 
-/* ─── FEATURES ─── */
+/* ─── FEATURES SCROLL PIN ─── */
+#features-section{
+  min-height:100vh;
+  display:flex;flex-direction:column;justify-content:center;
+}
+
+/* cards começam invisíveis — o scroll pin os revela */
+#features-section .feat{
+  opacity:0;
+  transform:translateY(36px) scale(0.96);
+  transition:none;
+}
+#features-section .feat.feat-visible{
+  opacity:1;
+  transform:translateY(0) scale(1);
+  transition:opacity 0.55s cubic-bezier(.22,.68,0,1.2),
+             transform 0.55s cubic-bezier(.22,.68,0,1.2);
+}
+
+/* badge de progresso dos cards */
+#feat-progress{
+  position:fixed;
+  bottom:36px;right:40px;
+  z-index:500;
+  font-family:var(--font-mono);
+  font-size:11px;
+  color:rgba(255,255,255,.45);
+  background:rgba(4,6,15,.75);
+  border:1px solid rgba(0,212,255,.18);
+  border-radius:100px;
+  padding:6px 16px;
+  backdrop-filter:blur(12px);
+  display:flex;align-items:center;gap:3px;
+  opacity:0;
+  transition:opacity .3s;
+  pointer-events:none;
+}
+#feat-progress.active{ opacity:1; }
+#feat-progress-cur{
+  color:var(--acc);
+  font-weight:600;
+  font-size:13px;
+}
+#feat-progress-sep{ margin:0 2px; opacity:.4; }
+
+
 .features-grid{
   display:grid;grid-template-columns:repeat(3,1fr);
-  gap:1px;background:var(--brd);border:1px solid var(--brd);
-  border-radius:var(--radius-lg);overflow:hidden;margin-top:48px;
+  gap:16px;background:transparent;border:none;
+  border-radius:0;overflow:visible;margin-top:48px;
+}
+.features-grid.grid-active{
+  background:transparent;
+  border-color:transparent;
 }
 @media(max-width:800px){.features-grid{grid-template-columns:repeat(2,1fr)}}
 @media(max-width:500px){.features-grid{grid-template-columns:1fr}}
 
 .feat{
   background:var(--bg1);padding:30px 26px;
-  transition:background .25s;position:relative;overflow:hidden;
+  border:1px solid var(--brd);
+  border-radius:var(--radius-lg);
+  transition:background .25s, border-color .25s, box-shadow .25s;
+  position:relative;overflow:hidden;
 }
 .feat::before{
   content:'';position:absolute;inset:0;
   background:radial-gradient(ellipse 70% 50% at 0% 0%,rgba(0,212,255,.06),transparent);
   opacity:0;transition:opacity .35s;pointer-events:none;
 }
-.feat:hover{background:var(--bg2)}
+.feat:hover{background:var(--bg2);border-color:var(--brd-a);box-shadow:0 0 32px rgba(0,212,255,.07)}
 .feat:hover::before{opacity:1}
 .feat::after{
   content:'';position:absolute;left:0;top:15%;bottom:15%;width:2px;
+  border-radius:2px;
   background:linear-gradient(180deg,transparent,var(--acc),transparent);
   opacity:0;transition:opacity .28s;
 }
@@ -1293,7 +1346,10 @@ footer{
 <style>
 #portal-word{
   position:absolute;
-  top:50%;left:50%;
+  top:0;left:0;right:0;bottom:0;
+  margin:auto;
+  width:fit-content;
+  height:fit-content;
   z-index:20;
   font-family:'Syne',sans-serif;
   font-size:clamp(72px,18vw,200px);
@@ -1301,7 +1357,6 @@ footer{
   background:linear-gradient(135deg,#00d4ff 0%,#7dd8ff 45%,#0055ff 100%);
   -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
   white-space:nowrap;
-  transform:translate(-50%,-50%);
   transform-origin:center center;
   will-change:transform,opacity;
   user-select:none;
@@ -1386,22 +1441,36 @@ footer{
 .hero{
   perspective:1000px;
   transform-style:preserve-3d;
+  position:relative;
 }
+
+/* hint durante o portal — centralizado e fixo na tela */
 #portal-hint{
-  position:absolute;bottom:36px;left:50%;transform:translateX(-50%);
-  display:flex;flex-direction:column;align-items:center;gap:10px;
-  pointer-events:none;z-index:21;
+  position:fixed;
+  bottom:40px;
+  left:50%;
+  transform:translateX(-50%);
+  display:flex;flex-direction:row;align-items:center;gap:12px;
+  pointer-events:none;z-index:300;
+  background:rgba(4,6,15,.6);
+  border:1px solid rgba(0,212,255,.2);
+  border-radius:100px;
+  padding:10px 20px 10px 16px;
+  backdrop-filter:blur(12px);
+  transition:opacity .4s;
 }
 #portal-hint-label{
-  font-family:'Space Grotesk',sans-serif;font-size:11px;
-  color:rgba(255,255,255,.35);letter-spacing:1.5px;
+  font-family:'Space Grotesk',sans-serif;font-size:12px;font-weight:500;
+  color:rgba(255,255,255,.7);letter-spacing:.8px;
+  text-transform:uppercase;
 }
 #portal-hint-mouse{
   animation:mouse-bob 2s ease-in-out infinite;
+  flex-shrink:0;
 }
 @keyframes mouse-bob{
-  0%,100%{transform:translateY(0);opacity:.5}
-  50%{transform:translateY(5px);opacity:1}
+  0%,100%{transform:translateY(0);opacity:.7}
+  50%{transform:translateY(4px);opacity:1}
 }
 #portal-hint-mouse .scroll-wheel{
   animation:wheel-scroll 2s ease-in-out infinite;
@@ -1411,7 +1480,47 @@ footer{
   60%{opacity:0;transform:translateY(5px)}
   100%{opacity:0;transform:translateY(5px)}
 }
-@media(max-width:640px){#portal-word{font-size:28vw;letter-spacing:-2px}}
+
+/* hint pós-animação — canto inferior direito, mais visível */
+#scroll-hint-corner{
+  position:fixed;
+  bottom:max(36px, env(safe-area-inset-bottom, 36px));
+  right:36px;
+  z-index:400;
+  display:flex;flex-direction:row;align-items:center;gap:10px;
+  background:rgba(4,6,15,.82);
+  border:1px solid rgba(0,212,255,.35);
+  border-radius:100px;
+  padding:10px 18px 10px 14px;
+  backdrop-filter:blur(16px);
+  box-shadow:0 0 24px rgba(0,212,255,.12), 0 4px 20px rgba(0,0,0,.4);
+  pointer-events:none;
+  opacity:0;
+  transform:translateY(10px);
+  transition:opacity .5s, transform .5s;
+  /* garante que nunca fica colado na borda inferior */
+  margin-bottom:env(safe-area-inset-bottom, 0px);
+}
+#scroll-hint-corner.visible{
+  opacity:1;
+  transform:translateY(0);
+}
+#scroll-hint-corner-label{
+  font-family:'Space Grotesk',sans-serif;font-size:11.5px;font-weight:500;
+  color:rgba(255,255,255,.75);letter-spacing:.6px;
+  text-transform:uppercase;
+  white-space:nowrap;
+}
+#scroll-hint-corner-mouse{
+  animation:mouse-bob 2s ease-in-out infinite;
+  flex-shrink:0;
+}
+
+@media(max-width:640px){
+  #portal-word{font-size:28vw;letter-spacing:-2px}
+  #portal-hint{bottom:24px;padding:8px 16px 8px 12px}
+  #scroll-hint-corner{bottom:20px;right:16px}
+}
 </style>
 
 <!-- HERO -->
@@ -1433,16 +1542,15 @@ footer{
   <span id="portal-word">GMBR</span>
   <span id="portal-subtitle">Descubra mais de 120.000 jogos grátis em um só lugar<br>Filmes, séries e muito mais esperando por você<br>Gerencie tudo de forma simples e rápida</span>
   <span id="portal-subtitle-2">Baixe agora gratuitamente<br>Sem anúncios, 100% open source e disponível para Windows e Linux<br>Experimente a melhor experiência de jogos</span>
-  <div id="portal-hint">
-    <span id="portal-hint-label">Role a rodinha do mouse</span>
-    <svg id="portal-hint-mouse" width="26" height="38" viewBox="0 0 26 38" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <!-- corpo do mouse -->
-      <rect x="1" y="1" width="24" height="36" rx="12" stroke="rgba(0,212,255,0.55)" stroke-width="1.5"/>
-      <!-- linha divisória dos botões -->
-      <line x1="13" y1="1" x2="13" y2="16" stroke="rgba(0,212,255,0.3)" stroke-width="1"/>
-      <!-- rodinha -->
-      <rect class="scroll-wheel" x="11" y="8" width="4" height="7" rx="2" fill="rgba(0,212,255,0.8)"/>
+
+  <!-- hint pós-portal, canto inferior direito -->
+  <div id="scroll-hint-corner">
+    <svg id="scroll-hint-corner-mouse" width="22" height="32" viewBox="0 0 26 38" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <rect x="1" y="1" width="24" height="36" rx="12" stroke="rgba(0,212,255,0.8)" stroke-width="1.5"/>
+      <line x1="13" y1="1" x2="13" y2="16" stroke="rgba(0,212,255,0.4)" stroke-width="1"/>
+      <rect class="scroll-wheel" x="11" y="8" width="4" height="7" rx="2" fill="rgba(0,212,255,1)"/>
     </svg>
+    <span id="scroll-hint-corner-label">Role para continuar</span>
   </div>
 
   <div class="hero-layout">
@@ -1572,39 +1680,45 @@ footer{
 </div>
 
 <!-- FEATURES -->
-<div class="section reveal">
+<div class="section" id="features-section">
   <span class="sec-label">Recursos</span>
   <h2 class="sec-title">O que está incluído</h2>
   <p class="sec-sub">Uma plataforma completa de gerenciamento de jogos, com foco em simplicidade e desempenho.</p>
-  <div class="features-grid">
-    <div class="feat">
+
+  <!-- contador de progresso dos cards -->
+  <div id="feat-progress">
+    <span id="feat-progress-cur">1</span><span id="feat-progress-sep">/</span><span id="feat-progress-tot">6</span>
+  </div>
+
+  <div class="features-grid" id="features-grid">
+    <div class="feat" data-feat="0">
       <div class="feat-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg></div>
       <div class="feat-name">Catálogo de jogos</div>
       <div class="feat-desc">+120.000 títulos de fontes como FitGirl, DODI e ElAmigos. Capas via Steam. Filtro por gênero e fonte.</div>
     </div>
-    <div class="feat">
+    <div class="feat" data-feat="1">
       <div class="feat-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46A2.78 2.78 0 0 0 1.46 6.42 29 29 0 0 0 1 12a29 29 0 0 0 .46 5.58A2.78 2.78 0 0 0 3.41 19.6C5.12 20 12 20 12 20s6.88 0 8.59-.46a2.78 2.78 0 0 0 1.95-1.95A29 29 0 0 0 23 12a29 29 0 0 0-.46-5.58z"/><polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02"/></svg></div>
       <div class="feat-name">Filmes e séries</div>
       <div class="feat-desc">Player integrado com catálogo completo. Busca em tempo real, favoritos e histórico.</div>
     </div>
-    <div class="feat">
+    <div class="feat" data-feat="2">
       <div class="feat-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div>
       <div class="feat-name">Autenticação</div>
       <div class="feat-desc">Login com Discord, Google ou e-mail. Sincronização de favoritos. Uso sem conta também suportado.</div>
     </div>
-    <div class="feat">
+    <div class="feat" data-feat="3">
       <div class="feat-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg></div>
       <div class="feat-name">Modo performance</div>
       <div class="feat-desc">Oito toggles que desligam animações e efeitos. Cache do servidor eleva de 30 s para 120 s no preset máximo.</div>
       <span class="feat-new">v4.2</span>
     </div>
-    <div class="feat">
+    <div class="feat" data-feat="4">
       <div class="feat-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg></div>
       <div class="feat-name">Dados Nerds</div>
       <div class="feat-desc">CPU, RAM, GPU, VRAM, temperaturas e DOM em tempo real. Gráficos sparkline com intervalo configurável.</div>
       <span class="feat-new">v4.2</span>
     </div>
-    <div class="feat">
+    <div class="feat" data-feat="5">
       <div class="feat-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></div>
       <div class="feat-name">Bundle criptografado</div>
       <div class="feat-desc">Interface cifrada com XOR-512 + SHA-256 antes do empacotamento. Chave única por build, embutida no EXE.</div>
@@ -2199,10 +2313,10 @@ footer{
     <div class="foot-left">
       <span class="foot-brand">GM<em>BR</em> Launcher</span>
       <span class="foot-copy">© 2026 · Open Source</span>
-      <a href="https://github.com/Pixelmodeler/DownloadGBR/blob/main/LICENSE" target="_blank" class="foot-cr-badge" style="text-decoration:none">
+      <button onclick="openMITModal()" class="foot-cr-badge" style="background:none;border:none;cursor:pointer;text-decoration:none">
         <svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
         MIT License · modificações livres
-      </a>
+      </button>
     </div>
     <div class="foot-links">
       <a href="https://discord.gg/HPRE3aSCWr" target="_blank">Discord</a>
@@ -3233,6 +3347,17 @@ document.addEventListener('keydown', e => {
       }
     });
 
+    // recalcula tudo ao mudar zoom ou redimensionar — elimina o vácuo
+    let refreshTimer;
+    function onViewportChange(){
+      clearTimeout(refreshTimer);
+      refreshTimer = setTimeout(() => ScrollTrigger.refresh(true), 120);
+    }
+    window.addEventListener('resize', onViewportChange);
+    if(window.visualViewport){
+      window.visualViewport.addEventListener('resize', onViewportChange);
+    }
+
     // FASE 1: Troca de subtítulo - primeiro desce, segundo sobe
     tl.to('#portal-subtitle', {
       y:        50,
@@ -3252,8 +3377,6 @@ document.addEventListener('keydown', e => {
     // (as text-shadows sólidas do efeito 3D cobririam a tela se deixarmos escalar demais)
     tl.to('#portal-word', {
       scale:    8,
-      xPercent: -50,
-      yPercent: -50,
       opacity:  0,
       ease:     'power3.in',
       duration:  0.38,
@@ -3267,13 +3390,38 @@ document.addEventListener('keydown', e => {
       duration: 0.18,
     }, 0.40);
     
-    // hint some suavemente
-    tl.to('#portal-hint', {
-      opacity:  0,
-      y:       -10,
-      ease:    'power1.out',
-      duration: 0.14,
-    }, 0);
+    // hint do canto: aparece assim que o portal começa, some ao sair do hero
+    const cornerHint = document.getElementById('scroll-hint-corner');
+    if(cornerHint){
+      // ajusta posição levando em conta visualViewport (zoom do navegador)
+      function positionCornerHint(){
+        const vv = window.visualViewport;
+        if(!vv) return;
+        const bottom = (window.innerHeight - (vv.offsetTop + vv.height)) + 36;
+        const right  = (window.innerWidth  - (vv.offsetLeft + vv.width))  + 36;
+        cornerHint.style.bottom = Math.max(bottom, 36) + 'px';
+        cornerHint.style.right  = Math.max(right,  36) + 'px';
+      }
+      if(window.visualViewport){
+        window.visualViewport.addEventListener('resize', positionCornerHint);
+        window.visualViewport.addEventListener('scroll', positionCornerHint);
+      }
+      positionCornerHint();
+
+      // já mostra logo de cara
+      setTimeout(() => cornerHint.classList.add('visible'), 800);
+
+      ScrollTrigger.create({
+        trigger: '.hero',
+        start:   'bottom bottom',
+        onEnter(){
+          cornerHint.classList.remove('visible');
+        },
+        onLeaveBack(){
+          cornerHint.classList.add('visible');
+        },
+      });
+    }
 
     // hero-left e screenshot entram enquanto letra some
     tl.to('.hero-left', { opacity:1, x:0, ease:'power2.out', duration:0.32 }, 0.63);
@@ -3281,27 +3429,88 @@ document.addEventListener('keydown', e => {
   }
 
   /* ══════════════════════════════════════════
-     3. FEATURES — cada card entra em cascata
-     conforme o scroll avança pela grid
+     3. FEATURES — scroll pin: trava a seção
+        e revela cada card 1 por 1 com o scroll
   ══════════════════════════════════════════ */
-  const feats = document.querySelectorAll('.feat');
-  feats.forEach((el, i) => {
-    // Remove o reveal padrão pra GSAP assumir
-    el.style.opacity = '0';
-    el.style.transform = 'translateY(32px)';
-    gsap.to(el, {
-      scrollTrigger:{
-        trigger: el,
-        start: 'top 88%',
-        toggleActions: 'play none none none',
-      },
-      opacity: 1,
-      y: 0,
-      duration: 0.65,
-      delay: (i % 3) * 0.1,
-      ease: 'power2.out',
+  const featSection  = document.getElementById('features-section');
+  const featCards    = document.querySelectorAll('#features-section .feat');
+  const featGrid     = document.getElementById('features-grid');
+  const featProgCur  = document.getElementById('feat-progress-cur');
+  const featProgEl   = document.getElementById('feat-progress');
+  const TOTAL_FEATS  = featCards.length;
+
+  if(featSection && featCards.length && !isMobile){
+    // remove estado inline antigo
+    featCards.forEach(el => { el.style.opacity=''; el.style.transform=''; });
+
+    const SCRUB_DIST = '+=220%';
+
+    let lastRevealed = -1;
+
+    // pin separado do tracker de progresso
+    ScrollTrigger.create({
+      trigger:    featSection,
+      start:      'top top',
+      end:        SCRUB_DIST,
+      pin:        true,
+      pinSpacing: true,
+      anticipatePin: 1,
+      invalidateOnRefresh: true,
+      onEnter(){  featProgEl.classList.add('active'); },
+      onLeave(){  featProgEl.classList.remove('active'); },
+      onEnterBack(){ featProgEl.classList.add('active'); },
+      onLeaveBack(){ featProgEl.classList.remove('active'); },
     });
-  });
+
+    ScrollTrigger.create({
+      trigger:    featSection,
+      start:      'top top',
+      end:        SCRUB_DIST,
+      onUpdate(self){
+        // suaviza com zona morta por step para evitar flicker
+        const raw = self.progress * TOTAL_FEATS;
+        const cur = Math.min(Math.floor(raw), TOTAL_FEATS - 1);
+
+        if(cur > lastRevealed){
+          for(let i = lastRevealed + 1; i <= cur; i++){
+            // delay escalonado para revelar com leveza quando vários entram
+            const delay = (i - lastRevealed - 1) * 80;
+            ;(function(card, d){
+              setTimeout(() => card.classList.add('feat-visible'), d);
+            })(featCards[i], delay);
+          }
+          // ativa fundo/border da grid no primeiro card
+          if(lastRevealed < 0 && featGrid) featGrid.classList.add('grid-active');
+          lastRevealed = cur;
+          if(featProgCur) featProgCur.textContent = cur + 1;
+        }
+
+        if(cur < lastRevealed){
+          for(let i = lastRevealed; i > cur; i--){
+            featCards[i].classList.remove('feat-visible');
+          }
+          if(cur < 0 && featGrid) featGrid.classList.remove('grid-active');
+          lastRevealed = cur;
+          if(featProgCur) featProgCur.textContent = Math.max(cur + 1, 1);
+        }
+      }
+    });
+
+  } else {
+    // mobile: revela todos de uma vez com IntersectionObserver simples
+    if(featGrid) featGrid.classList.add('grid-active');
+    featCards.forEach((el, i) => {
+      el.style.opacity = '0';
+      el.style.transform = 'translateY(28px)';
+      const obs = new IntersectionObserver(entries => {
+        if(entries[0].isIntersecting){
+          setTimeout(()=>{ el.classList.add('feat-visible'); }, i * 80);
+          obs.disconnect();
+        }
+      }, { threshold: 0.15 });
+      obs.observe(el);
+    });
+  }
 
   /* ══════════════════════════════════════════
      4. STATS BAR — números contam ao entrar
@@ -3434,6 +3643,127 @@ document.addEventListener('keydown', e => {
   }
 
 })();
+</script>
+
+<!-- ─── MIT LICENSE MODAL ─── -->
+<div id="mit-modal" style="display:none" aria-modal="true" role="dialog" aria-label="MIT License">
+  <div id="mit-modal-backdrop" onclick="closeMITModal()"></div>
+  <div id="mit-modal-box">
+    <div id="mit-modal-header">
+      <div style="display:flex;align-items:center;gap:10px">
+        <div id="mit-modal-icon">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        </div>
+        <span id="mit-modal-title">MIT License</span>
+      </div>
+      <button id="mit-modal-close" onclick="closeMITModal()" aria-label="Fechar">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+    </div>
+    <div id="mit-modal-body">
+      <p>Copyright © 2026 GMBR Launcher</p>
+      <p>É concedida permissão, gratuitamente, a qualquer pessoa que obtenha uma cópia deste software e dos arquivos de documentação associados (o "Software"), para lidar com o Software sem restrições, incluindo, sem limitação, os direitos de usar, copiar, modificar, mesclar, publicar, distribuir, sublicenciar e/ou vender cópias do Software, e permitir que as pessoas a quem o Software é fornecido o façam, sujeito às seguintes condições:</p>
+      <p>O aviso de copyright acima e este aviso de permissão devem ser incluídos em todas as cópias ou partes substanciais do Software.</p>
+      <p>O SOFTWARE É FORNECIDO "NO ESTADO EM QUE SE ENCONTRA", SEM GARANTIA DE QUALQUER TIPO, EXPRESSA OU IMPLÍCITA, INCLUINDO, MAS NÃO SE LIMITANDO ÀS GARANTIAS DE COMERCIALIZAÇÃO, ADEQUAÇÃO A UM DETERMINADO FIM E NÃO VIOLAÇÃO. EM NENHUM CASO OS AUTORES OU DETENTORES DOS DIREITOS AUTORAIS SERÃO RESPONSÁVEIS POR QUALQUER RECLAMAÇÃO, DANO OU OUTRA RESPONSABILIDADE, SEJA EM AÇÃO DE CONTRATO, ATO ILÍCITO OU DE OUTRA FORMA, DECORRENTE DE, FORA DE OU EM CONEXÃO COM O SOFTWARE OU O USO OU OUTRAS NEGOCIAÇÕES NO SOFTWARE.</p>
+    </div>
+  </div>
+</div>
+
+<style>
+#mit-modal{
+  position:fixed;inset:0;z-index:9000;
+  display:flex;align-items:center;justify-content:center;
+  padding:24px;
+}
+#mit-modal-backdrop{
+  position:absolute;inset:0;
+  background:rgba(0,0,0,.7);
+  backdrop-filter:blur(8px);
+}
+#mit-modal-box{
+  position:relative;z-index:1;
+  width:100%;max-width:560px;
+  background:var(--bg2);
+  border:1px solid rgba(0,212,255,.2);
+  border-radius:20px;
+  overflow:hidden;
+  box-shadow:0 0 80px rgba(0,212,255,.08), 0 32px 80px rgba(0,0,0,.6);
+  animation:mit-in .28s cubic-bezier(.22,.68,0,1.2);
+}
+@keyframes mit-in{
+  from{opacity:0;transform:scale(.94) translateY(16px)}
+  to  {opacity:1;transform:scale(1)   translateY(0)}
+}
+#mit-modal-header{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:20px 24px;
+  border-bottom:1px solid var(--brd);
+  background:rgba(0,212,255,.03);
+}
+#mit-modal-icon{
+  width:32px;height:32px;border-radius:9px;
+  background:linear-gradient(135deg,rgba(0,212,255,.15),rgba(0,80,255,.08));
+  border:1px solid rgba(0,212,255,.2);
+  display:flex;align-items:center;justify-content:center;
+  color:var(--acc);
+}
+#mit-modal-title{
+  font-family:var(--font-display);font-size:16px;font-weight:800;
+  color:var(--t0);letter-spacing:-.2px;
+}
+#mit-modal-close{
+  width:32px;height:32px;border-radius:8px;
+  background:rgba(255,255,255,.05);border:1px solid var(--brd);
+  color:var(--t1);cursor:pointer;
+  display:flex;align-items:center;justify-content:center;
+  transition:background .18s,color .18s;
+}
+#mit-modal-close:hover{background:rgba(255,255,255,.1);color:var(--t0)}
+#mit-modal-body{
+  padding:24px;
+  display:flex;flex-direction:column;gap:14px;
+  max-height:60vh;overflow-y:auto;
+}
+#mit-modal-body::-webkit-scrollbar{width:3px}
+#mit-modal-body::-webkit-scrollbar-track{background:transparent}
+#mit-modal-body::-webkit-scrollbar-thumb{background:var(--t2);border-radius:2px}
+#mit-modal-body p{
+  font-family:var(--font-mono);font-size:12px;
+  color:var(--t1);line-height:1.8;
+}
+#mit-modal-body p:first-child{
+  color:var(--acc);font-weight:600;
+}
+#mit-modal-body p:last-child{
+  color:rgba(255,255,255,.3);font-size:11px;
+}
+</style>
+
+<script>
+function openMITModal(){
+  const m = document.getElementById('mit-modal');
+  m.style.display = 'flex';
+  document.body.style.overflow = 'hidden';
+}
+function closeMITModal(){
+  const m = document.getElementById('mit-modal');
+  const box = document.getElementById('mit-modal-box');
+  box.style.animation = 'none';
+  box.style.opacity = '0';
+  box.style.transform = 'scale(.94) translateY(16px)';
+  box.style.transition = 'opacity .2s, transform .2s';
+  setTimeout(() => {
+    m.style.display = 'none';
+    box.style.opacity = '';
+    box.style.transform = '';
+    box.style.transition = '';
+    box.style.animation = '';
+    document.body.style.overflow = '';
+  }, 200);
+}
+document.addEventListener('keydown', e => {
+  if(e.key === 'Escape') closeMITModal();
+});
 </script>
 
 </body>
