@@ -15,6 +15,72 @@
 <meta name="twitter:title" content="GMBR Launcher — Gerenciador de jogos para PC">
 <meta name="twitter:description" content="+120.000 títulos. 100% gratuito, sem anúncios, open source.">
 <meta name="twitter:image" content="https://i.postimg.cc/QN9M1t8V/Screenshot-21.png">
+<!-- Schema.org: ImageGallery para Google Images -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "ImageGallery",
+  "name": "Galeria GMBR Launcher — Screenshots",
+  "description": "Screenshots do GMBR Launcher, gerenciador de jogos gratuito para Windows e Linux com mais de 120.000 títulos.",
+  "url": "https://pixelmodeler.github.io/DownloadGBR/#galeria",
+  "image": [
+    {
+      "@type": "ImageObject",
+      "contentUrl": "https://i.postimg.cc/QN9M1t8V/Screenshot-21.png",
+      "name": "GMBR Launcher — Tela principal",
+      "description": "Visão geral da interface inicial do GMBR Launcher."
+    },
+    {
+      "@type": "ImageObject",
+      "contentUrl": "https://i.postimg.cc/Gp9y62bj/Screenshot-30.png",
+      "name": "GMBR Launcher — Biblioteca",
+      "description": "Sua biblioteca completa de jogos instalados e favoritos, organizada e de fácil acesso."
+    },
+    {
+      "@type": "ImageObject",
+      "contentUrl": "https://i.postimg.cc/cJ6nPHsy/Screenshot-31.png",
+      "name": "GMBR Launcher — Adicionar à Steam",
+      "description": "Adicione qualquer jogo diretamente à sua biblioteca da Steam com poucos cliques."
+    },
+    {
+      "@type": "ImageObject",
+      "contentUrl": "https://i.postimg.cc/R0qH2Fvy/Screenshot-32.png",
+      "name": "GMBR Launcher — Streaming & Filmes",
+      "description": "Acesse plataformas de streaming e filmes diretamente pelo launcher, sem sair do app."
+    },
+    {
+      "@type": "ImageObject",
+      "contentUrl": "https://i.postimg.cc/R0qH2Fv2/Screenshot-33.png",
+      "name": "GMBR Launcher — Perfil do Usuário",
+      "description": "Gerencie seu perfil, estatísticas de uso e preferências pessoais."
+    },
+    {
+      "@type": "ImageObject",
+      "contentUrl": "https://i.postimg.cc/6QTvF39x/Screenshot-34.png",
+      "name": "GMBR Launcher — Tutoriais",
+      "description": "Guias e tutoriais integrados para aproveitar ao máximo o launcher."
+    },
+    {
+      "@type": "ImageObject",
+      "contentUrl": "https://i.postimg.cc/43M9Ggds/Screenshot-35.png",
+      "name": "GMBR Launcher — Conquistas & Prêmios",
+      "description": "Acompanhe suas conquistas, medalhas e prêmios desbloqueados enquanto joga."
+    },
+    {
+      "@type": "ImageObject",
+      "contentUrl": "https://i.postimg.cc/jj97Tb5d/Screenshot-36.png",
+      "name": "GMBR Launcher — Suporte ao Usuário",
+      "description": "Canal de suporte integrado para tirar dúvidas e reportar problemas rapidamente."
+    },
+    {
+      "@type": "ImageObject",
+      "contentUrl": "https://i.postimg.cc/Jhgk8Lny/Screenshot-37.png",
+      "name": "GMBR Launcher — Explorar Catálogo",
+      "description": "Navegue pelo catálogo com mais de 120.000 títulos e descubra novos jogos."
+    }
+  ]
+}
+</script>
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 28 28'%3E%3Crect width='28' height='28' rx='7' fill='%23070a16'/%3E%3Cpath d='M7 14h3.5L14 7l3.5 7H21' stroke='%2300d4ff' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3Ccircle cx='14' cy='19' r='2.5' fill='%2300d4ff'/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Syne:wght@700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -359,6 +425,50 @@ nav.scrolled::after{
   .feat,.vcard,.rm-col{box-shadow:none!important}
   /* Torna scroll mais suave */
   .features-grid,.roadmap-cols,.vision-grid{contain:layout style}
+}
+
+/* ─── HERO LAUNCH NOTICE ─── */
+.hero-launch-notice{
+  width:100%;
+  background:rgba(251,146,60,.06);
+  border:1px solid rgba(251,146,60,.28);
+  border-radius:12px;
+  padding:14px 16px;
+  display:flex;flex-direction:column;gap:8px;
+  margin-bottom:4px;
+}
+.hero-launch-notice-top{
+  display:flex;align-items:center;gap:8px;
+}
+.hero-launch-icon{
+  display:flex;align-items:center;justify-content:center;
+  width:24px;height:24px;border-radius:7px;flex-shrink:0;
+  background:rgba(251,146,60,.12);
+  color:#fb923c;
+}
+.hero-launch-title{
+  font-family:var(--font-display);font-size:13px;font-weight:800;
+  color:#fdba74;letter-spacing:-.1px;
+}
+.hero-launch-desc{
+  font-size:12px;color:rgba(255,255,255,.45);line-height:1.6;
+  padding-left:32px;
+}
+.hero-launch-eta{
+  display:inline-flex;align-items:center;gap:6px;
+  font-family:var(--font-mono);font-size:10px;
+  color:rgba(251,146,60,.6);
+  padding-left:32px;
+}
+.hero-launch-eta strong{color:#fb923c;font-weight:600;}
+
+/* disabled download buttons */
+.btn-hero-disabled{
+  opacity:.35 !important;
+  cursor:not-allowed !important;
+  pointer-events:none !important;
+  filter:grayscale(.4);
+  animation:none !important;
 }
 
 /* ─── HERO ─── */
@@ -1510,6 +1620,11 @@ footer{
       <svg class="nav-link-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
       Regras
     </a>
+    <!-- Galeria -->
+    <a href="#galeria" class="nav-link">
+      <svg class="nav-link-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+      Galeria
+    </a>
     <!-- Fim -->
     <a href="#fim" class="nav-link">
       <svg class="nav-link-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
@@ -1745,12 +1860,28 @@ footer{
       <p class="hero-tagline">Gerenciador de jogos para PC.<br><strong>+120.000 títulos.</strong> Gratuito. Sem anúncios.</p>
 
       <div class="hero-dl-group">
-        <a href="https://github.com/Pixelmodeler/DownloadGBR/releases/download/BETA/GMBR_Launcher_Setup_v4.2.exe" id="btnWindows" class="btn-hero-dl" aria-label="Baixar GMBR Launcher para Windows (v4.2, ~65 MB)">
+
+        <!-- AVISO: DOWNLOAD DESATIVADO -->
+        <div class="hero-launch-notice">
+          <div class="hero-launch-notice-top">
+            <span class="hero-launch-icon">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+            </span>
+            <span class="hero-launch-title">Download temporariamente desativado</span>
+          </div>
+          <p class="hero-launch-desc">O launcher está em fase de testes finais antes do lançamento público. Acompanhe no Discord para ser avisado na hora.</p>
+          <div class="hero-launch-eta">
+            <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+            Lançamento previsto: <strong>20 de maio de 2025</strong>
+          </div>
+        </div>
+
+        <a href="https://github.com/Pixelmodeler/DownloadGBR/releases/download/BETA/GMBR_Launcher_Setup_v4.2.exe" id="btnWindows" class="btn-hero-dl btn-hero-disabled" aria-label="Baixar GMBR Launcher para Windows (v4.2, ~65 MB)" aria-disabled="true" onclick="return false;" tabindex="-1">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M0 3.449L9.75 2.1v9.451H0m10.949-9.602L24 0v11.4H10.949M0 12.6h9.75v9.451L0 20.699M10.949 12.6H24V24l-12.9-1.801"/></svg>
           Baixar para Windows
           <span class="btn-size-badge">~65 MB</span>
         </a>
-        <a href="https://github.com/Pixelmodeler/DownloadGBR/releases/download/BETA/GMBR_Launcher_Linux4.2.zip" id="btnLinux" class="btn-hero-linux" aria-label="Baixar GMBR Launcher para Linux (v4.2)">
+        <a href="https://github.com/Pixelmodeler/DownloadGBR/releases/download/BETA/GMBR_Launcher_Linux4.2.zip" id="btnLinux" class="btn-hero-linux btn-hero-disabled" aria-label="Baixar GMBR Launcher para Linux (v4.2)" aria-disabled="true" onclick="return false;" tabindex="-1">
           <svg width="17" height="17" viewBox="0 0 448 512" fill="currentColor"><path d="M220.8 123.3c1 .5 1.8 1.7 3 1.7 1.1 0 2.8-.4 2.9-1.5.2-1.4-1.9-2.3-3.2-2.9-1.7-.7-3.9-1-5.5-.1-.4.2-.8.7-.6 1.1.3 1.1 2.4 1.1 3.4 1.7zm-21.9 1.7c1.2 0 2-1.2 3-1.7 1-.6 3.1-.6 3.4-1.8.2-.4-.2-.9-.6-1.1-1.6-.9-3.8-.6-5.5.1-1.3.6-3.4 1.5-3.2 2.9.1 1.1 1.8 1.5 2.9 1.6zM420 403.8c-3.6-4-5.3-11.6-7.2-19.7-1.8-8.1-3.9-16.8-10.5-22.4-1.3-1.1-2.6-2.1-4-2.9-1.3-.8-2.7-1.5-4.1-2 9.2-27.3 5.6-54.5-3.7-79.1-11.4-30.1-31.3-56.4-46.5-74.4-17.1-21.5-33.7-41.9-33.4-72C311.1 85.4 315.7.1 234.8 0 132.4-.2 158 103.4 156.9 135.2c-1.7 23.4-6.4 41.8-22.5 64.7-18.9 22.5-45.5 58.8-58.1 96.7-6 17.9-8.8 36.1-6.2 53.3-6.5 5.8-11.4 14.7-16.6 20.2-4.2 4.3-10.3 5.9-17 8.3s-14 6-18.5 14.5c-2.1 3.9-2.8 8.1-2.8 12.4 0 3.9.6 7.9 1.2 11.8 1.2 8.1 2.5 15.7.8 20.8-5.2 14.4-5.9 24.4-2.2 31.7 3.8 7.3 11.4 10.5 20.1 12.3 17.3 3.6 40.8 2.7 59.3 12.5 19.8 10.4 39.9 14.1 55.9 10.4 11.6-2.6 21.1-9.6 25.9-20.2 12.5-.1 26.3-5.4 48.3-6.6 14.9-1.2 33.6 5.3 55.1 4.1.6 2.3 1.4 4.6 2.5 6.7v.1c5.6 10.8 16.9 19.2 31.2 19.2 19.3 0 32.2-5.7 38.4-17.4zm-371.4-34c2.1-4.6 6.3-7.2 12-9.2 5.6-2 11.5-3.4 17.3-6.6 5.8-3.2 11.1-8.9 13.6-16.3 1.6-5.3 0-13.8-1.2-21.7-1.2-7.9-1.8-15.3 1.2-18.6.6-.7 1.6-.8 2.8-.5l1.4.6c6.4 2.7 19.6 8.2 29.5 3.6 3.4-1.6 6.1-4.7 7.2-8.5 1.5-5.2.8-11.1-.2-16.7-.7-3.8-1.8-7.6-2.8-11.5-2.1-7.5-4.1-15.3-2.9-23 1.4-9.1 7.7-15.9 15.5-18.5 7.1-2.4 14.8-1.7 21.8.4 6.4 1.9 11.2 5.9 13.7 11.7 2.5 5.7 2.7 12 1.7 17.8-1.9 10.6-6.7 20.7-3.5 33.2 1 3.9 4.2 7.7 7.8 9.3 3.6 1.6 7.8 1.6 11.6.8 8.3-1.8 14.2-8 19.5-14.6 6-7.5 11.5-15.3 18.8-20.7 3.4-2.5 7.2-4.1 11.2-4.4 4-.3 8.4.8 11.8 3.1 6.9 4.7 10.2 13 12.4 21.1 2.2 8.2 3.3 16.6 4.1 25 .7 8.6 1.5 17.3 3.2 25.8 1 4.8 2.3 9.5 4.3 14 1.7 4 4.1 7.5 7.2 10.3 3.5 3 7.9 5.2 12.8 6.3 4.9 1 10.3 1.2 15.7 1.4 5.4.2 10.7.3 15.7.8 10 .9 19.2 3 27.2 7.7-7.1 3.3-16.3 5.6-28.7 6.2-19.4.9-24.3-2.9-28.3-5.4-3.3-2.1-5.7-3.4-10.4-3.1-4.7.4-7.9 1.8-10.6 3.1-5.3 2.8-8.9 5.4-21.8 6.9-18.3 2.1-26.5-7.4-40.9-7.3-11.2 0-26.1 3.7-30.2 6.5.1-4.2.9-8.1 2.6-11.6 5.2-11 15.2-18.2 25.2-25.2 4.8-3.4 9.6-6.8 13.5-10.8 3.9-4 6.9-8.7 7.7-14.2 1.5-10.3-4.6-19.6-8-28.7-3.4-9.2-3.5-18.5 2.2-26.9 5.7-8.5 14.6-13.1 23.7-17.8 9.2-4.7 18.7-9.5 24.6-18.4 2.9-4.4 4.6-9.5 5.3-14.8.7-5.2.4-10.7-.6-16.1-2-11-7-22.4-9.2-31.9-2.2-9.6-1.9-17.5 3.2-23.8 4.5-5.5 11.2-8.1 18.5-8.1 7.3 0 15 2.5 21 7.6 6 5.1 9.4 12.8 9.4 20.9 0 8.1-3.4 15.8-9.4 20.9-6 5.1-13.7 7.6-21 7.6-.9 0-1.8-.1-2.7-.2-10.3-1.3-20.3-5.9-28.5-12.7 1.2 3.9 3.4 7.5 6.9 10.2 3.4 2.7 7.6 4.2 11.8 4.7 4.2.4 8.6-.1 12.7-1.6 4.1-1.5 7.7-3.8 10.6-6.9 5.7-6 8.6-14 8.6-22.5 0-8.6-2.8-17.1-8.3-23.4-5.5-6.2-13.6-9.8-22-10.5-8.3-.7-16.8 1.9-23.1 7.2-6.3 5.2-9.9 12.8-10.2 21-.3 7.5 2.2 15.2 5.3 22.3 3.1 7.1 6.9 14 9.5 21.3 2.5 7.2 3.8 15.1 1.4 22.8-2.4 7.6-8.1 13.5-15.3 17.8-7.1 4.3-15.3 7.1-22.6 11.2-7.3 4.1-13.5 10.2-14.7 19-1.3 9.2 3.2 18 7.3 26 4.1 8 8 16 7.1 24.6-.9 8.5-6.6 15.5-14.7 19.1-8 3.6-17.4 3.7-25.6 1.2-8.2-2.5-15.3-7.7-20.5-14.7-5.2-7-8.4-15.8-8.8-24.7-.4-8.9 2.2-17.9 7.8-24.8 5.6-6.9 13.7-11.3 22.3-13 8.6-1.7 17.7-.7 25.6 2.9-2.7-5.2-7-9.5-12.4-12.1-5.3-2.5-11.3-3.2-17.2-2.1-5.9 1.1-11.5 4-15.8 8.5-4.3 4.5-7 10.4-7.6 16.7-.3 2.8-.2 5.7.1 8.5-3.4-1.7-6.5-3.9-9-6.7-4.2-4.5-6.7-10.5-6.9-16.8-.2-6.3 2.1-12.5 6.5-17.1 2.2-2.3 4.9-4.1 7.9-5.2 3-1.1 6.2-1.5 9.5-1.1 6.6.8 13 4.3 17.5 9.6-1.6-5.4-4.8-10.3-9.2-13.8-4.4-3.5-9.9-5.5-15.5-5.7-5.7-.2-11.3 1.7-15.7 5.2-4.4 3.4-7.5 8.5-8.4 14.1-.5 2.8-.4 5.7.2 8.5-7.7-6.7-12.2-16.6-11.9-26.8.2-7.7 3.2-15.3 8.5-21.3-1.9 1.4-3.7 3-5.2 4.8-4.9 5.7-7.6 13.2-7.4 20.8.2 7.6 3.2 15 8.5 20.4 2.7 2.7 5.8 4.8 9.2 6.2-3.9.6-7.9.4-11.7-.7-7.5-2.2-14-7.7-17.4-14.8-3.4-7-3.5-15.4-.3-22.6-6.1 4.4-10.2 11.1-11.3 18.5-1.1 7.3.9 15 5.5 20.9 2.3 3 5.3 5.5 8.6 7.3-9.2 1.5-17.3 7.1-21.9 15.1-4.4 7.8-4.8 17.4-1 25.5-2.9-1.8-5.5-4.1-7.7-6.8-6.8-8.4-9-19.9-5.8-30.2z"/></svg>
           Baixar para Linux
         </a>
@@ -2486,6 +2617,293 @@ footer{
   </div>
 </div>
 
+<!-- ─── GALERIA ─── -->
+<style>
+#galeria{
+  background:var(--bg1);
+  border-top:1px solid var(--brd);
+  border-bottom:1px solid var(--brd);
+  position:relative;overflow:hidden;
+  padding:96px 40px;
+}
+@media(max-width:720px){#galeria{padding:64px 20px}}
+#galeria::before{
+  content:'';position:absolute;top:0;left:10%;right:10%;height:1px;
+  background:linear-gradient(90deg,transparent,var(--acc) 40%,var(--acc2) 60%,transparent);
+  opacity:.3;
+}
+.gallery-inner{max-width:1240px;margin:0 auto}
+.gallery-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:14px;
+  margin-top:48px;
+}
+@media(max-width:900px){.gallery-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:500px){.gallery-grid{grid-template-columns:1fr}}
+
+.gallery-item{
+  position:relative;overflow:hidden;
+  border-radius:var(--radius-lg);
+  border:1px solid var(--brd);
+  background:var(--bg2);
+  cursor:zoom-in;
+  aspect-ratio:16/10;
+  transition:border-color .25s,transform .25s,box-shadow .25s;
+}
+.gallery-beta-badge{
+  position:absolute;top:10px;left:10px;z-index:10;
+  font-family:var(--font-mono);font-size:8px;font-weight:700;
+  letter-spacing:1.2px;text-transform:uppercase;
+  background:rgba(124,58,237,.18);
+  border:1px solid rgba(124,58,237,.5);
+  color:#c084fc;
+  border-radius:6px;padding:3px 9px;
+  backdrop-filter:blur(8px);
+  box-shadow:0 0 12px rgba(124,58,237,.25);
+}
+.gallery-item:hover{
+  border-color:rgba(0,212,255,.35);
+  transform:translateY(-4px) scale(1.01);
+  box-shadow:0 20px 60px rgba(0,0,0,.5),0 0 0 1px rgba(0,212,255,.15);
+}
+.gallery-item img{
+  width:100%;height:100%;object-fit:cover;
+  display:block;
+  transition:transform .4s ease,filter .4s ease;
+  filter:brightness(.92);
+}
+.gallery-item:hover img{
+  transform:scale(1.06);
+  filter:brightness(1.05);
+}
+.gallery-item-caption{
+  font-family:var(--font-mono);font-size:10px;
+  color:rgba(255,255,255,.85);letter-spacing:.3px;font-weight:600;
+  display:block;margin-bottom:4px;
+}
+.gallery-item-desc{
+  font-size:11px;color:rgba(255,255,255,.55);
+  display:block;line-height:1.5;
+}
+.gallery-item-zoom-hint{
+  display:flex;align-items:center;gap:4px;
+  font-family:var(--font-mono);font-size:9px;
+  color:rgba(0,212,255,.7);white-space:nowrap;
+  align-self:flex-end;flex-shrink:0;
+}
+.gallery-item-overlay{
+  position:absolute;inset:0;
+  background:linear-gradient(0deg,rgba(4,6,15,.82) 0%,rgba(4,6,15,.2) 55%,transparent 100%);
+  opacity:0;transition:opacity .3s;
+  display:flex;align-items:flex-end;justify-content:space-between;
+  padding:14px 16px;gap:10px;
+}
+.gallery-disclaimer{
+  display:flex;align-items:flex-start;gap:8px;
+  margin-top:20px;
+  padding:12px 16px;
+  background:rgba(0,212,255,.04);
+  border:1px solid rgba(0,212,255,.14);
+  border-radius:10px;
+  font-size:12px;color:var(--t1);line-height:1.7;
+  max-width:680px;
+}
+.gallery-disclaimer svg{flex-shrink:0;margin-top:2px;color:var(--acc);opacity:.7}
+#gallery-lb-info{
+  position:fixed;bottom:64px;left:50%;transform:translateX(-50%);
+  font-size:12px;color:rgba(255,255,255,.55);
+  background:rgba(4,6,15,.75);border:1px solid var(--brd);
+  border-radius:10px;padding:8px 18px;
+  backdrop-filter:blur(8px);
+  text-align:center;max-width:480px;
+  line-height:1.6;
+}
+#gallery-lb-info strong{color:rgba(255,255,255,.85);font-family:var(--font-mono);font-size:11px;letter-spacing:.3px}
+/* placeholder skeleton while loading */
+.gallery-item-skeleton{
+  position:absolute;inset:0;
+  background:linear-gradient(90deg,var(--bg2) 25%,var(--bg3) 50%,var(--bg2) 75%);
+  background-size:200% 100%;
+  animation:shimmer 1.5s infinite;
+}
+@keyframes shimmer{0%{background-position:200% 0}100%{background-position:-200% 0}}
+.gallery-item img.loaded + .gallery-item-skeleton,
+.gallery-item img.loaded ~ .gallery-item-skeleton{display:none}
+
+/* ─── LIGHTBOX ─── */
+#gallery-lightbox{
+  display:none;position:fixed;inset:0;z-index:9000;
+  background:rgba(4,6,15,.95);
+  backdrop-filter:blur(20px);
+  align-items:center;justify-content:center;
+  padding:20px;
+}
+#gallery-lightbox.open{display:flex}
+#gallery-lb-img{
+  max-width:90vw;max-height:88vh;
+  border-radius:var(--radius-lg);
+  border:1px solid rgba(0,212,255,.2);
+  box-shadow:0 0 120px rgba(0,0,0,.9),0 0 40px rgba(0,212,255,.08);
+  object-fit:contain;
+  animation:lb-in .25s cubic-bezier(.22,.68,0,1.2);
+}
+@keyframes lb-in{from{opacity:0;transform:scale(.92)}to{opacity:1;transform:scale(1)}}
+#gallery-lb-close{
+  position:fixed;top:20px;right:24px;
+  width:40px;height:40px;border-radius:10px;
+  background:rgba(255,255,255,.07);border:1px solid var(--brd);
+  color:var(--t1);cursor:pointer;
+  display:flex;align-items:center;justify-content:center;
+  transition:background .18s,color .18s;font-size:18px;
+}
+#gallery-lb-close:hover{background:rgba(255,255,255,.14);color:var(--t0)}
+#gallery-lb-nav{
+  position:fixed;top:50%;transform:translateY(-50%);
+  width:100%;display:flex;justify-content:space-between;
+  pointer-events:none;padding:0 16px;
+}
+.lb-arrow{
+  width:44px;height:44px;border-radius:12px;
+  background:rgba(4,6,15,.7);border:1px solid rgba(0,212,255,.2);
+  color:var(--t0);cursor:pointer;pointer-events:all;
+  display:flex;align-items:center;justify-content:center;
+  transition:background .18s,border-color .18s;
+  backdrop-filter:blur(8px);
+}
+.lb-arrow:hover{background:rgba(0,212,255,.12);border-color:rgba(0,212,255,.4)}
+#gallery-lb-counter{
+  position:fixed;bottom:24px;left:50%;transform:translateX(-50%);
+  font-family:var(--font-mono);font-size:11px;color:rgba(255,255,255,.45);
+  background:rgba(4,6,15,.7);border:1px solid var(--brd);
+  border-radius:100px;padding:5px 16px;
+  backdrop-filter:blur(8px);
+}
+</style>
+
+<div id="galeria">
+  <div class="gallery-inner">
+    <p class="sec-label">Galeria</p>
+    <h2 class="sec-title">Screenshots do Launcher</h2>
+    <p class="sec-sub">Veja como o GMBR Launcher funciona na prática — interface limpa, rápida e sem anúncios.</p>
+
+    <div class="gallery-disclaimer">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+      As imagens são meramente ilustrativas e podem não refletir a versão atual do launcher. A interface está em constante desenvolvimento e pode sofrer alterações sem aviso prévio no site.
+    </div>
+
+    <div class="gallery-grid" id="galleryGrid">
+      <!-- As imagens serão injetadas pelo JS abaixo -->
+    </div>
+  </div>
+</div>
+
+<!-- Lightbox -->
+<div id="gallery-lightbox" role="dialog" aria-modal="true" aria-label="Visualizador de imagem">
+  <button id="gallery-lb-close" onclick="closeLightbox()" aria-label="Fechar">✕</button>
+  <div id="gallery-lb-nav">
+    <button class="lb-arrow" onclick="lbPrev()" aria-label="Anterior">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"/></svg>
+    </button>
+    <button class="lb-arrow" onclick="lbNext()" aria-label="Próximo">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
+    </button>
+  </div>
+  <img id="gallery-lb-img" src="" alt="Screenshot GMBR Launcher">
+  <div id="gallery-lb-info"></div>
+  <div id="gallery-lb-counter">1 / 1</div>
+</div>
+
+<script>
+/* ─── GALLERY DATA ─── */
+const GALLERY_IMAGES = [
+  { src: "https://i.postimg.cc/QN9M1t8V/Screenshot-21.png",  caption: "Tela principal",               desc: "Visão geral da interface inicial do GMBR Launcher." },
+  { src: "https://i.postimg.cc/Gp9y62bj/Screenshot-30.png",  caption: "Biblioteca",                    desc: "Sua biblioteca completa de jogos instalados e favoritos, organizada e de fácil acesso." },
+  { src: "https://i.postimg.cc/cJ6nPHsy/Screenshot-31.png",  caption: "Adicionar à Steam",             desc: "Adicione qualquer jogo diretamente à sua biblioteca da Steam com poucos cliques." },
+  { src: "https://i.postimg.cc/R0qH2Fvy/Screenshot-32.png",  caption: "Streaming & Filmes",            desc: "Acesse plataformas de streaming e filmes diretamente pelo launcher, sem sair do app." },
+  { src: "https://i.postimg.cc/R0qH2Fv2/Screenshot-33.png",  caption: "Perfil do Usuário",             desc: "Gerencie seu perfil, estatísticas de uso e preferências pessoais." },
+  { src: "https://i.postimg.cc/6QTvF39x/Screenshot-34.png",  caption: "Tutoriais",                     desc: "Guias e tutoriais integrados para te ajudar a aproveitar ao máximo o launcher." },
+  { src: "https://i.postimg.cc/43M9Ggds/Screenshot-35.png",  caption: "Conquistas & Prêmios",          desc: "Acompanhe suas conquistas, medalhas e prêmios desbloqueados enquanto joga." },
+  { src: "https://i.postimg.cc/jj97Tb5d/Screenshot-36.png",  caption: "Suporte ao Usuário",            desc: "Canal de suporte integrado para tirar dúvidas e reportar problemas rapidamente." },
+  { src: "https://i.postimg.cc/Jhgk8Lny/Screenshot-37.png",  caption: "Explorar Catálogo",             desc: "Navegue pelo catálogo com mais de 120.000 títulos e descubra novos jogos." },
+  { src: "https://i.postimg.cc/QCcyWS4q/image.png",          caption: "Beta — Tela Inicial",            desc: "Print do GMBR Launcher durante o período de beta privado (Dez 2025).", beta: true },
+  { src: "https://i.postimg.cc/fTjPz2SG/image.png",          caption: "Beta — Perfil do Usuário",       desc: "Tela de perfil do launcher durante o beta privado (Dez 2025).", beta: true },
+];
+
+(function buildGallery(){
+  const grid = document.getElementById('galleryGrid');
+  if(!grid) return;
+  if(GALLERY_IMAGES.length === 0){
+    grid.innerHTML = '<p style="color:var(--t1);font-size:13px;grid-column:1/-1;text-align:center;padding:40px 0">Nenhuma imagem ainda. Adicione links em GALLERY_IMAGES.</p>';
+    return;
+  }
+  GALLERY_IMAGES.forEach((img, i) => {
+    const item = document.createElement('div');
+    item.className = 'gallery-item reveal';
+    item.setAttribute('tabindex','0');
+    item.setAttribute('role','button');
+    item.setAttribute('aria-label', img.caption || 'Screenshot ' + (i+1));
+    item.onclick = () => openLightbox(i);
+    item.onkeydown = e => { if(e.key==='Enter'||e.key===' ') openLightbox(i); };
+    item.innerHTML = `
+      <div class="gallery-item-skeleton"></div>
+      ${img.beta ? '<span class="gallery-beta-badge">Beta</span>' : ''}
+      <img src="${img.src}" alt="${img.caption || 'Screenshot GMBR Launcher ' + (i+1)}" loading="lazy" decoding="async"
+           onload="this.classList.add('loaded')">
+      <div class="gallery-item-overlay">
+        <div>
+          <span class="gallery-item-caption">${img.caption || ''}</span>
+          ${img.desc ? `<span class="gallery-item-desc">${img.desc}</span>` : ''}
+        </div>
+        <span class="gallery-item-zoom-hint">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg>
+          Ampliar
+        </span>
+      </div>`;
+    grid.appendChild(item);
+  });
+})();
+
+/* ─── LIGHTBOX ─── */
+let lbIdx = 0;
+function openLightbox(idx){
+  lbIdx = idx;
+  updateLightbox();
+  const lb = document.getElementById('gallery-lightbox');
+  lb.classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function closeLightbox(){
+  document.getElementById('gallery-lightbox').classList.remove('open');
+  document.body.style.overflow = '';
+}
+function updateLightbox(){
+  const img = document.getElementById('gallery-lb-img');
+  const ctr = document.getElementById('gallery-lb-counter');
+  const info = document.getElementById('gallery-lb-info');
+  const d = GALLERY_IMAGES[lbIdx];
+  img.style.animation = 'none';
+  void img.offsetWidth;
+  img.style.animation = '';
+  img.src = d.src;
+  img.alt = d.caption || 'Screenshot GMBR Launcher';
+  ctr.textContent = (lbIdx+1) + ' / ' + GALLERY_IMAGES.length;
+  if(info) info.innerHTML = `<strong>${d.caption||''}</strong>${d.desc ? ' — '+d.desc : ''}`;
+}
+function lbPrev(){ lbIdx = (lbIdx-1+GALLERY_IMAGES.length)%GALLERY_IMAGES.length; updateLightbox(); }
+function lbNext(){ lbIdx = (lbIdx+1)%GALLERY_IMAGES.length; updateLightbox(); }
+document.addEventListener('keydown', e => {
+  const lb = document.getElementById('gallery-lightbox');
+  if(!lb.classList.contains('open')) return;
+  if(e.key==='Escape') closeLightbox();
+  if(e.key==='ArrowLeft') lbPrev();
+  if(e.key==='ArrowRight') lbNext();
+});
+document.getElementById('gallery-lightbox').addEventListener('click', function(e){
+  if(e.target === this) closeLightbox();
+});
+</script>
+
 <footer id="fim">
   <div class="footer-line"></div>
 
@@ -2513,20 +2931,8 @@ footer{
 
   <!-- Criador -->
   <div style="width:100%;margin-top:4px">
-    <div style="font-family:var(--font-mono);font-size:9px;color:var(--t2);letter-spacing:1.2px;text-transform:uppercase;margin-bottom:12px">Criado por</div>
-    <div style="display:flex;gap:10px;flex-wrap:wrap;align-items:center">
-
-      <!-- Oliver -->
-      <button class="team-chip" onclick="openMemberModal('oliver')" aria-label="Ver perfil de Oliver">
-        <img src="https://i.postimg.cc/hjd4zW9X/image.png" alt="oliver" class="team-chip-avatar">
-        <div class="team-chip-info">
-          <span class="team-chip-name">oliver</span>
-          <span class="team-chip-role c-acc">Criador · Dev · Designer · Idealizador</span>
-        </div>
-        <span class="team-chip-badge owner">AUTOR</span>
-      </button>
-
-    </div>
+    <div style="font-family:var(--font-mono);font-size:9px;color:var(--t2);letter-spacing:1.2px;text-transform:uppercase;margin-bottom:8px">Criado por</div>
+    <span style="font-family:var(--font-mono);font-size:11px;color:var(--t1)">oliver · <span style="color:var(--acc);opacity:.7">__oliversilva</span></span>
   </div>
 
   <div style="width:100%;height:1px;background:var(--brd);margin:16px 0 8px"></div>
@@ -2824,8 +3230,8 @@ footer{
 </style>
 
 <!-- LIGHTBOX -->
-<div id="lightbox" onclick="closeLightbox()">
-  <button id="lightboxClose" onclick="closeLightbox()" aria-label="Fechar">
+<div id="lightbox" onclick="closeMemberLightbox()">
+  <button id="lightboxClose" onclick="closeMemberLightbox()" aria-label="Fechar">
     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
   </button>
   <img id="lightboxImg" src="" alt="" onclick="event.stopPropagation()">
@@ -3319,7 +3725,7 @@ function openMemberModal(key) {
   if(m.screenshots && m.screenshots.length) {
     ssWrap.style.display = 'block';
     ssGrid.innerHTML = m.screenshots.map(s =>
-      `<div class="mmodal-ss-item" onclick="openLightbox('${s.url}','${s.label}')">
+      `<div class="mmodal-ss-item" onclick="openMemberLightbox('${s.url}','${s.label}')">
         <img src="${s.url}" alt="${s.label}" class="mmodal-ss-img" loading="lazy">
         <span class="mmodal-ss-label">🔍 ${s.label}</span>
       </div>`
@@ -3343,7 +3749,7 @@ function closeMemberModal() {
   document.body.style.overflow = '';
 }
 
-function openLightbox(url, caption) {
+function openMemberLightbox(url, caption) {
   document.getElementById('lightboxImg').src = url;
   document.getElementById('lightboxImg').alt = caption;
   document.getElementById('lightboxCaption').textContent = caption;
@@ -3351,7 +3757,7 @@ function openLightbox(url, caption) {
   document.body.style.overflow = 'hidden';
 }
 
-function closeLightbox() {
+function closeMemberLightbox() {
   document.getElementById('lightbox').classList.remove('active');
   document.getElementById('lightboxImg').src = '';
   document.body.style.overflow = 'hidden'; // keep modal scroll locked
@@ -3360,7 +3766,7 @@ function closeLightbox() {
 document.addEventListener('keydown', e => {
   if(e.key === 'Escape') {
     if(document.getElementById('lightbox').classList.contains('active')) {
-      closeLightbox();
+      closeMemberLightbox();
     } else {
       closeMemberModal();
     }
@@ -3994,6 +4400,10 @@ document.addEventListener('keydown', e => {
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12h18M3 6h18M3 18h12"/></svg>
       Roadmap
     </a>
+    <a href="#galeria" class="mob-nav-btn" aria-label="Galeria">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+      Galeria
+    </a>
     <a href="#faq" class="mob-nav-btn" aria-label="FAQ">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
       FAQ
@@ -4037,6 +4447,7 @@ document.addEventListener('keydown', e => {
     const sy = window.scrollY;
     const sections = [
       {id:'roadmap', href:'#roadmap'},
+      {id:'galeria',  href:'#galeria'},
       {id:'faq',     href:'#faq'},
       {id:'regras',  href:'#regras'},
     ];
