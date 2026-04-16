@@ -427,6 +427,121 @@ nav.scrolled::after{
   .features-grid,.roadmap-cols,.vision-grid{contain:layout style}
 }
 
+/* ═══════════════════════════════════
+   MOBILE SCREENSHOT CAROUSEL
+═══════════════════════════════════ */
+#mobile-ss-carousel{
+  display:none;
+  width:100%;
+  overflow:hidden;
+  position:relative;
+  margin:0 0 8px;
+  touch-action:pan-y;
+}
+@media(max-width:640px){
+  #mobile-ss-carousel{ display:block }
+  /* esconde o screenshot original no mobile */
+  .hero-right{ display:none!important }
+}
+.mss-track{
+  display:flex;
+  transition:transform .35s cubic-bezier(.25,.46,.45,.94);
+  will-change:transform;
+}
+.mss-slide{
+  flex:0 0 88%;
+  margin:0 4%;
+  border-radius:12px;
+  overflow:hidden;
+  border:1px solid rgba(255,255,255,.1);
+  box-shadow:0 8px 40px rgba(0,0,0,.6), 0 0 0 1px rgba(0,212,255,.08);
+  position:relative;
+  background:#0b1022;
+  transition:transform .3s, box-shadow .3s;
+}
+.mss-slide.active{
+  box-shadow:0 12px 50px rgba(0,0,0,.7), 0 0 0 1px rgba(0,212,255,.25), 0 0 30px rgba(0,212,255,.1);
+}
+.mss-slide img{
+  width:100%;height:auto;display:block;
+  pointer-events:none;user-select:none;
+}
+.mss-chrome{
+  background:linear-gradient(180deg,#1a2035,#141928);
+  height:28px;display:flex;align-items:center;gap:6px;padding:0 12px;
+  border-bottom:1px solid rgba(255,255,255,.06);
+}
+.mss-chrome-dot{width:9px;height:9px;border-radius:50%}
+.mss-chrome-dot.r{background:#ff5f57}
+.mss-chrome-dot.y{background:#febc2e}
+.mss-chrome-dot.g{background:#28c840}
+.mss-slide-label{
+  position:absolute;bottom:0;left:0;right:0;
+  padding:8px 12px;
+  background:linear-gradient(0deg,rgba(4,6,15,.9) 0%,transparent 100%);
+  font-family:var(--font-mono);font-size:9px;color:rgba(255,255,255,.45);
+  letter-spacing:.3px;
+  pointer-events:none;
+}
+
+/* dots */
+.mss-dots{
+  display:flex;justify-content:center;align-items:center;gap:6px;
+  margin-top:10px;
+}
+.mss-dot{
+  width:5px;height:5px;border-radius:50%;
+  background:rgba(255,255,255,.18);
+  transition:all .2s;
+}
+.mss-dot.active{
+  width:18px;border-radius:3px;
+  background:var(--acc);
+  box-shadow:0 0 8px rgba(0,212,255,.5);
+}
+
+/* ═══════════════════════════════════
+   MOBILE FEATURE CARDS — tap-expand
+═══════════════════════════════════ */
+@media(max-width:640px){
+  .feat{
+    cursor:pointer;
+    position:relative;
+    overflow:hidden;
+  }
+  .feat-desc{
+    max-height:0;
+    overflow:hidden;
+    opacity:0;
+    transition:max-height .35s cubic-bezier(.25,.46,.45,.94), opacity .25s ease, margin-top .25s ease;
+    margin-top:0;
+  }
+  .feat.mob-open .feat-desc{
+    max-height:120px;
+    opacity:1;
+    margin-top:10px;
+  }
+  .feat-tap-hint{
+    display:flex;align-items:center;gap:5px;
+    margin-top:8px;
+    font-family:var(--font-mono);font-size:9px;
+    color:rgba(0,212,255,.4);letter-spacing:.3px;
+    transition:opacity .2s;
+  }
+  .feat.mob-open .feat-tap-hint{ opacity:0;height:0;margin:0;overflow:hidden; }
+  .feat-expand-icon{
+    width:16px;height:16px;border-radius:50%;
+    background:rgba(0,212,255,.08);border:1px solid rgba(0,212,255,.18);
+    display:flex;align-items:center;justify-content:center;
+    flex-shrink:0;
+    transition:transform .3s, background .2s;
+  }
+  .feat.mob-open .feat-expand-icon{
+    transform:rotate(45deg);
+    background:rgba(0,212,255,.15);
+  }
+}
+
 /* ─── HERO LAUNCH NOTICE ─── */
 .hero-launch-notice{
   width:100%;
@@ -1957,6 +2072,69 @@ footer{
   </div>
 </div>
 
+<!-- MOBILE SCREENSHOT CAROUSEL (visível apenas no mobile) -->
+<div id="mobile-ss-carousel" aria-label="Screenshots do GMBR Launcher">
+  <div class="mss-track" id="mssTrack">
+    <div class="mss-slide active">
+      <div class="mss-chrome">
+        <div class="mss-chrome-dot r"></div><div class="mss-chrome-dot y"></div><div class="mss-chrome-dot g"></div>
+      </div>
+      <img src="https://i.postimg.cc/QN9M1t8V/Screenshot-21.png" alt="GMBR Launcher — Tela principal" loading="eager">
+      <div class="mss-slide-label">Tela principal</div>
+    </div>
+    <div class="mss-slide">
+      <div class="mss-chrome">
+        <div class="mss-chrome-dot r"></div><div class="mss-chrome-dot y"></div><div class="mss-chrome-dot g"></div>
+      </div>
+      <img src="https://i.postimg.cc/Gp9y62bj/Screenshot-30.png" alt="GMBR Launcher — Biblioteca" loading="lazy">
+      <div class="mss-slide-label">Biblioteca</div>
+    </div>
+    <div class="mss-slide">
+      <div class="mss-chrome">
+        <div class="mss-chrome-dot r"></div><div class="mss-chrome-dot y"></div><div class="mss-chrome-dot g"></div>
+      </div>
+      <img src="https://i.postimg.cc/cJ6nPHsy/Screenshot-31.png" alt="GMBR Launcher — Adicionar à Steam" loading="lazy">
+      <div class="mss-slide-label">Adicionar à Steam</div>
+    </div>
+    <div class="mss-slide">
+      <div class="mss-chrome">
+        <div class="mss-chrome-dot r"></div><div class="mss-chrome-dot y"></div><div class="mss-chrome-dot g"></div>
+      </div>
+      <img src="https://i.postimg.cc/R0qH2Fvy/Screenshot-32.png" alt="GMBR Launcher — Streaming" loading="lazy">
+      <div class="mss-slide-label">Streaming & Filmes</div>
+    </div>
+    <div class="mss-slide">
+      <div class="mss-chrome">
+        <div class="mss-chrome-dot r"></div><div class="mss-chrome-dot y"></div><div class="mss-chrome-dot g"></div>
+      </div>
+      <img src="https://i.postimg.cc/6QTvF39x/Screenshot-34.png" alt="GMBR Launcher — Tutoriais" loading="lazy">
+      <div class="mss-slide-label">Tutoriais</div>
+    </div>
+    <div class="mss-slide">
+      <div class="mss-chrome">
+        <div class="mss-chrome-dot r"></div><div class="mss-chrome-dot y"></div><div class="mss-chrome-dot g"></div>
+      </div>
+      <img src="https://i.postimg.cc/43M9Ggds/Screenshot-35.png" alt="GMBR Launcher — Conquistas" loading="lazy">
+      <div class="mss-slide-label">Conquistas & Prêmios</div>
+    </div>
+    <div class="mss-slide">
+      <div class="mss-chrome">
+        <div class="mss-chrome-dot r"></div><div class="mss-chrome-dot y"></div><div class="mss-chrome-dot g"></div>
+      </div>
+      <img src="https://i.postimg.cc/jj97Tb5d/Screenshot-36.png" alt="GMBR Launcher — Suporte" loading="lazy">
+      <div class="mss-slide-label">Suporte ao Usuário</div>
+    </div>
+    <div class="mss-slide">
+      <div class="mss-chrome">
+        <div class="mss-chrome-dot r"></div><div class="mss-chrome-dot y"></div><div class="mss-chrome-dot g"></div>
+      </div>
+      <img src="https://i.postimg.cc/Jhgk8Lny/Screenshot-37.png" alt="GMBR Launcher — Catálogo" loading="lazy">
+      <div class="mss-slide-label">Explorar Catálogo</div>
+    </div>
+  </div>
+  <div class="mss-dots" id="mssDots"></div>
+</div>
+
 <!-- TICKER -->
 <div class="ticker-strip">
   <div class="ticker-track">
@@ -2007,34 +2185,40 @@ footer{
       <div class="feat-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg></div>
       <div class="feat-name">Catálogo de jogos</div>
       <div class="feat-desc">+120.000 títulos de fontes como FitGirl, DODI e ElAmigos. Capas via Steam. Filtro por gênero e fonte.</div>
+      <div class="feat-tap-hint"><div class="feat-expand-icon"><svg width="8" height="8" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></div>ver mais</div>
     </div>
     <div class="feat" data-feat="1">
       <div class="feat-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46A2.78 2.78 0 0 0 1.46 6.42 29 29 0 0 0 1 12a29 29 0 0 0 .46 5.58A2.78 2.78 0 0 0 3.41 19.6C5.12 20 12 20 12 20s6.88 0 8.59-.46a2.78 2.78 0 0 0 1.95-1.95A29 29 0 0 0 23 12a29 29 0 0 0-.46-5.58z"/><polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02"/></svg></div>
       <div class="feat-name">Filmes e séries</div>
       <div class="feat-desc">Player integrado com catálogo completo. Busca em tempo real, favoritos e histórico.</div>
+      <div class="feat-tap-hint"><div class="feat-expand-icon"><svg width="8" height="8" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></div>ver mais</div>
     </div>
     <div class="feat" data-feat="2">
       <div class="feat-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div>
       <div class="feat-name">Autenticação</div>
       <div class="feat-desc">Login com Discord, Google ou e-mail. Sincronização de favoritos. Uso sem conta também suportado.</div>
+      <div class="feat-tap-hint"><div class="feat-expand-icon"><svg width="8" height="8" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></div>ver mais</div>
     </div>
     <div class="feat" data-feat="3">
       <div class="feat-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg></div>
       <div class="feat-name">Modo performance</div>
       <div class="feat-desc">Oito toggles que desligam animações e efeitos. Cache do servidor eleva de 30 s para 120 s no preset máximo.</div>
       <span class="feat-new">v4.2</span>
+      <div class="feat-tap-hint"><div class="feat-expand-icon"><svg width="8" height="8" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></div>ver mais</div>
     </div>
     <div class="feat" data-feat="4">
       <div class="feat-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg></div>
       <div class="feat-name">Dados Nerds</div>
       <div class="feat-desc">CPU, RAM, GPU, VRAM, temperaturas e DOM em tempo real. Gráficos sparkline com intervalo configurável.</div>
       <span class="feat-new">v4.2</span>
+      <div class="feat-tap-hint"><div class="feat-expand-icon"><svg width="8" height="8" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></div>ver mais</div>
     </div>
     <div class="feat" data-feat="5">
       <div class="feat-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></div>
       <div class="feat-name">Bundle criptografado</div>
       <div class="feat-desc">Interface cifrada com XOR-512 + SHA-256 antes do empacotamento. Chave única por build, embutida no EXE.</div>
       <span class="feat-new">v4.2</span>
+      <div class="feat-tap-hint"><div class="feat-expand-icon"><svg width="8" height="8" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></div>ver mais</div>
     </div>
   </div>
 </div>
@@ -3261,16 +3445,31 @@ let _wasAway = false;
 
 function scrollToTop(e){
   if(e) e.preventDefault();
-  if(typeof ScrollTrigger !== 'undefined') ScrollTrigger.refresh();
   window.scrollTo({top:0, behavior:'smooth'});
+  // Força refresh após o scroll chegar ao topo
+  setTimeout(()=>{ if(typeof ScrollTrigger !== 'undefined') ScrollTrigger.refresh(true); }, 400);
 }
+
+// Refresh ao voltar à aba (visibilidade)
+document.addEventListener('visibilitychange', () => {
+  if(document.visibilityState === 'visible' && typeof ScrollTrigger !== 'undefined'){
+    setTimeout(() => ScrollTrigger.refresh(true), 100);
+  }
+});
+
+// Refresh ao voltar via botão "Voltar" do browser
+window.addEventListener('pageshow', (e) => {
+  if(e.persisted && typeof ScrollTrigger !== 'undefined'){
+    setTimeout(() => ScrollTrigger.refresh(true), 100);
+  }
+});
 
 window.addEventListener('scroll', () => {
   const sy = window.scrollY;
   // Refresh ScrollTrigger ao voltar pro topo para eliminar o vácuo
-  if(sy < 10 && _wasAway){
+  if(sy < 5 && _wasAway){
     _wasAway = false;
-    if(typeof ScrollTrigger !== 'undefined') ScrollTrigger.refresh();
+    if(typeof ScrollTrigger !== 'undefined') ScrollTrigger.refresh(true);
   }
   if(sy > 200) _wasAway = true;
 
@@ -3932,6 +4131,8 @@ document.addEventListener('keydown', e => {
         scrub:            2.5,
         anticipatePin:    1,
         invalidateOnRefresh: true,
+        onLeave(){ ScrollTrigger.refresh(true); },
+        onEnterBack(){ ScrollTrigger.refresh(true); },
       }
     });
 
@@ -4085,7 +4286,7 @@ document.addEventListener('keydown', e => {
     });
 
   } else {
-    // mobile: revela todos de uma vez com IntersectionObserver simples
+    // mobile: revela todos com IntersectionObserver + fallback garantido
     if(featGrid) featGrid.classList.add('grid-active');
     featCards.forEach((el, i) => {
       el.style.opacity = '0';
@@ -4095,8 +4296,14 @@ document.addEventListener('keydown', e => {
           setTimeout(()=>{ el.classList.add('feat-visible'); }, i * 80);
           obs.disconnect();
         }
-      }, { threshold: 0.15 });
+      }, { threshold: 0.05, rootMargin: '0px 0px 60px 0px' });
       obs.observe(el);
+      // Fallback: se depois de 2.5s ainda não foi revelado, mostra de qualquer forma
+      setTimeout(() => {
+        if(!el.classList.contains('feat-visible')){
+          el.classList.add('feat-visible');
+        }
+      }, 2500 + i * 80);
     });
   }
 
@@ -4477,6 +4684,115 @@ document.addEventListener('keydown', e => {
   const heroSS = document.getElementById('heroSS');
   if(heroLeft){ heroLeft.style.opacity='1'; heroLeft.style.transform='none'; }
   if(heroSS){ heroSS.style.opacity='1'; }
+})();
+</script>
+
+<script>
+/* ═══════════════════════════════════════════
+   MOBILE SCREENSHOT CAROUSEL
+═══════════════════════════════════════════ */
+(function(){
+  const isTouch = ('ontouchstart' in window) || navigator.maxTouchPoints > 0;
+  const carousel = document.getElementById('mobile-ss-carousel');
+  if(!carousel || !isTouch) return;
+
+  const track   = document.getElementById('mssTrack');
+  const dotsEl  = document.getElementById('mssDots');
+  const slides  = Array.from(track.querySelectorAll('.mss-slide'));
+  const N       = slides.length;
+  let cur       = 0;
+  let startX    = 0;
+  let startY    = 0;
+  let isDragging= false;
+  let dragDx    = 0;
+  let autoTimer = null;
+
+  // build dots
+  slides.forEach((_, i) => {
+    const d = document.createElement('div');
+    d.className = 'mss-dot' + (i === 0 ? ' active' : '');
+    d.addEventListener('click', () => goTo(i));
+    dotsEl.appendChild(d);
+  });
+
+  function getSlideWidth(){
+    return slides[0].parentElement.offsetWidth * 0.96; // 88% width + 4%*2 margin ≈ 96% stride
+  }
+
+  function goTo(idx, animate=true){
+    cur = (idx + N) % N;
+    const stride = getSlideWidth();
+    track.style.transition = animate ? 'transform .35s cubic-bezier(.25,.46,.45,.94)' : 'none';
+    track.style.transform  = `translateX(${-cur * stride}px)`;
+    slides.forEach((s,i) => s.classList.toggle('active', i === cur));
+    dotsEl.querySelectorAll('.mss-dot').forEach((d,i) => d.classList.toggle('active', i === cur));
+  }
+
+  function startAuto(){
+    clearInterval(autoTimer);
+    autoTimer = setInterval(() => goTo(cur + 1), 3500);
+  }
+  function stopAuto(){
+    clearInterval(autoTimer);
+  }
+
+  // Touch swipe
+  track.addEventListener('touchstart', e => {
+    startX    = e.touches[0].clientX;
+    startY    = e.touches[0].clientY;
+    isDragging= false;
+    dragDx    = 0;
+    stopAuto();
+    track.style.transition = 'none';
+  }, {passive:true});
+
+  track.addEventListener('touchmove', e => {
+    dragDx = e.touches[0].clientX - startX;
+    const dy = e.touches[0].clientY - startY;
+    // só ativa swipe horizontal se dx > dy
+    if(!isDragging && Math.abs(dragDx) > Math.abs(dy) && Math.abs(dragDx) > 6){
+      isDragging = true;
+    }
+    if(isDragging){
+      const stride = getSlideWidth();
+      track.style.transform = `translateX(${-cur * stride + dragDx * 0.85}px)`;
+    }
+  }, {passive:true});
+
+  track.addEventListener('touchend', () => {
+    if(isDragging){
+      if(dragDx < -40)      goTo(cur + 1);
+      else if(dragDx > 40)  goTo(cur - 1);
+      else                  goTo(cur);
+    }
+    isDragging = false;
+    startAuto();
+  });
+
+  // reposition on resize (e.g. orientation change)
+  window.addEventListener('resize', () => goTo(cur, false), {passive:true});
+
+  // init
+  goTo(0, false);
+  setTimeout(startAuto, 1500);
+})();
+
+/* ═══════════════════════════════════════════
+   MOBILE FEATURE CARDS — tap to expand
+═══════════════════════════════════════════ */
+(function(){
+  const isTouch = ('ontouchstart' in window) || navigator.maxTouchPoints > 0;
+  if(!isTouch) return;
+  const cards = document.querySelectorAll('.feat');
+  cards.forEach(card => {
+    card.addEventListener('click', () => {
+      const wasOpen = card.classList.contains('mob-open');
+      // fechar todos
+      cards.forEach(c => c.classList.remove('mob-open'));
+      // abrir o clicado (se não estava aberto)
+      if(!wasOpen) card.classList.add('mob-open');
+    });
+  });
 })();
 </script>
 
